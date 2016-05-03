@@ -27,6 +27,6 @@ define(['knockout'], (ko) ->
       @orificeBoreDiameter = ko.observable() # float (Inches)
 
       @compressibilityCorrection = ko.observableArray([ 'None', 'Zf' ])
-      @chosenCompressibilityCorrection  = ko.observableArray([@compressibilityCorrection()[0]])
+      @chosenCompressibilityCorrection  = ko.observableArray()
 
 )
