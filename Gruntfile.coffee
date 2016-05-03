@@ -13,7 +13,7 @@ module.exports = (grunt) ->
         files:
           'build/index.html': 'src/index.haml'
           'build/specrunner.html': 'src/specrunner.haml'
-
+          'build/_template.html': 'src/_template.haml'
     copy:
       main:
         expand: true

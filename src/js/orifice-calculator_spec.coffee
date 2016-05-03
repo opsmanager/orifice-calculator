@@ -10,3 +10,7 @@ describe 'OrificeCalculatorViewModel', ->
 
   it 'should have None and Zf for compressibility correction', ->
     expect(viewModel.compressibilityCorrection).toEqual [ 'None', 'Zf' ]
+
+  describe 'pipeID', ->
+    it 'should have default value of 1.939\'\' XS, Sch 80, Sch 80S', ->
+      expect(viewModel.pipeID()).toEqual '1.939\'\' XS, Sch 80, Sch 80S' 
