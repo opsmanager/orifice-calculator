@@ -12,4 +12,32 @@
         %div
           %input{ :type => 'checkbox', "data-bind" => "checkedValue: $data, checked: $component.chosenOperatingPressureRead"  }
           %label{ "data-bind" => "text: $data" }
-    
+    %li
+      %label Operating Pressure Units
+      %select{ "data-bind" => "options: operatingPressureUnits, value: selectedOperatingPressureUnits" }
+    %li
+      %label Base Specific Gravity
+      %input{ :type => 'text', "data-bind" => "value: baseSpecificGravity" }
+    %li
+      %label Operating Temperature
+      %input{ :type => 'text', "data-bind" => "value: operatingTemperature" }
+    %li
+      %label Operating Temperature Unit
+      %div{ "data-bind" => "foreach: operatingTemperatureUnit" }
+        %div
+          %input{ :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"  }
+          %label{ "data-bind" => "text: $data" }
+    %li
+      %label Differential Pressure
+      %input{ :type => 'text', "data-bind" => "value: differentialPressure" }
+    %li
+      %label Orifice Bore Diameter
+      %input{ :type => 'text', "data-bind" => "value: orificeBoreDiameter" }
+
+    %li
+      %label Compressibility Correction
+      %div{ "data-bind" => "foreach: compressibilityCorrection" }
+        %div
+          %input{ :type => 'checkbox', "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
+          %label{ "data-bind" => "text: $data" }
+
