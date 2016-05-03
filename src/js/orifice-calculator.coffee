@@ -1,4 +1,6 @@
-class OrificeCalculatorViewModel
+App.ViewModels ||= {}
+
+class App.ViewModels.OrificeCalculator
   constructor: ->
     @pipeID = [
                "2.067'' Sch 40, STD, Sch 40S"
