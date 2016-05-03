@@ -12,6 +12,7 @@ module.exports = (grunt) ->
       dist:
         files:
           'build/index.html': 'src/index.haml'
+          'build/specrunner.html': 'src/specrunner.haml'
 
     copy:
       main:
@@ -25,7 +26,7 @@ module.exports = (grunt) ->
         files: ["src/js/**/*.coffee"]
         tasks: ["compile:coffee"]
       haml:
-        files: ["src/index.haml"]
+        files: ["src/*.haml"]
         tasks: ["compile:haml"]
       static:
         files: ['src/res/*', 'src/css/*']
