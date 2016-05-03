@@ -11,20 +11,20 @@ define(['knockout'], (ko) ->
               ])
 
       @selectedPipeID = ko.observable(@pipeID()[1])
-      @operatingPressure = ko.observable() # integer 
+      @operatingPressure = ko.observable() # TODO: integer 
       @operatingPressureRead = ko.observableArray([ 'Gauge', 'Absolute' ])
       @chosenOperatingPressureRead = ko.observableArray([@operatingPressureRead()[0]])
       
       @operatingPressureUnits = ko.observableArray([ 'PSI', 'kg/cm2', 'kPa', 'bar', 'mm of Mercury', 'Pa', 'mbar', 'inches of W.C' ])
       @selectedOperatingPressureUnits = ko.observable(@operatingPressureUnits()[0])
 
-      @baseSpecificGravity = ko.observable() # float
-      @operatingTemperature = ko.observable() # float
+      @baseSpecificGravity = ko.observable() # TODO: float
+      @operatingTemperature = ko.observable() # TODO: float
       @operatingTemperatureUnit = ko.observableArray([ 'F', 'C' ])
       @selectedOperatingTemperatureUnit = ko.observable(@operatingTemperatureUnit()[0])
 
-      @differentialPressure = ko.observable() # integer (Inches Water)
-      @orificeBoreDiameter = ko.observable() # float (Inches)
+      @differentialPressure = ko.observable() # TODO: integer (Inches Water)
+      @orificeBoreDiameter = ko.observable() # TODO: float (Inches)
 
       @compressibilityCorrection = ko.observableArray([ 'None', 'Zf' ])
       @chosenCompressibilityCorrection  = ko.observableArray()

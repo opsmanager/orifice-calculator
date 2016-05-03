@@ -17,6 +17,9 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         expect(viewModel.chosenOperatingPressureRead()).toEqual ['Gauge'] 
 
     describe 'operatingPressureUnits', ->
+      it 'should have intialized the input data', ->
+        expect(viewModel.operatingPressureUnits().length).toEqual 8
+
       it 'should have default value of "PSI"', ->
         expect(viewModel.selectedOperatingPressureUnits()).toEqual 'PSI'
 
