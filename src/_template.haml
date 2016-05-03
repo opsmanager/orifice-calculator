@@ -1,2 +1,15 @@
 %form
-  %select{ "data-bind" => "options: pipeID()" }
+  %ul
+    %li
+      %label Pipe ID
+      %select{ "data-bind" => "options: pipeID, value: selectedPipeID" }
+    %li
+      %label Operating Pressure
+      %input{ :type => 'text', "data-bind" => "value: operatingPressure" }
+    %li
+      %label Operating Pressure Read
+      %div{ "data-bind" => "foreach: operatingPressureRead" }
+        %div
+          %input{ :type => 'checkbox', "data-bind" => "checkedValue: $data, checked: $component.chosenOperatingPressureRead"  }
+          %label{ "data-bind" => "text: $data" }
+    

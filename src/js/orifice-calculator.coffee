@@ -10,9 +10,10 @@ define(['knockout'], (ko) ->
                "1.503'' XXS"
               ])
 
-      @selectedPipeID = ko.observable(1)
+      @selectedPipeID = ko.observable(@pipeID()[1])
       @operatingPressure = ko.observable() # integer 
-      @operatingPressureRead = [ 'Gauge', 'Absolute' ]
+      @operatingPressureRead = ko.observableArray([ 'Gauge', 'Absolute' ])
+      @chosenOperatingPressureRead = ko.observableArray([@operatingPressureRead()[0]])
       @operatingPressureUnits = [ 'PSI', 'kg/cm2', 'kPa', 'bar', 'mm of Mercury', 'Pa', 'mbar', 'inches of W.C' ]
       @baseSpecificGravity = ko.observable() # float
       @operatingTemperature = ko.observable() # float
