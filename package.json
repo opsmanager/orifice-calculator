@@ -10,9 +10,14 @@
     "grunt-contrib-connect": "*",
     "grunt-contrib-copy": "*",
     "grunt-contrib-watch": "*",
-    "grunt-haml2html": "*"
+    "grunt-haml2html": "*",
+    "jasmine-jquery": "^2.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt-contrib-jasmine": "^1.0.3",
+    "jquery": "^2.2.3",
+    "knockout": "^3.4.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
