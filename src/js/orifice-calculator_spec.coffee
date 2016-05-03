@@ -2,7 +2,7 @@ describe 'OrificeCalculatorViewModel', ->
   viewModel = new App.ViewModels.OrificeCalculator()
 
   it 'should have initialized the input data', ->
-    expect(viewModel.pipeID.length).toEqual 6
+    expect(viewModel.pipeID().length).toEqual 6
     expect(viewModel.operatingPressureRead.length).toEqual 2
 
   it 'should have farenheit and celcius for operating temperature unit', ->
