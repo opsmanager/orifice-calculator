@@ -27,6 +27,22 @@ define(['knockout'], (ko) ->
           )
       }
 
+      ko.extenders.required = (target, overrideMessage) ->
+        target.hasError = ko.observable()
+        target.validationMessage = ko.observable()
+        validate = (newValue) ->
+          target.hasError((newValue) -> 
+            _.empty(newValue)
+          )
+          target.validationMessage((newValue) ->
+           if(_.empty(newValue))
+             return ""
+           else
+             return overrideMessage || "This field is required"
+          )
+        validate(target())
+        target.subscribe(validate)
+
       @pipeID = ko.observableArray([
                "2.067'' Sch 40, STD, Sch 40S"
                "1.939'' XS, Sch 80, Sch 80S" # Default
@@ -37,7 +53,9 @@ define(['knockout'], (ko) ->
               ])
 
       @selectedPipeID = ko.observable(@pipeID()[1])
-      @operatingPressure = ko.observable() 
+      
+      @operatingPressure = ko.observable().extend({ required: "Please enter the operating pressure" })
+
       @operatingPressureRead = ko.observableArray([ 'Gauge', 'Absolute' ])
       @chosenOperatingPressureRead = ko.observable(@operatingPressureRead()[0])
       
@@ -54,5 +72,6 @@ define(['knockout'], (ko) ->
 
       @compressibilityCorrection = ko.observableArray([ 'None', 'Zf' ])
       @chosenCompressibilityCorrection  = ko.observable(@compressibilityCorrection()[0])
+
 
 )

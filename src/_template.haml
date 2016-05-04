@@ -5,7 +5,8 @@
       %select{ "data-bind" => "options: pipeID, value: selectedPipeID" }
     %li
       %label Operating Pressure
-      %input{ :type => 'text', "data-bind" => "onlyInteger, value: operatingPressure" }
+      %input{ :type => 'text', "data-bind" => "onlyInteger, value: operatingPressure, valueUpdate: 'afterKeydown'" }
+      %span{ "data-bind" => 'visible: operatingPressure.hasError(), text: operatingPressure.validationMessage' }
     %li
       %label Operating Pressure Read
       %div{ "data-bind" => "foreach: operatingPressureRead" }
