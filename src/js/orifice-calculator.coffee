@@ -30,7 +30,7 @@ define(['knockout'], (ko) ->
       ko.extenders.required = (target, overrideMessage) ->
         target.hasError = ko.observable()
         target.validationMessage = ko.observable()
-         
+
         validate = (newValue) ->
           if newValue
             target.hasError(false)
@@ -46,7 +46,7 @@ define(['knockout'], (ko) ->
         target.status = ko.observable('')
         target.statusMessage = ko.observable()
         target.showMessage = ko.observable()
-        
+
         validPressure = (value) ->
           if value > 200 && value < 401
             target.status('warning')
@@ -74,12 +74,12 @@ define(['knockout'], (ko) ->
 
       #D
       @selectedPipeID = ko.observable(@pipeID()[1])
-       
+
       @operatingPressure = ko.observable('0').extend({ required: "Please enter the operating pressure", validatePressure: true })
       #Pf1
       @operatingPressureRead = ko.observableArray([ 'Gauge', 'Absolute' ])
       @chosenOperatingPressureRead = ko.observable(@operatingPressureRead()[0])
-      
+
       @operatingPressureUnits = ko.observableArray([ 'PSI', 'kg/cm2', 'kPa', 'bar', 'mm of Mercury', 'Pa', 'mbar', 'inches of W.C' ])
       @selectedOperatingPressureUnits = ko.observable(@operatingPressureUnits()[0])
       #Gr
@@ -91,15 +91,15 @@ define(['knockout'], (ko) ->
       #Tf
       @operatingTemperatureUnit = ko.observableArray([ 'F', 'C' ])
       @selectedOperatingTemperatureUnit = ko.observable(@operatingTemperatureUnit()[0])
-      
-      # hW 
+
+      # hW
       @differentialPressure = ko.observable('0').extend({ required: "Please enter the differential pressure" }) # Inches Water
       # d
       @orificeBoreDiameter = ko.observable('0.0').extend({ required: "Please enter the orifice bore diameter" }) # Inches
 
       # Zf1
       # TODO: Value should be 1 when none.
-      # TODO2: Set to 0.0 when Zf is selected? 
+      # TODO2: Set to 0.0 when Zf is selected?
       @compressibilityCorrection = ko.observableArray([ 'None', 'Zf' ])
       @chosenCompressibilityCorrection  = ko.observable(@compressibilityCorrection()[0])
       # TODO: specs for this
@@ -109,10 +109,12 @@ define(['knockout'], (ko) ->
         Number(@orificeBoreDiameter()) / Number(@selectedPipeID())
       )
 
+      precision = (value, precision) ->
+        Math.ceil( value * Math.pow(10, precision) ) / Math.pow(10, precision)
+
       #Ev
       @velocityOfApproach = ko.computed(() =>
-        precision = 2
-        Math.ceil( 1 / Math.sqrt( 1 - Math.pow(@betaRatio(), 4) ) * Math.pow(10, precision) ) / Math.pow(10, precision)
+        precision(1 / Math.sqrt( 1 - Math.pow(@betaRatio(), 4) ), 2)
       )
 
       @flowRate = ko.computed(() =>
@@ -125,7 +127,8 @@ define(['knockout'], (ko) ->
         b = Number(@operatingPressure()) * compressibility * Number(@differentialPressure())
 
         c = Number(@baseSpecificGravity()) * Number(@compressibilityCorrectionValue()) * ( Number(@operatingTemperature()) + 459.67 )
-          
-        d = a * Math.pow( b / c, 0.5 ) / 60
+
+        precision(a * Math.pow( b / c, 0.5 ) / 60, 3)
       )
+
 )
