@@ -125,10 +125,13 @@ define(['knockout'], (ko) ->
         compressibility = 1 # Zb
         a = 218.527 * coeffDischarge * expansionFactor * @velocityOfApproach() * Math.pow(@orificeBoreDiameter(), 2) * (baseTemperature/basePressure)
         b = Number(@operatingPressure()) * compressibility * Number(@differentialPressure())
-
         c = Number(@baseSpecificGravity()) * Number(@compressibilityCorrectionValue()) * ( Number(@operatingTemperature()) + 459.67 )
 
-        precision(a * Math.pow( b / c, 0.5 ) / 60, 3)
+        flowRate = precision(a * Math.pow( b / c, 0.5 ) / 60, 3)
+        if (flowRate > 0)
+          return flowRate
+        else
+          return 0
       )
 
 )

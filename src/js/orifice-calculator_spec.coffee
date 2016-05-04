@@ -1,15 +1,21 @@
 define(['js/orifice-calculator.js'], (orificeCalculator) ->
   describe 'OrificeCalculatorViewModel', ->
-    viewModel = new orificeCalculator()
+    viewModel = null
+    field = ko.observable()
+    validationMessage = ''
+    
+    beforeEach ->
+      viewModel = new orificeCalculator()
 
-    itBehavesLikeMandatoryField = (observable, validationMessage = '') ->
+    itBehavesLikeMandatoryField = () ->
       it 'has mandatory field validation', ->
-        observable('')
-        expect(observable.hasError()).toEqual true
-        expect(observable.validationMessage()).toEqual validationMessage
-        
+        field('')
+        expect(field.hasError()).toEqual true
+        expect(field.validationMessage()).toEqual validationMessage
+
     describe 'pipeID', ->
-      it 'should have initialized the input data', ->     
+        
+      it 'should have initialized the input data', ->
         expect(viewModel.pipeID().length).toEqual 6
 
       it 'should have default value of "1.939"', ->
@@ -17,10 +23,14 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         expect(viewModel.selectedPipeID().value).toEqual '1.939'
 
     describe 'operatingPressure', ->
+      beforeEach ->
+        field = viewModel.operatingPressure
+        validationMessage = 'Please enter the operating pressure'
+
+      itBehavesLikeMandatoryField()
+
       it 'should have a default value of "0"', ->
         expect(viewModel.operatingPressure()).toEqual '0'
-
-      itBehavesLikeMandatoryField(viewModel.operatingPressure, 'Please enter the operating pressure')
 
       describe 'when pressure is high', ->
         it 'should display a warning message', ->
@@ -55,16 +65,24 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         expect(viewModel.selectedOperatingPressureUnits()).toEqual 'PSI'
 
     describe 'baseSpecificGravity', ->
+      beforeEach ->
+        field = viewModel.baseSpecificGravity
+        validationMessage = 'Please enter the base specific gravity'
+
+      itBehavesLikeMandatoryField()
+
       it 'should have a default value of "0.0"', ->
         expect(viewModel.baseSpecificGravity()).toEqual '0.0'
-        
-      itBehavesLikeMandatoryField(viewModel.baseSpecificGravity, 'Please enter the base specific gravity')
       
     describe 'operatingTemperature', ->
+      beforeEach ->
+        field = viewModel.operatingTemperature
+        validationMessage = 'Please enter the operating temperature'
+
+      itBehavesLikeMandatoryField()
+      
       it 'should have a default value of "0"', ->
         expect(viewModel.operatingTemperature()).toEqual '0'
-        
-      itBehavesLikeMandatoryField(viewModel.operatingTemperature, 'Please enter the operating temperature')
 
     describe 'operatingTemperatureUnits', ->
       it 'should have default value of "Farenheit"', ->
@@ -74,16 +92,25 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         expect(viewModel.operatingTemperatureUnit()).toEqual ['F','C']
 
     describe 'differentialPressure', ->
+      beforeEach ->
+        field = viewModel.differentialPressure
+        validationMessage = 'Please enter the differential pressure'
+
+      itBehavesLikeMandatoryField()
+
       it 'should have a default value of "0"', ->
-        expect(viewModel.differentialPressure()).toEqual '0'
-        
-      itBehavesLikeMandatoryField(viewModel.differentialPressure, 'Please enter the differential pressure')
+        expect(viewModel.differentialPressure()).toEqual '0'    
 
     describe 'orificeBoreDiameter', ->
+      beforeEach ->
+        field = viewModel.orificeBoreDiameter
+        validationMessage = 'Please enter the orifice bore diameter'
+
+      itBehavesLikeMandatoryField()
+      
       it 'should have a default value of "0.0"', ->
         expect(viewModel.orificeBoreDiameter()).toEqual '0.0'
         
-      itBehavesLikeMandatoryField(viewModel.orificeBoreDiameter, 'Please enter the orifice bore diameter')
     describe 'compressibilityCorrection', ->
       it 'should have a default value of "None"', ->
         expect(viewModel.chosenCompressibilityCorrection()).toEqual 'None' 
@@ -108,6 +135,7 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
     describe 'flowRate', ->
       it 'should return "0" as the default value', ->
         expect(viewModel.flowRate()).toEqual 0
+
       it 'should retun the flow rate', ->
         viewModel.orificeBoreDiameter('0.97')
         viewModel.selectedPipeID('1.939')
@@ -116,5 +144,5 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         viewModel.differentialPressure('30')
         viewModel.baseSpecificGravity('1')
         viewModel.operatingTemperature('60')
-        expect(viewModel.flowRate()).toEqual 543.782
+        expect(viewModel.flowRate()).toEqual 543.783
 )
