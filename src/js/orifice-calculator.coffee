@@ -1,6 +1,32 @@
 define(['knockout'], (ko) ->
   class OrificeCalculator
     constructor: ->
+      handleCommonKeydown = (event) ->
+        if (_.includes([8,9,13,27,37,38,39,40], event.keyCode))
+          return
+        if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) )
+          event.preventDefault()
+
+      ko.bindingHandlers.onlyInteger = {
+        init: (element, valueAccessor) ->
+          $(element).on('keydown', (event) ->
+            handleCommonKeydown(event)
+          )
+      }
+
+      ko.bindingHandlers.onlyFloat = {
+        init: (element, valueAccessor) ->
+          $(element).on('keydown', (event) ->
+            if (event.keyCode is 190)
+              return
+            handleCommonKeydown(event)
+          )
+          $(element).on('keypress', (event) ->
+            if (event.keyCode is 46 && element.value.split('.').length is 2)
+               event.preventDefault()
+          )
+      }
+
       @pipeID = ko.observableArray([
                "2.067'' Sch 40, STD, Sch 40S"
                "1.939'' XS, Sch 80, Sch 80S" # Default
@@ -11,7 +37,7 @@ define(['knockout'], (ko) ->
               ])
 
       @selectedPipeID = ko.observable(@pipeID()[1])
-      @operatingPressure = ko.observable() # TODO: integer 
+      @operatingPressure = ko.observable() 
       @operatingPressureRead = ko.observableArray([ 'Gauge', 'Absolute' ])
       @chosenOperatingPressureRead = ko.observableArray([@operatingPressureRead()[0]])
       
