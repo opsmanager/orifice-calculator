@@ -2,7 +2,7 @@
   %ul
     %li
       %label Pipe ID
-      %select{ "data-bind" => "options: pipeID, value: selectedPipeID" }
+      %select{ "data-bind" => "options: pipeID, value: selectedPipeID, optionsText: 'name', optionsValue: 'value'" }
     %li
       %label Operating Pressure
       %input{ :type => 'text', "data-bind" => "onlyInteger, value: operatingPressure" }
@@ -44,4 +44,8 @@
         %div
           %input{ :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
           %label{ "data-bind" => "text: $data" }
+      %input{ :type => 'text', "data-bind" => "visible: chosenCompressibilityCorrection() == 'Zf', value: compressibilityCorrectionValue" }
       %span{ "data-bind" => 'css: operatingPressure.status, visible: operatingPressure.showMessage, text: operatingPressure.statusMessage' }
+    %li
+      %label Flow Rate 
+      %div{ "data-bind" => "text: flowRate" }
