@@ -30,18 +30,17 @@ define(['knockout'], (ko) ->
       ko.extenders.required = (target, overrideMessage) ->
         target.hasError = ko.observable()
         target.validationMessage = ko.observable()
+         
         validate = (newValue) ->
-          target.hasError((newValue) -> 
-            _.empty(newValue)
-          )
-          target.validationMessage((newValue) ->
-           if(_.empty(newValue))
-             return ""
-           else
-             return overrideMessage || "This field is required"
-          )
+          if newValue
+            target.hasError(false)
+            target.validationMessage("")
+          else
+            target.hasError(true)
+            target.validationMessage(overrideMessage || "This field is required")
         validate(target())
         target.subscribe(validate)
+        target
 
       @pipeID = ko.observableArray([
                "2.067'' Sch 40, STD, Sch 40S"
@@ -54,7 +53,7 @@ define(['knockout'], (ko) ->
 
       @selectedPipeID = ko.observable(@pipeID()[1])
       
-      @operatingPressure = ko.observable().extend({ required: "Please enter the operating pressure" })
+      @operatingPressure = ko.observable('0').extend({ required: "Please enter the operating pressure" })
 
       @operatingPressureRead = ko.observableArray([ 'Gauge', 'Absolute' ])
       @chosenOperatingPressureRead = ko.observable(@operatingPressureRead()[0])
@@ -62,16 +61,15 @@ define(['knockout'], (ko) ->
       @operatingPressureUnits = ko.observableArray([ 'PSI', 'kg/cm2', 'kPa', 'bar', 'mm of Mercury', 'Pa', 'mbar', 'inches of W.C' ])
       @selectedOperatingPressureUnits = ko.observable(@operatingPressureUnits()[0])
 
-      @baseSpecificGravity = ko.observable() # TODO: float
-      @operatingTemperature = ko.observable() # TODO: float
+      @baseSpecificGravity = ko.observable('0.0').extend({ required: "Please enter the base specific gravity" })
+      @operatingTemperature = ko.observable('0').extend({ required: "Please enter the operating temperature" })
+
       @operatingTemperatureUnit = ko.observableArray([ 'F', 'C' ])
       @selectedOperatingTemperatureUnit = ko.observable(@operatingTemperatureUnit()[0])
 
-      @differentialPressure = ko.observable() # TODO: integer (Inches Water)
-      @orificeBoreDiameter = ko.observable() # TODO: float (Inches)
+      @differentialPressure = ko.observable('0').extend({ required: "Please enter the differential pressure" }) # Inches Water
+      @orificeBoreDiameter = ko.observable('0.0').extend({ required: "Please enter the orifice bore diameter" }) # Inches
 
       @compressibilityCorrection = ko.observableArray([ 'None', 'Zf' ])
       @chosenCompressibilityCorrection  = ko.observable(@compressibilityCorrection()[0])
-
-
 )
