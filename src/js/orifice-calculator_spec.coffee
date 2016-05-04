@@ -18,8 +18,26 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
     describe 'operatingPressure', ->
       it 'should have a default value of "0"', ->
         expect(viewModel.operatingPressure()).toEqual '0'
-        
+
       itBehavesLikeMandatoryField(viewModel.operatingPressure, 'Please enter the operating pressure')
+
+      describe 'when pressure is high', ->
+        it 'should display a warning message', ->
+          viewModel.operatingPressure('300')
+          expect(viewModel.operatingPressure.showMessage()).toEqual true
+          expect(viewModel.operatingPressure.statusMessage()).toEqual 'At this pressure, no compressibility correction may result in erroneous computations'
+          expect(viewModel.operatingPressure.status()).toEqual 'warning'
+
+        it 'should display an error message', ->
+          viewModel.operatingPressure('1000')
+          expect(viewModel.operatingPressure.showMessage()).toEqual true
+          expect(viewModel.operatingPressure.statusMessage()).toEqual 'At this pressure, no compressibility correction will result in erroneous computations'
+          expect(viewModel.operatingPressure.status()).toEqual 'error'
+
+      describe 'when pressure is low', ->
+        it 'should not have any messages', ->
+          viewModel.operatingPressure('100')
+          expect(viewModel.operatingPressure.showMessage()).toEqual false
 
     describe 'operatingPressureRead', ->
       it 'should have "Gauge" and "Absolute"', ->

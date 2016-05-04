@@ -42,6 +42,27 @@ define(['knockout'], (ko) ->
         target.subscribe(validate)
         target
 
+      ko.extenders.validatePressure = (target) ->
+        target.status = ko.observable('')
+        target.statusMessage = ko.observable()
+        target.showMessage = ko.observable()
+        
+        validPressure = (value) ->
+          if value > 200 && value < 401
+            target.status('warning')
+            target.showMessage(true)
+            target.statusMessage("At this pressure, no compressibility correction may result in erroneous computations")
+          else if value > 400
+            target.status('error')
+            target.showMessage(true)
+            target.statusMessage("At this pressure, no compressibility correction will result in erroneous computations")
+          else
+            target.showMessage(false)
+
+        validPressure(target())
+        target.subscribe(validPressure)
+        target
+
       @pipeID = ko.observableArray([
                "2.067'' Sch 40, STD, Sch 40S"
                "1.939'' XS, Sch 80, Sch 80S" # Default
@@ -53,7 +74,7 @@ define(['knockout'], (ko) ->
 
       @selectedPipeID = ko.observable(@pipeID()[1])
       
-      @operatingPressure = ko.observable('0').extend({ required: "Please enter the operating pressure" })
+      @operatingPressure = ko.observable('0').extend({ required: "Please enter the operating pressure", validatePressure: true })
 
       @operatingPressureRead = ko.observableArray([ 'Gauge', 'Absolute' ])
       @chosenOperatingPressureRead = ko.observable(@operatingPressureRead()[0])

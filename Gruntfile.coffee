@@ -14,6 +14,10 @@ module.exports = (grunt) ->
           'build/index.html': 'src/index.haml'
           'build/specrunner.html': 'src/specrunner.haml'
           'build/_template.html': 'src/_template.haml'
+    sass:
+      dist:
+        files:
+          'build/template.css': 'src/template.scss'
     copy:
       main:
         expand: true
@@ -44,6 +48,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-haml2html'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-connect'
+  grunt.loadNpmTasks 'grunt-sass'
 
-  grunt.registerTask 'compile', ['coffee', 'haml', 'copy']
+  grunt.registerTask 'compile', ['coffee', 'haml', 'sass', 'copy']
   grunt.registerTask 'server', ['connect:server', 'watch']

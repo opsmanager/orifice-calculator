@@ -44,4 +44,4 @@
         %div
           %input{ :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
           %label{ "data-bind" => "text: $data" }
-
+      %span{ "data-bind" => 'css: operatingPressure.status, visible: operatingPressure.showMessage, text: operatingPressure.statusMessage' }
