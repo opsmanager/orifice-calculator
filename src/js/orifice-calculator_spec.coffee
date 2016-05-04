@@ -14,7 +14,7 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         expect(viewModel.operatingPressureRead()).toEqual ['Gauge','Absolute']
 
       it 'should have default value of "Gauge"', ->
-        expect(viewModel.chosenOperatingPressureRead()).toEqual ['Gauge'] 
+        expect(viewModel.chosenOperatingPressureRead()).toEqual 'Gauge' 
 
     describe 'operatingPressureUnits', ->
       it 'should have intialized the input data', ->
@@ -31,8 +31,8 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         expect(viewModel.operatingTemperatureUnit()).toEqual ['F','C']
 
     describe 'compressibilityCorrection', ->
-      it 'should not have a default value', ->
-        expect(viewModel.chosenCompressibilityCorrection()).toEqual []
+      it 'should have a default value of "None"', ->
+        expect(viewModel.chosenCompressibilityCorrection()).toEqual 'None' 
         
       it 'should have None and Zf for compressibility correction', ->
         expect(viewModel.compressibilityCorrection()).toEqual [ 'None', 'Zf' ]
