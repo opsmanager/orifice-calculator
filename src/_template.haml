@@ -2,49 +2,49 @@
   %ul
     %li
       %label Pipe ID
-      %select{ "data-bind" => "options: pipeID, value: selectedPipeID, optionsText: 'name', optionsValue: 'value'" }
+      %select{ :id => 'pipeID', "data-bind" => "options: pipeID, value: selectedPipeID, optionsText: 'name', optionsValue: 'value'" }
     %li
       %label Operating Pressure
-      %input{ :type => 'text', "data-bind" => "onlyInteger, value: operatingPressure" }
+      %input{ :id => 'operatingPressure', :type => 'text', "data-bind" => "onlyInteger, value: operatingPressure" }
       %span{ "data-bind" => 'visible: operatingPressure.hasError, text: operatingPressure.validationMessage' }
     %li
       %label Operating Pressure Read
       %div{ "data-bind" => "foreach: operatingPressureRead" }
         %div
-          %input{ :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.chosenOperatingPressureRead"  }
+          %input{ :class => 'operatingPressureRead', :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.chosenOperatingPressureRead"  }
           %label{ "data-bind" => "text: $data" }
     %li
       %label Operating Pressure Units
-      %select{ "data-bind" => "options: operatingPressureUnits, value: selectedOperatingPressureUnits" }
+      %select{ :id => 'operatingPressureUnits', "data-bind" => "options: operatingPressureUnits, value: selectedOperatingPressureUnits" }
     %li
       %label Base Specific Gravity
-      %input{ :type => 'text', "data-bind" => "onlyFloat, value: baseSpecificGravity" }
+      %input{ :id => 'baseSpecificGravity', :type => 'text', "data-bind" => "onlyFloat, value: baseSpecificGravity" }
       %span{ "data-bind" => 'visible: baseSpecificGravity.hasError, text: baseSpecificGravity.validationMessage' }
     %li
       %label Operating Temperature
-      %input{ :type => 'text', "data-bind" => "onlyFloat, value: operatingTemperature" }
+      %input{ :id => 'operatingTemperature', :type => 'text', "data-bind" => "onlyFloat, value: operatingTemperature" }
       %span{ "data-bind" => 'visible: operatingTemperature.hasError, text: operatingTemperature.validationMessage' }
     %li
       %label Operating Temperature Units
       %div{ "data-bind" => "foreach: operatingTemperatureUnit" }
         %div
-          %input{ :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"  }
+          %input{ :class => 'operatingTemperatureUnit', :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"  }
           %label{ "data-bind" => "text: $data" }
     %li
       %label Differential Pressure
-      %input{ :type => 'text', "data-bind" => "onlyInteger, value: differentialPressure" }
+      %input{ :id => 'differentialPressure', :type => 'text', "data-bind" => "onlyInteger, value: differentialPressure" }
       %span{ "data-bind" => 'visible: differentialPressure.hasError, text: differentialPressure.validationMessage' }
     %li
       %label Orifice Bore Diameter
-      %input{ :type => 'text', "data-bind" => "onlyFloat, value: orificeBoreDiameter" }
+      %input{ :id => 'orificeBoreDiameter', :type => 'text', "data-bind" => "onlyFloat, value: orificeBoreDiameter" }
       %span{ "data-bind" => 'visible: orificeBoreDiameter.hasError, text: orificeBoreDiameter.validationMessage' }
     %li
       %label Compressibility Correction
       %div{ "data-bind" => "foreach: compressibilityCorrection" }
         %div
-          %input{ :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
+          %input{ :class => 'compressibilityCorrection', :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
           %label{ "data-bind" => "text: $data" }
-      %input{ :type => 'text', "data-bind" => "visible: chosenCompressibilityCorrection() == 'Zf', value: compressibilityCorrectionValue" }
+      %input{ :id => 'compressibilityCorrectionValue', :type => 'text', "data-bind" => "visible: chosenCompressibilityCorrection() == 'Zf', value: compressibilityCorrectionValue" }
       %span{ "data-bind" => 'css: operatingPressure.status, visible: operatingPressure.showMessage, text: operatingPressure.statusMessage' }
     %li
       %label Flow Rate 

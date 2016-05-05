@@ -136,7 +136,7 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
       it 'should return "0" as the default value', ->
         expect(viewModel.flowRate()).toEqual 0
 
-      it 'should retun the flow rate', ->
+      it 'should return the flow rate', ->
         viewModel.orificeBoreDiameter('0.97')
         viewModel.selectedPipeID('1.939')
         viewModel.operatingPressure('900')
