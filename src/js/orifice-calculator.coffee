@@ -16,10 +16,7 @@ define(['knockout', 'knockout-validation'], (ko) ->
       @selectedPipeID = ko.observable(@pipeID()[1])
       @operatingPressure = ko.observable('0').extend({
         required: { params: true, message: "Please enter the operating pressure" }
-        pattern: {
-          params: /^-?\d*$/
-          message: 'This should be an integer'
-        }
+        digit: { params: true, message: 'Please enter an integer' }
         validation: [
           {
             validator: (val) ->
@@ -43,10 +40,12 @@ define(['knockout', 'knockout-validation'], (ko) ->
       @selectedOperatingPressureUnits = ko.observable(@operatingPressureUnits()[0])
 
       @baseSpecificGravity = ko.observable('0.0').extend({
+        number: { params: true, message: 'Please enter a float' }
         required: { params: true, message: "Please enter the base specific gravity" }
       })
 
       @operatingTemperature = ko.observable('0').extend({
+        number: { params: true, message: 'Please enter a float' }
         required: { params: true, message: "Please enter the operating temperature" }
       })
 
@@ -54,10 +53,12 @@ define(['knockout', 'knockout-validation'], (ko) ->
       @selectedOperatingTemperatureUnit = ko.observable(@operatingTemperatureUnit()[0])
 
       @differentialPressure = ko.observable('0').extend({
+        digit: { params: true, message: 'Please enter an integer' }
         required: { params: true, message: "Please enter the differential pressure" } 
       }) # Inches Water
 
       @orificeBoreDiameter = ko.observable('0.0').extend({
+        number: { params: true, message: 'Please enter a float' }
         required: {params: true, message: "Please enter the orifice bore diameter" }
       }) # Inches
 
