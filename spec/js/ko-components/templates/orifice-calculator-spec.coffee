@@ -1,5 +1,5 @@
-define(['text!_template.html'], (template) ->
-  describe '_template.html', ->
+define(['text!src/js/ko-components/.html'], (template) ->
+  describe 'orifice-calculator-spec', ->
     tmp = document.implementation.createHTMLDocument()
     tmp.body.innerHTML = template
     templateElements = tmp.body.children[0]

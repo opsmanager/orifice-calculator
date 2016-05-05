@@ -9,10 +9,13 @@
     "grunt-contrib-coffee": "*",
     "grunt-contrib-connect": "*",
     "grunt-contrib-copy": "*",
+    "grunt-contrib-jasmine": "^1.0.3",
     "grunt-contrib-watch": "*",
     "grunt-haml2html": "*"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt-template-jasmine-requirejs": "^0.2.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
