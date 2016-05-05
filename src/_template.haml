@@ -48,4 +48,4 @@
       %span{ "data-bind" => 'css: operatingPressure.status, visible: operatingPressure.showMessage, text: operatingPressure.statusMessage' }
     %li
       %label Flow Rate 
-      %div{ "data-bind" => "text: flowRate" }
+      %div{ :id => 'flowRate', "data-bind" => "copyToClipboard, text: flowRate" }

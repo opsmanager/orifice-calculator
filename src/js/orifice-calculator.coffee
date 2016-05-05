@@ -104,7 +104,7 @@ define(['knockout'], (ko) ->
         target
 
     bindings: () ->
-      #TODO: To write spec for binding
+      #TODO: Replace this with https://github.com/Knockout-Contrib/Knockout-Validation
       ko.bindingHandlers.onlyInteger = {
         init: (element, valueAccessor) ->
           $(element).on('keydown', (event) ->
@@ -125,11 +125,26 @@ define(['knockout'], (ko) ->
           )
       }
 
+      ko.bindingHandlers.copyToClipboard = {
+        init: (element) ->
+          $(element).on('click', (event) ->
+            temp = document.createElement('input')
+            temp.setAttribute('value', element.innerHTML)
+            document.body.appendChild(temp)
+            temp.select()
+            document.execCommand('copy')
+            document.body.removeChild(temp)
+          )
+      }
+
     handleCommonKeydown: (event) ->
       #TODO: To write spec for handleCommonKeydown
         if (_.includes([8,9,13,27,37,38,39,40], event.keyCode))
           return
         if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) )
           event.preventDefault()
+
+    copyFlowRate: () ->
+      console.log('click!')
 
 )
