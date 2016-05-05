@@ -17,8 +17,8 @@ requirejs.config({
 
 require(['knockout'], (ko) ->
   ko.components.register('orifice-calculator', {
-    viewModel: { require: 'js/orifice-calculator.js' }
-    template: { require: 'text!_template.html' }
+    viewModel: { require: 'js/ko-components/view-models/orifice-calculator.js' }
+    template: { require: 'text!js/ko-components/templates/orifice-calculator.html' }
   })
   ko.applyBindings()
 )
