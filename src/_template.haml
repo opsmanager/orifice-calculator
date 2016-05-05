@@ -2,7 +2,7 @@
   %ul
     %li
       %label Pipe ID
-      %select{ :id => 'pipeID', "data-bind" => "options: pipeID, value: selectedPipeID, optionsText: 'name', optionsValue: 'value'" }
+      %select{ :id => 'pipeID', "data-bind" => "options: pipeID, value: selectedPipeID().value, optionsText: 'name', optionsValue: 'value'" }
     %li
       %label Operating Pressure
       %input{ :id => 'operatingPressure', :type => 'text', "data-bind" => "onlyInteger, value: operatingPressure" }

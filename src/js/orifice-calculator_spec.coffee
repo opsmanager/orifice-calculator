@@ -107,16 +107,20 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         validationMessage = 'Please enter the orifice bore diameter'
 
       itBehavesLikeMandatoryField()
-      
+
       it 'should have a default value of "0.0"', ->
         expect(viewModel.orificeBoreDiameter()).toEqual '0.0'
-        
+
     describe 'compressibilityCorrection', ->
       it 'should have a default value of "None"', ->
         expect(viewModel.chosenCompressibilityCorrection()).toEqual 'None' 
-        
+
       it 'should have None and Zf for compressibility correction', ->
         expect(viewModel.compressibilityCorrection()).toEqual [ 'None', 'Zf' ]
+
+      describe 'Value', ->
+        it 'should have a default value of \'1.0\'', ->
+          expect(viewModel.compressibilityCorrectionValue()).toEqual '1.0'
 
     describe 'betaRatio', ->
       it 'should return beta ratio', ->
@@ -132,6 +136,15 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         viewModel.orificeBoreDiameter('0.776')
         expect(viewModel.velocityOfApproach()).toEqual 1.02
 
+    describe 'precision', ->
+      it 'should return the correct rounding up of a number', ->
+        value_one = 1.12345
+        value_two = 1.123
+        precision_one = 4
+        precision_two = 2
+        expect(viewModel.precision(value_one, precision_one)).toEqual 1.1235
+        expect(viewModel.precision(value_two, precision_two)).toEqual 1.13
+
     describe 'flowRate', ->
       it 'should return "0" as the default value', ->
         expect(viewModel.flowRate()).toEqual 0
@@ -145,4 +158,14 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         viewModel.baseSpecificGravity('1')
         viewModel.operatingTemperature('60')
         expect(viewModel.flowRate()).toEqual 543.783
+        
+        viewModel.orificeBoreDiameter('0.776')
+        viewModel.selectedPipeID('1.939')
+        viewModel.operatingPressure('900')
+        viewModel.compressibilityCorrectionValue('1')
+        viewModel.differentialPressure('30')
+        viewModel.baseSpecificGravity('1')
+        viewModel.operatingTemperature('60')
+        expect(viewModel.flowRate()).toEqual 341.328
+
 )
