@@ -79,4 +79,9 @@ define(['text!_template.html'], (template) ->
         beforeEach ->
           element = templateElements.querySelector('#compressibilityCorrectionValue')
         itShouldBehaveLikeTextInput()
+
+    describe 'Flow Rate Unit', ->
+      beforeEach ->
+        element = templateElements.querySelector('#flowRateUnit')
+      itShouldBehaveLikeDropdownList()
 )

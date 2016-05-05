@@ -63,6 +63,9 @@ define(['knockout'], (ko) ->
         if (flowRate > 0) then flowRate else 0
       )
 
+      @flowRateUnit = ko.observableArray(['Minute', 'Hour', 'Day', 'Second'])
+      @selectedFlowRateUnit = ko.observable(@flowRateUnit()[1])
+
     precision: (value, precision) ->
       Math.ceil( value * Math.pow(10, precision) ) / Math.pow(10, precision)
 

@@ -47,5 +47,8 @@
       %input{ :id => 'compressibilityCorrectionValue', :type => 'text', "data-bind" => "visible: chosenCompressibilityCorrection() == 'Zf', value: compressibilityCorrectionValue" }
       %span{ "data-bind" => 'css: operatingPressure.status, visible: operatingPressure.showMessage, text: operatingPressure.statusMessage' }
     %li
-      %label Flow Rate 
-      %div{ :id => 'flowRate', "data-bind" => "copyToClipboard, text: flowRate" }
+      %label Flow Rate
+      %br
+      %span{ :id => 'flowRate', "data-bind" => "copyToClipboard, text: flowRate" }
+      %span
+        %select{ :id => 'flowRateUnit', 'data-bind' => 'options: flowRateUnit, value: selectedFlowRateUnit' }

@@ -168,4 +168,10 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
         viewModel.operatingTemperature('60')
         expect(viewModel.flowRate()).toEqual 341.328
 
+    describe 'flowRateUnit', ->
+      it 'should return \'Hour\' as the default unit', ->
+        expect(viewModel.selectedFlowRateUnit()).toEqual 'Hour'
+
+      it "should have 'Minute', 'Hour', 'Day' and 'Second'", ->
+        expect(viewModel.flowRateUnit()).toEqual ['Minute', 'Hour', 'Day', 'Second']
 )
