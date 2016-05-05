@@ -5,7 +5,13 @@
 requirejs.config({
   paths: {
     'knockout': 'https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min'
-    'text': 'https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text'
+    'knockout-validation': 'https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min'
+    'text': 'https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text.min'
+  }
+  shim: {
+    'knockout-validation': {
+      deps: ['knockout']
+    }
   }
 })
 
