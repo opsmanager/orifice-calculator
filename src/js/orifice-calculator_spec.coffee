@@ -10,8 +10,7 @@ define(['js/orifice-calculator.js'], (orificeCalculator) ->
     itBehavesLikeMandatoryField = () ->
       it 'has mandatory field validation', ->
         field('')
-        expect(field.hasError()).toEqual true
-        expect(field.validationMessage()).toEqual validationMessage
+        expect(field.isValid()).toEqual false
 
     describe 'pipeID', ->
 

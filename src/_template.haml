@@ -3,10 +3,11 @@
     %li
       %label Pipe ID
       %select{ :id => 'pipeID', "data-bind" => "options: pipeID, value: selectedPipeID().value, optionsText: 'name', optionsValue: 'value'" }
-    %li
+    %li{ 'data-bind' => 'validationOptions: {insertMessages: false}' }
       %label Operating Pressure
-      %input{ :id => 'operatingPressure', :type => 'text', "data-bind" => "onlyInteger, value: operatingPressure" }
-      %span{ "data-bind" => 'visible: operatingPressure.hasError, text: operatingPressure.validationMessage' }
+      %input{ :id => 'operatingPressure', :type => 'text', "data-bind" => "value: operatingPressure" }
+      %span{ "data-bind" => "visible: operatingPressure().length == 0 || isNaN(operatingPressure())" }
+        %span{ "data-bind" => "validationMessage: operatingPressure" }
     %li
       %label Operating Pressure Read
       %div{ "data-bind" => "foreach: operatingPressureRead" }
@@ -19,11 +20,9 @@
     %li
       %label Base Specific Gravity
       %input{ :id => 'baseSpecificGravity', :type => 'text', "data-bind" => "onlyFloat, value: baseSpecificGravity" }
-      %span{ "data-bind" => 'visible: baseSpecificGravity.hasError, text: baseSpecificGravity.validationMessage' }
     %li
       %label Operating Temperature
       %input{ :id => 'operatingTemperature', :type => 'text', "data-bind" => "onlyFloat, value: operatingTemperature" }
-      %span{ "data-bind" => 'visible: operatingTemperature.hasError, text: operatingTemperature.validationMessage' }
     %li
       %label Operating Temperature Units
       %div{ "data-bind" => "foreach: operatingTemperatureUnit" }
@@ -33,11 +32,9 @@
     %li
       %label Differential Pressure
       %input{ :id => 'differentialPressure', :type => 'text', "data-bind" => "onlyInteger, value: differentialPressure" }
-      %span{ "data-bind" => 'visible: differentialPressure.hasError, text: differentialPressure.validationMessage' }
     %li
       %label Orifice Bore Diameter
       %input{ :id => 'orificeBoreDiameter', :type => 'text', "data-bind" => "onlyFloat, value: orificeBoreDiameter" }
-      %span{ "data-bind" => 'visible: orificeBoreDiameter.hasError, text: orificeBoreDiameter.validationMessage' }
     %li
       %label Compressibility Correction
       %div{ "data-bind" => "foreach: compressibilityCorrection" }
@@ -45,7 +42,8 @@
           %input{ :class => 'compressibilityCorrection', :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
           %label{ "data-bind" => "text: $data" }
       %input{ :id => 'compressibilityCorrectionValue', :type => 'text', "data-bind" => "visible: chosenCompressibilityCorrection() == 'Zf', value: compressibilityCorrectionValue" }
-      %span{ "data-bind" => 'css: operatingPressure.status, visible: operatingPressure.showMessage, text: operatingPressure.statusMessage' }
+      %span{ 'data-bind' => 'visible: operatingPressure().length > 0 && !isNaN(operatingPressure())' }
+        %span{ "data-bind" => "validationMessage: operatingPressure" }
     %li
       %label Flow Rate
       %br

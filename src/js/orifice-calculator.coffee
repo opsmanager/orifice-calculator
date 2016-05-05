@@ -16,8 +16,26 @@ define(['knockout', 'knockout-validation'], (ko) ->
       @selectedPipeID = ko.observable(@pipeID()[1])
       @operatingPressure = ko.observable('0').extend({
         required: { params: true, message: "Please enter the operating pressure" }
+        pattern: {
+          params: /^-?\d*$/
+          message: 'This should be an integer'
+        }
+        validation: [
+          {
+            validator: (val) ->
+              val <= 200 or val >= 400
+            message: 'At this pressure, no compressibility correction may result in erroneous computations'
+            messageClass: 'warning'
+          }
+          {
+            validator: (val) ->
+              val < 400
+            message: 'At this pressure, no compressibility correction will result in erroneous computations'
+            messageClass: 'error'
+          }
+        ]
       })
-
+      
       @operatingPressureRead = ko.observableArray([ 'Gauge', 'Absolute' ])
       @chosenOperatingPressureRead = ko.observable(@operatingPressureRead()[0])
 
@@ -58,8 +76,8 @@ define(['knockout', 'knockout-validation'], (ko) ->
       @selectedFlowRateUnit = ko.observable(@flowRateUnit()[1])
 
       ko.validation.registerExtenders()
-
       @flowRate = ko.computed =>
+        
         coeffDischarge = 0.6
         expansionFactor = 1
         baseTemperature = 519.67 # Tb in Rankine, assumed 60F
@@ -85,71 +103,4 @@ define(['knockout', 'knockout-validation'], (ko) ->
 
     precision: (value, precision) ->
       Math.ceil( value * Math.pow(10, precision) ) / Math.pow(10, precision)
-
-    extenders: () ->
-      ko.extenders.validatePressure = (target) ->
-        target.status = ko.observable('')
-        target.statusMessage = ko.observable()
-        target.showMessage = ko.observable()
-
-        validPressure = (value) ->
-          if value > 200 && value < 401
-            target.status('warning')
-            target.showMessage(true)
-            target.statusMessage("At this pressure, no compressibility correction may result in erroneous computations")
-          else if value > 400
-            target.status('error')
-            target.showMessage(true)
-            target.statusMessage("At this pressure, no compressibility correction will result in erroneous computations")
-          else
-            target.showMessage(false)
-
-        validPressure(target())
-        target.subscribe(validPressure)
-        target
-
-    bindings: () ->
-      #TODO: Replace this with https://github.com/Knockout-Contrib/Knockout-Validation
-      ko.bindingHandlers.onlyInteger = {
-        init: (element, valueAccessor) ->
-          $(element).on('keydown', (event) ->
-            @handleCommonKeydown(event)
-          )
-      }
-
-      ko.bindingHandlers.onlyFloat = {
-        init: (element, valueAccessor) ->
-          $(element).on('keydown', (event) ->
-            if (event.keyCode is 190)
-              return
-            @handleCommonKeydown(event)
-          )
-          $(element).on('keypress', (event) ->
-            if (event.keyCode is 46 && element.value.split('.').length is 2)
-               event.preventDefault()
-          )
-      }
-
-      ko.bindingHandlers.copyToClipboard = {
-        init: (element) ->
-          $(element).on('click', (event) ->
-            temp = document.createElement('input')
-            temp.setAttribute('value', element.innerHTML)
-            document.body.appendChild(temp)
-            temp.select()
-            document.execCommand('copy')
-            document.body.removeChild(temp)
-          )
-      }
-
-    handleCommonKeydown: (event) ->
-      #TODO: To write spec for handleCommonKeydown
-        if (_.includes([8,9,13,27,37,38,39,40], event.keyCode))
-          return
-        if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) )
-          event.preventDefault()
-
-    #copyFlowRate: () ->
-    # console.log('click!')
-
 )
