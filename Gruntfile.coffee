@@ -10,10 +10,12 @@ module.exports = (grunt) ->
         ext: ".js"
     haml:
       dist:
-        files:
-          'build/index.html': 'src/index.haml'
-          'build/specrunner.html': 'src/specrunner.haml'
-          'build/_template.html': 'src/_template.haml'
+        expand: true
+        flatten: false
+        cwd: 'src'
+        src: ['**/*.haml']
+        dest: 'build'
+        ext: '.html'
     copy:
       main:
         expand: true
