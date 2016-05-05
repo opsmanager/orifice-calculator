@@ -1,3 +1,5 @@
+# TODO: Specs for integer and float validations
+
 define(['js/orifice-calculator.js'], (orificeCalculator) ->
   describe 'OrificeCalculatorViewModel', ->
     viewModel = null
