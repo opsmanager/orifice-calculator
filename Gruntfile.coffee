@@ -13,13 +13,20 @@ module.exports = (grunt) ->
         flatten: false
         cwd: 'spec/js'
         src: ["**/*.coffee"]
-        dest: 'spec/build/js'
+        dest: 'build/js'
         ext: '.js'
     haml:
       dist:
         expand: true
         flatten: false
         cwd: 'src'
+        src: ['**/*.haml']
+        dest: 'build'
+        ext: '.html'
+      spec:
+        expand: true
+        flatten: false
+        cwd: 'spec'
         src: ['**/*.haml']
         dest: 'build'
         ext: '.html'
@@ -31,13 +38,12 @@ module.exports = (grunt) ->
         dest: 'build'
     jasmine:
       spec: {
-        src: 'spec/build/*.js'
         options: {
-          specs: 'spec/**/*-spec.js'
-          template: require('grunt-template-jasmine-requirejs')
-          templateOptions: {
-            requireConfigFile: 'spec/build/js/main.js'
-          }
+          specs: 'build/js/**/*-spec.js'
+          helpers: 'build/js/*-helper.js'
+          vendor: [
+            'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js'
+          ]
         }
       }
 
@@ -57,10 +63,6 @@ module.exports = (grunt) ->
         options:
           port: 8000
           base: 'build'
-      test:
-        options:
-          port: 5678
-          base: 'spec'
 
   #Load Tasks
   grunt.loadNpmTasks 'grunt-contrib-copy'
