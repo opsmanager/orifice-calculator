@@ -40,12 +40,15 @@ define(['knockout'], (ko) ->
       @compressibilityCorrectionValue = ko.observable('1.0')
 
       @betaRatio = ko.computed(() =>
-        @orificeBoreDiameter() / @selectedPipeID()
+        @orificeBoreDiameter() / @selectedPipeID().value
       )
 
       @velocityOfApproach = ko.computed(() =>
         @precision(1 / Math.sqrt( 1 - Math.pow(@betaRatio(), 4) ), 2)
       )
+
+      @flowRateUnit = ko.observableArray(['Minute', 'Hour', 'Day', 'Second'])
+      @selectedFlowRateUnit = ko.observable(@flowRateUnit()[1])
 
       @flowRate = ko.computed(() =>
         coeffDischarge = 0.6
@@ -55,16 +58,24 @@ define(['knockout'], (ko) ->
         operatingTemperatureInRankine = Number(@operatingTemperature()) + 459.67
         basePressure = 14.73 # Pb in psia
         compressibility = 1 # Zb
+
         flowRate = 218.527 * coeffDischarge * expansionFactor * @velocityOfApproach() * Math.pow(@orificeBoreDiameter(), 2) * (baseTemperature/basePressure) \
                    * Math.pow( (@operatingPressure() * compressibility * @differentialPressure()) \
-                   / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine), 0.5) / 60
-        flowRate = @precision(flowRate,3)
+                   / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine), 0.5) / 60 # hour
 
+        switch @selectedFlowRateUnit()
+          when 'Day'
+            flowRate = flowRate * 24 
+          when 'Minute'
+            flowRate = flowRate / 60
+          when 'Second'
+            flowRate = flowRate / 3600
+        
+        flowRate = @precision(flowRate,3)
         if (flowRate > 0) then flowRate else 0
       )
 
-      @flowRateUnit = ko.observableArray(['Minute', 'Hour', 'Day', 'Second'])
-      @selectedFlowRateUnit = ko.observable(@flowRateUnit()[1])
+      
 
     precision: (value, precision) ->
       Math.ceil( value * Math.pow(10, precision) ) / Math.pow(10, precision)
@@ -147,7 +158,7 @@ define(['knockout'], (ko) ->
         if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) )
           event.preventDefault()
 
-    copyFlowRate: () ->
-      console.log('click!')
+    #copyFlowRate: () ->
+    # console.log('click!')
 
 )
