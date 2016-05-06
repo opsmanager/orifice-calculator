@@ -10,7 +10,8 @@
     "grunt-contrib-connect": "*",
     "grunt-contrib-copy": "*",
     "grunt-contrib-watch": "*",
-    "grunt-haml2html": "*"
+    "grunt-haml2html": "*",
+    "jasmine-jquery": "^2.1.1"
   },
   "devDependencies": {
     "grunt-contrib-jasmine": "^1.0.3"

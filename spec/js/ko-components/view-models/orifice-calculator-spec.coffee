@@ -1,4 +1,5 @@
 describe 'OrificeCalculatorViewModel', ->
+  #beforeEach ->
   viewModel = new OrificeCalculator()
 
   describe 'pipeID', ->

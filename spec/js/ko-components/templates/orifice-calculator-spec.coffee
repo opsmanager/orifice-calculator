@@ -1,8 +1,11 @@
-describe 'orifice-calculator-spec', ->
-  tmp = document.implementation.createHTMLDocument()
-  tmp.body.innerHTML = template
-  templateElements = tmp.body.children[0]
-    
+describe 'template-orifice-calculator-spec', ->
+  templateElements = null
+  element = null
+
+  beforeAll ->
+    jasmine.getFixtures().fixturesPath = 'build/js/ko-components/templates'
+    loadFixtures('orifice-calculator.html')
+
   itShouldBehaveLikeRadioButtons = (elementArray) ->
     it 'should be radio buttons', ->
       _.each(elementArray, (el) ->
@@ -15,8 +18,8 @@ describe 'orifice-calculator-spec', ->
       expect(element.tagName).toEqual 'SELECT'
 
   describe 'Pipe ID', ->
-    element = templateElements.querySelector('[data-bind="options: pipeID, value: selectedPipeID"]')
-    itShouldBehaveLikeDropdownList(element)    
+    it 'should be a dropdown list', ->
+      expect($('#pipeID')).toExist()
 
   describe 'Operating Pressure Units', ->
     element = templateElements.querySelector('[data-bind="options: operatingPressureUnits, value: selectedOperatingPressureUnits"]')
