@@ -1,4 +1,4 @@
-describe 'template-orifice-calculator-spec', ->
+describe 'orifice-calculator-view-spec', ->
   templateElements = null
   element = null
 
