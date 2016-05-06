@@ -41,7 +41,7 @@ module.exports = (grunt) ->
           'build/js/lib/jasmine-jquery.js': 'node_modules/jasmine-jquery/lib/jasmine-jquery.js'
     jasmine:
       spec:
-        src: 'build/js/**/orifice-calculator.js'
+        src: ['build/js/**/orifice-calculator.js', 'build/js/**/dictionaries.js']
         options:
           specs: 'build/js/**/*-spec.js'
           helpers: 'build/js/*-helper.js'
@@ -76,6 +76,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
 
-  grunt.registerTask 'test', ['coffee', 'haml:spec', 'connect', 'jasmine']
+  grunt.registerTask 'test', ['coffee', 'haml:spec', 'copy:spec', 'jasmine']
   grunt.registerTask 'compile', ['coffee', 'haml', 'copy']
   grunt.registerTask 'server', ['connect:server', 'watch']

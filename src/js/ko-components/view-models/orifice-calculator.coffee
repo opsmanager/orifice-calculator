@@ -26,30 +26,22 @@ class @OrificeCalculator
         )
     }
 
-    @pipeID = ko.observableArray([
-             "2.067'' Sch 40, STD, Sch 40S"
-             "1.939'' XS, Sch 80, Sch 80S" # Default
-             "2.157'' Sch 10, Sch 10S"
-             "2.245'' Sch 5, Sch 5S"
-             "1.687'' Sch 160"
-             "1.503'' XXS"
-            ])
-
+    @pipeID = ko.observableArray(OPL.OrificeCalculator.Config.Dictionaries.PipeID)
     @selectedPipeID = ko.observable(@pipeID()[1])
     @operatingPressure = ko.observable()
-    @operatingPressureRead = ko.observableArray([ 'Gauge', 'Absolute' ])
+    @operatingPressureRead = ko.observableArray(OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead)
     @chosenOperatingPressureRead = ko.observable(@operatingPressureRead()[0])
 
-    @operatingPressureUnits = ko.observableArray([ 'PSI', 'kg/cm2', 'kPa', 'bar', 'mm of Mercury', 'Pa', 'mbar', 'inches of W.C' ])
+    @operatingPressureUnits = ko.observableArray(OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits)
     @selectedOperatingPressureUnits = ko.observable(@operatingPressureUnits()[0])
 
     @baseSpecificGravity = ko.observable() # TODO: float
     @operatingTemperature = ko.observable() # TODO: float
-    @operatingTemperatureUnit = ko.observableArray([ 'F', 'C' ])
+    @operatingTemperatureUnit = ko.observableArray(OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnit)
     @selectedOperatingTemperatureUnit = ko.observable(@operatingTemperatureUnit()[0])
 
     @differentialPressure = ko.observable() # TODO: integer (Inches Water)
     @orificeBoreDiameter = ko.observable() # TODO: float (Inches)
 
-    @compressibilityCorrection = ko.observableArray([ 'None', 'Zf' ])
+    @compressibilityCorrection = ko.observableArray(OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection)
     @chosenCompressibilityCorrection  = ko.observable(@compressibilityCorrection()[0])
