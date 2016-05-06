@@ -14,7 +14,9 @@
     "jasmine-jquery": "^2.1.1"
   },
   "devDependencies": {
-    "grunt-contrib-jasmine": "^1.0.3"
+    "grunt-contrib-jasmine": "^1.0.3",
+    "jquery": "^2.2.3",
+    "knockout": "^3.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

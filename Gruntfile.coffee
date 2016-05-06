@@ -23,13 +23,6 @@ module.exports = (grunt) ->
         src: ['**/*.haml']
         dest: 'build'
         ext: '.html'
-      spec:
-        expand: true
-        flatten: false
-        cwd: 'src'
-        src: ['**/*.haml']
-        dest: 'build'
-        ext: '.html'
     copy:
       main:
         expand: true
@@ -39,6 +32,8 @@ module.exports = (grunt) ->
       spec:
         files:
           'build/js/lib/jasmine-jquery.js': 'node_modules/jasmine-jquery/lib/jasmine-jquery.js'
+          'build/js/lib/jquery.min.js': 'node_modules/jquery/dist/jquery.min.js'
+          'build/js/lib/knockout-latest.js': 'node_modules/knockout/build/output/knockout-latest.js'
     jasmine:
       spec:
         src: ['build/js/**/orifice-calculator.js', 'build/js/**/dictionaries.js']
@@ -46,8 +41,8 @@ module.exports = (grunt) ->
           specs: 'build/js/**/*-spec.js'
           helpers: 'build/js/*-helper.js'
           vendor: [
-            'https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js'
-            'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js'
+            'build/js/lib/knockout-latest.js'
+            'build/js/lib/jquery.min.js'
             'build/js/lib/jasmine-jquery.js'
           ]
 
@@ -76,6 +71,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
 
-  grunt.registerTask 'test', ['coffee', 'haml:spec', 'copy:spec', 'jasmine']
+  grunt.registerTask 'test:setup', ['coffee', 'haml:dist', 'copy:spec']
+  grunt.registerTask 'test', ['coffee:spec', 'jasmine']
   grunt.registerTask 'compile', ['coffee', 'haml', 'copy']
   grunt.registerTask 'server', ['connect:server', 'watch']

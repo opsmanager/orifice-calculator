@@ -2,37 +2,41 @@ describe 'template-orifice-calculator-spec', ->
   templateElements = null
   element = null
 
-  beforeAll ->
+  beforeEach ->
     jasmine.getFixtures().fixturesPath = 'build/js/ko-components/templates'
     loadFixtures('orifice-calculator.html')
 
-  itShouldBehaveLikeRadioButtons = (elementArray) ->
+  itShouldBehaveLikeRadioButtons = () ->
     it 'should be radio buttons', ->
-      _.each(elementArray, (el) ->
-        expect(el.tagName).toEqual 'INPUT'
-        expect(el.getAttribute('type')).toEqual 'radio'
-      )
+      $(element).each ->
+        expect($(this)).toEqual 'INPUT'
+        expect($(this)).toHaveAttr('type', 'radio')
 
-  itShouldBehaveLikeDropdownList = (element) ->
+  itShouldBehaveLikeDropdownList = () ->
     it 'should be a dropdown list', ->
-      expect(element.tagName).toEqual 'SELECT'
+      expect($(element)).toEqual 'SELECT'
 
   describe 'Pipe ID', ->
-    it 'should be a dropdown list', ->
-      expect($('#pipeID')).toExist()
+    beforeEach ->
+      element = '#pipeID'
+    itShouldBehaveLikeDropdownList()
 
   describe 'Operating Pressure Units', ->
-    element = templateElements.querySelector('[data-bind="options: operatingPressureUnits, value: selectedOperatingPressureUnits"]')
-    itShouldBehaveLikeDropdownList(element)    
+    beforeEach ->
+      element = '#operatingPressureUnits'
+    itShouldBehaveLikeDropdownList()
 
   describe 'Operating Pressure Read', ->
-    elementArray = templateElements.querySelectorAll('[data-bind="checkedValue: $data, checked: $component.chosenOperatingPressureRead"]')
-    itShouldBehaveLikeRadioButtons(elementArray)
+    beforeEach ->
+      element = '.operatingPressureRead'
+    itShouldBehaveLikeRadioButtons()
 
   describe 'Operating Temperature Units', ->
-    elementArray = templateElements.querySelectorAll('[data-bind="checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"]')
-    itShouldBehaveLikeRadioButtons(elementArray)
- 
+    beforeEach ->
+      element = '.operatingTemperatureUnits'
+    itShouldBehaveLikeRadioButtons()
+
   describe 'Compressibility Correction', ->
-    elementArray = templateElements.querySelectorAll('[data-bind="checkedValue: $data, checked: $component.chosenCompressibilityCorre5ction"]')
-    itShouldBehaveLikeRadioButtons(elementArray)
+    beforeEach ->
+      element = '.compressibilityCorrection'
+    itShouldBehaveLikeRadioButtons()
