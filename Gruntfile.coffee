@@ -36,14 +36,15 @@ module.exports = (grunt) ->
           'build/js/lib/knockout-latest.js': 'node_modules/knockout/build/output/knockout-latest.js'
     jasmine:
       spec:
-        src: ['build/js/**/orifice-calculator.js', 'build/js/**/dictionaries.js']
+        src: ['build/js/**/main.js']
         options:
           specs: 'build/js/**/*-spec.js'
-          helpers: 'build/js/*-helper.js'
           vendor: [
+            'build/js/lib/knockout-latest.js'
             'build/js/lib/knockout-latest.js'
             'build/js/lib/jquery.min.js'
             'build/js/lib/jasmine-jquery.js'
+            'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'
           ]
 
     watch:
@@ -72,6 +73,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
 
   grunt.registerTask 'test:setup', ['coffee', 'haml:dist', 'copy:spec']
-  grunt.registerTask 'test', ['coffee:spec', 'jasmine']
+  grunt.registerTask 'test', ['coffee', 'haml:dist', 'copy:spec', 'jasmine']
   grunt.registerTask 'compile', ['coffee', 'haml', 'copy']
   grunt.registerTask 'server', ['connect:server', 'watch']

@@ -11,8 +11,8 @@
   one_six_inch: "1.687'' Sch 160"
   one_half_inch: "1.503'' XXS"
 }
-@OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead = { gauge: 'Gauge', absolute: 'Absolute' } 
-@OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits = { 
+@OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead = { gauge: 'Gauge', absolute: 'Absolute' }
+@OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits = {
   psi: 'PSI'
   kgcm: 'kg/cm2'
   kpa: 'kPa'
@@ -23,6 +23,6 @@
   inches_wc: 'inches of W.C'
 }
 
-@OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnit = { fahrenheit: 'F', celsius: 'C' } 
-@OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection = { none: 'None', zf: 'Zf' } 
+@OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits = { fahrenheit: 'F', celsius: 'C' }
+@OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection = { none: 'None', zf: 'Zf' }
 
