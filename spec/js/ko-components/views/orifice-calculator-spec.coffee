@@ -3,7 +3,7 @@ describe 'orifice-calculator-view-spec', ->
   element = null
 
   beforeEach ->
-    jasmine.getFixtures().fixturesPath = 'build/js/ko-components/templates'
+    jasmine.getFixtures().fixturesPath = 'js/ko-components/templates'
     loadFixtures('orifice-calculator.html')
 
   itShouldBehaveLikeRadioButtons = () ->

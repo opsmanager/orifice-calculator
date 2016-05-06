@@ -1,5 +1,5 @@
 describe 'orifice-calculator-viewmodel-spec', ->
-  viewModel = new OrificeCalculator()
+  viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
 
   describe 'pipeID', ->
     it 'should have initialized the input data', ->
