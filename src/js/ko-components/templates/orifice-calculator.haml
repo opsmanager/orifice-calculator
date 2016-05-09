@@ -6,8 +6,6 @@
     %li
       %label Operating Pressure
       %input{ :id => 'operatingPressure', :type => 'text', "data-bind" => "value: operatingPressure" }
-      %span{ "data-bind" => "visible: operatingPressure.length == 0 || isNaN(operatingPressure())" }
-        %span{ "data-bind" => "validationMessage: operatingPressure" }
     %li
       %label Operating Pressure Read
       %div{ "data-bind" => "foreach: operatingPressureRead" }
