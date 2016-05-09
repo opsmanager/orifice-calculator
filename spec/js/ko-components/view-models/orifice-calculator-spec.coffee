@@ -1,7 +1,5 @@
-OrificeCalculatorVM = require('./orifice-calculator')
-
 describe 'orifice-calculator-viewmodel-spec', ->
-  viewModel = new OrificeCalculatorVM()
+  viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
 
   describe 'pipeID', ->
     it 'should have initialized the input data', ->
