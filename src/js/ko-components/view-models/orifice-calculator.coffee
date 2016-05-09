@@ -7,9 +7,9 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
     @pipeID = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.PipeID
     @selectedPipeID = ko.observable OPL.OrificeCalculator.Config.Dictionaries.PipeID.one_nine_inch
     @operatingPressure = ko.observable(0).extend {
-        required: { params: true, message: "Please enter the operating pressure" }
+        required: { params: true, message: 'Please enter the operating pressure' }
         digit: { params: true, message: 'Please enter an integer' }
-      }
+    }
 
     @operatingPressureRead = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead
     @chosenOperatingPressureRead = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead.gauge
@@ -19,25 +19,25 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
 
     @baseSpecificGravity = ko.observable('0.0').extend {
       number: { params: true, message: 'Please enter a float' }
-      required: { params: true, message: "Please enter the base specific gravity" }
+      required: { params: true, message: 'Please enter the base specific gravity' }
     }
 
     @operatingTemperature = ko.observable('0.0').extend {
       number: { params: true, message: 'Please enter a float' }
-      required: { params: true, message: "Please enter the operating temperature" }
+      required: { params: true, message: 'Please enter the operating temperature' }
     }
 
     @operatingTemperatureUnit = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits
     @selectedOperatingTemperatureUnit = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits.fahrenheit
 
     @differentialPressure = ko.observable(0).extend {
-        required: { params: true, message: "Please enter the differential pressure" }
+        required: { params: true, message: 'Please enter the differential pressure' }
         digit: { params: true, message: 'Please enter an integer' }
     }
 
     @orificeBoreDiameter = ko.observable('0.0').extend {
       number: { params: true, message: 'Please enter a float' }
-      required: { params: true, message: "Please enter the orifice bore diameter" }
+      required: { params: true, message: 'Please enter the orifice bore diameter' }
     }
 
     @compressibilityCorrection = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection
