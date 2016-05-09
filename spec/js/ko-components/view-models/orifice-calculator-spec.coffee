@@ -1,11 +1,14 @@
 describe 'orifice-calculator-viewmodel-spec', ->
-  viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
+  viewModel = null 
   field = ko.observable()
 
+  beforeEach ->
+    viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
+
   itBehavesLikeMandatoryField = () ->
-      it 'has mandatory field validation', ->
-        field('')
-        expect(field.isValid()).toEqual false
+    it 'has mandatory field validation', ->
+      field('')
+      expect(field.isValid()).toEqual false
 
   describe 'pipeID', ->
     it 'should have initialized the input data', ->
@@ -26,12 +29,25 @@ describe 'orifice-calculator-viewmodel-spec', ->
     it 'should have default value of "Gauge"', ->
       expect(viewModel.chosenOperatingPressureRead()).toEqual 'Gauge'
 
-  describe 'operatingPressureUnits', ->
-    it 'should have intialized the input data', ->
-      expect(viewModel.operatingPressureUnits().length).toEqual 8
+  describe 'baseSpecificGravity', ->
+    beforeEach ->
+      field = viewModel.baseSpecificGravity
+      validationMessage = 'Please enter the base specific gravity'
 
-    it 'should have default value of "PSI"', ->
-      expect(viewModel.selectedOperatingPressureUnits()).toEqual 'PSI'
+    itBehavesLikeMandatoryField()
+
+    it 'should have a default value of "0.0"', ->
+      expect(viewModel.baseSpecificGravity()).toEqual '0.0'
+
+  describe 'operatingTemperature', ->
+    beforeEach ->
+      field = viewModel.operatingTemperature
+      validationMessage = 'Please enter the operating temperature'
+
+    itBehavesLikeMandatoryField()
+
+    it 'should have a default value of "0.0"', ->
+      expect(viewModel.operatingTemperature()).toEqual '0.0'
 
   describe 'operatingTemperatureUnits', ->
     it 'should have default value of "Farenheit"', ->
@@ -39,6 +55,26 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
     it 'should have farenheit and celcius for operating temperature unit', ->
       expect(viewModel.operatingTemperatureUnit()).toEqual ['F','C']
+
+  describe 'differentialPressure', ->
+    beforeEach ->
+      field = viewModel.differentialPressure
+      validationMessage = 'Please enter the differential pressure'
+
+    itBehavesLikeMandatoryField()
+
+    it 'should have a default value of "0"', ->
+      expect(viewModel.differentialPressure()).toEqual 0
+
+  describe 'orificeBoreDiameter', ->
+    beforeEach ->
+      field = viewModel.orificeBoreDiameter
+      validationMessage = 'Please enter the orifice bore diameter'
+
+    itBehavesLikeMandatoryField()
+
+    it 'should have a default value of "0.0"', ->
+      expect(viewModel.orificeBoreDiameter()).toEqual '0.0'
 
   describe 'compressibilityCorrection', ->
     it 'should have a default value of "None"', ->

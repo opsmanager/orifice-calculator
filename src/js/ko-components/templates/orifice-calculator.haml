@@ -27,7 +27,7 @@
       %label Operating Temperature Units
       %div{ "data-bind" => "foreach: operatingTemperatureUnit" }
         %div
-          %input{ :class => 'operatingTemperatureUnit', :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"  }
+          %input{ :class => 'operatingTemperatureUnits', :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"  }
           %label{ "data-bind" => "text: $data" }
     %li
       %label Differential Pressure
