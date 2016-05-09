@@ -1,6 +1,44 @@
 describe 'orifice-calculator-viewmodel-spec', ->
   viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
 
+  beforeEach ->
+    viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
+
+  itBehavesLikeMandatoryField = (field) ->
+    it 'has mandatory field validation', ->
+      field('')
+      expect(field.isValid()).toEqual false
+
+  itBehavesLikeIntegerField = (field) ->
+    it 'should only accept integer', ->
+      field(123)
+      expect(field.isValid()).toEqual true
+
+      field(123.456)
+      expect(field.isValid()).toEqual false
+
+      field('123abc')
+      expect(field.isValid()).toEqual false
+
+  itBehavesLikeFloatField = (field) ->
+    it 'should only accept float', ->
+      field(123)
+      expect(field.isValid()).toEqual true
+
+      field(123.456)
+      expect(field.isValid()).toEqual true
+
+      field('123abc')
+      expect(field.isValid()).toEqual false
+
+  describe 'viewModel', ->
+    it 'should be valid when loaded', ->
+      expect(ko.validatedObservable(viewModel).isValid()).toEqual true
+
+    it 'should be invalid when it does not contain valid fields', ->
+      viewModel.operatingPressure('abc123')
+      expect(ko.validatedObservable(viewModel).isValid()).toEqual false
+
   describe 'pipeID', ->
     it 'should have initialized the input data', ->
       expect(viewModel.pipeID().length).toEqual 6
@@ -8,26 +46,51 @@ describe 'orifice-calculator-viewmodel-spec', ->
     it 'should have default value of "1.939\'\' XS, Sch 80, Sch 80S"', ->
       expect(viewModel.selectedPipeID()).toEqual '1.939\'\' XS, Sch 80, Sch 80S'
 
+  describe 'operatingPressure', ->
+    itBehavesLikeMandatoryField viewModel.operatingPressure
+    itBehavesLikeIntegerField viewModel.operatingPressure
+
   describe 'operatingPressureRead', ->
     it 'should have "Gauge" and "Absolute"', ->
-        expect(viewModel.operatingPressureRead()).toEqual ['Gauge','Absolute']
+      expect(viewModel.operatingPressureRead()).toEqual ['Gauge','Absolute']
 
     it 'should have default value of "Gauge"', ->
       expect(viewModel.chosenOperatingPressureRead()).toEqual 'Gauge'
 
-  describe 'operatingPressureUnits', ->
-    it 'should have intialized the input data', ->
-      expect(viewModel.operatingPressureUnits().length).toEqual 8
+  describe 'baseSpecificGravity', ->
+    itBehavesLikeMandatoryField viewModel.baseSpecificGravity
+    itBehavesLikeFloatField viewModel.baseSpecificGravity
 
-    it 'should have default value of "PSI"', ->
-      expect(viewModel.selectedOperatingPressureUnits()).toEqual 'PSI'
+    it 'should have a default value of "0"', ->
+      expect(viewModel.baseSpecificGravity()).toEqual 0
+
+  describe 'operatingTemperature', ->
+    itBehavesLikeMandatoryField viewModel.operatingTemperature
+    itBehavesLikeFloatField viewModel.operatingTemperature
+
+    it 'should have a default value of "0"', ->
+      expect(viewModel.operatingTemperature()).toEqual 0
 
   describe 'operatingTemperatureUnits', ->
-    it 'should have default value of "Farenheit"', ->
+    it 'should have default value of "Fahrenheit"', ->
       expect(viewModel.selectedOperatingTemperatureUnit()).toEqual 'F'
 
-    it 'should have farenheit and celcius for operating temperature unit', ->
+    it 'should have Fahrenheit and Celsius for operating temperature unit', ->
       expect(viewModel.operatingTemperatureUnit()).toEqual ['F','C']
+
+  describe 'differentialPressure', ->
+    itBehavesLikeMandatoryField viewModel.differentialPressure
+    itBehavesLikeIntegerField viewModel.differentialPressure
+
+    it 'should have a default value of "0"', ->
+      expect(viewModel.differentialPressure()).toEqual 0
+
+  describe 'orificeBoreDiameter', ->
+    itBehavesLikeMandatoryField viewModel.orificeBoreDiameter
+    itBehavesLikeFloatField viewModel.orificeBoreDiameter
+
+    it 'should have a default value of "0"', ->
+      expect(viewModel.orificeBoreDiameter()).toEqual 0
 
   describe 'compressibilityCorrection', ->
     it 'should have a default value of "None"', ->

@@ -2,42 +2,40 @@
   %ul
     %li
       %label Pipe ID
-      %select{ :id => 'pipeID', "data-bind" => "options: pipeID, value: selectedPipeID" }
+      %select#pipe-id{ "data-bind" => "options: pipeID, value: selectedPipeID" }
     %li
       %label Operating Pressure
-      %input{ :type => 'text', "data-bind" => "value: operatingPressure" }
+      %input#operating-pressure{ :type => "number", "data-bind" => "value: operatingPressure" }
     %li
       %label Operating Pressure Read
       %div{ "data-bind" => "foreach: operatingPressureRead" }
         %div
-          %input{ :class => 'operatingPressureRead', :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.chosenOperatingPressureRead"  }
+          %input.operating-pressure-read{ :type => "radio", "data-bind" => "checkedValue: $data, checked: $component.chosenOperatingPressureRead"  }
           %label{ "data-bind" => "text: $data" }
     %li
       %label Operating Pressure Units
-      %select{ :id => 'operatingPressureUnits', "data-bind" => "options: operatingPressureUnits, value: selectedOperatingPressureUnits" }
+      %select#operating-pressure-units{ "data-bind" => "options: operatingPressureUnits, value: selectedOperatingPressureUnits" }
     %li
       %label Base Specific Gravity
-      %input{ :type => 'text', "data-bind" => "value: baseSpecificGravity" }
+      %input#base-specific-gravity{ :type => "number", "data-bind" => "value: baseSpecificGravity" }
     %li
-      %label Operatingating Temperature
-      %input{ :type => 'text', "data-bind" => "value: operatingTemperature" }
+      %label Operating Temperature
+      %input#operating-temperature{ :type => "number", "data-bind" => "value: operatingTemperature" }
     %li
       %label Operating Temperature Units
       %div{ "data-bind" => "foreach: operatingTemperatureUnit" }
         %div
-          %input{ :class => 'operatingTemperatureUnits', :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"  }
+          %input.operating-temperature-units{ :type => "radio", "data-bind" => "checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"  }
           %label{ "data-bind" => "text: $data" }
     %li
       %label Differential Pressure
-      %input{ :type => 'text', "data-bind" => "value: differentialPressure" }
+      %input#differential-pressure{ :type => "number", "data-bind" => "value: differentialPressure" }
     %li
       %label Orifice Bore Diameter
-      %input{ :type => 'text', "data-bind" => "value: orificeBoreDiameter" }
-
+      %input#orifice-bore-diameter{ :type => "number", "data-bind" => "value: orificeBoreDiameter" }
     %li
       %label Compressibility Correction
       %div{ "data-bind" => "foreach: compressibilityCorrection" }
         %div
-          %input{ :class => 'compressibilityCorrection', :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
+          %input.compressibility-correction{ :type => "radio", "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
           %label{ "data-bind" => "text: $data" }
-
