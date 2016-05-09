@@ -4,7 +4,6 @@
 
 class OPL.KoComponents.ViewModels.OrificeCalculator
   constructor: () ->
-    ko.validation.init()
     @pipeID = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.PipeID
     @selectedPipeID = ko.observable OPL.OrificeCalculator.Config.Dictionaries.PipeID.one_nine_inch
     @operatingPressure = ko.observable(0).extend {
