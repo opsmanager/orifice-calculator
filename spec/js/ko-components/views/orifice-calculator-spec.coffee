@@ -22,50 +22,50 @@ describe 'orifice-calculator-view-spec', ->
 
   describe 'Pipe ID', ->
     beforeEach ->
-      element = '#pipeID'
+      element = '#pipe-id'
     itShouldBehaveLikeDropdownList()
 
   describe 'Operating Pressure', ->
     beforeEach -> 
-      element = '#operatingPressure'
+      element = '#operating-pressure'
     itShouldBehaveLikeTextInput()
 
   describe 'Operating Pressure Read', ->
     beforeEach ->
-      element = '.operatingPressureRead'
+      element = '.operating-pressure-read'
     itShouldBehaveLikeRadioButtons()
 
   describe 'Operating Pressure Units', ->
     beforeEach ->
-      element = '#operatingPressureUnits'
+      element = '#operating-pressure-units'
     itShouldBehaveLikeDropdownList()
 
   describe 'Basic Specific Gravity', ->
     beforeEach ->
-      element = '#baseSpecificGravity'
+      element = '#base-specific-gravity'
     itShouldBehaveLikeTextInput()
 
   describe 'Operating Temperature', ->
     beforeEach ->
-      element = '#operatingTemperature'
+      element = '#operating-temperature'
     itShouldBehaveLikeTextInput()
 
   describe 'Operating Temperature Units', ->
     beforeEach ->
-      element = '.operatingTemperatureUnits'
+      element = '.operating-temperature-units'
     itShouldBehaveLikeRadioButtons()
 
   describe 'Differential Pressure', ->
     beforeEach ->
-      element = '#differentialPressure'
+      element = '#differential-pressure'
     itShouldBehaveLikeTextInput()
 
   describe 'Orifice Bore Diameter', ->
     beforeEach ->
-      element = '#orificeBoreDiameter'
+      element = '#orifice-bore-diameter'
     itShouldBehaveLikeTextInput()
 
   describe 'Compressibility Correction', ->
     beforeEach ->
-      element = '.compressibilityCorrection'
+      element = '.compressibility-correction'
     itShouldBehaveLikeRadioButtons()

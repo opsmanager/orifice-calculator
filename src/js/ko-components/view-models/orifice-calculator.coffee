@@ -7,8 +7,8 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
     @pipeID = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.PipeID
     @selectedPipeID = ko.observable OPL.OrificeCalculator.Config.Dictionaries.PipeID.one_nine_inch
     @operatingPressure = ko.observable(0).extend {
-        required: { params: true, message: 'Please enter the operating pressure' }
-        digit: { params: true, message: 'Please enter an integer' }
+      required: { params: true, message: 'Please enter the operating pressure' }
+      digit: { params: true, message: 'Please enter an integer' }
     }
 
     @operatingPressureRead = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead
@@ -31,8 +31,8 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
     @selectedOperatingTemperatureUnit = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits.fahrenheit
 
     @differentialPressure = ko.observable(0).extend {
-        required: { params: true, message: 'Please enter the differential pressure' }
-        digit: { params: true, message: 'Please enter an integer' }
+      required: { params: true, message: 'Please enter the differential pressure' }
+      digit: { params: true, message: 'Please enter an integer' }
     }
 
     @orificeBoreDiameter = ko.observable('0.0').extend {
