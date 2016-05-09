@@ -1,5 +1,5 @@
 describe 'orifice-calculator-viewmodel-spec', ->
-  viewModel = null 
+  viewModel = null
   field = ko.observable()
 
   beforeEach ->
@@ -8,6 +8,24 @@ describe 'orifice-calculator-viewmodel-spec', ->
   itBehavesLikeMandatoryField = () ->
     it 'has mandatory field validation', ->
       field('')
+      expect(field.isValid()).toEqual false
+
+  itBehavesLikeIntegerField = () ->
+    it 'should only accept integer', ->
+      field(123)
+      expect(field.isValid()).toEqual true
+      field(123.456)
+      expect(field.isValid()).toEqual false
+      field('123abc')
+      expect(field.isValid()).toEqual false
+
+  itBehavesLikeFloatField = () ->
+    it 'should only accept float', ->
+      field(123)
+      expect(field.isValid()).toEqual true
+      field(123.456)
+      expect(field.isValid()).toEqual true
+      field('123abc')
       expect(field.isValid()).toEqual false
 
   describe 'pipeID', ->
@@ -20,7 +38,9 @@ describe 'orifice-calculator-viewmodel-spec', ->
   describe 'operatingPressure', ->
     beforeEach ->
       field = viewModel.operatingPressure
+
     itBehavesLikeMandatoryField()
+    itBehavesLikeIntegerField()
 
   describe 'operatingPressureRead', ->
     it 'should have "Gauge" and "Absolute"', ->
@@ -35,6 +55,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
       validationMessage = 'Please enter the base specific gravity'
 
     itBehavesLikeMandatoryField()
+    itBehavesLikeFloatField()
 
     it 'should have a default value of "0.0"', ->
       expect(viewModel.baseSpecificGravity()).toEqual '0.0'
@@ -45,6 +66,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
       validationMessage = 'Please enter the operating temperature'
 
     itBehavesLikeMandatoryField()
+    itBehavesLikeFloatField()
 
     it 'should have a default value of "0.0"', ->
       expect(viewModel.operatingTemperature()).toEqual '0.0'
@@ -62,6 +84,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
       validationMessage = 'Please enter the differential pressure'
 
     itBehavesLikeMandatoryField()
+    itBehavesLikeIntegerField()
 
     it 'should have a default value of "0"', ->
       expect(viewModel.differentialPressure()).toEqual 0
@@ -72,6 +95,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
       validationMessage = 'Please enter the orifice bore diameter'
 
     itBehavesLikeMandatoryField()
+    itBehavesLikeFloatField()
 
     it 'should have a default value of "0.0"', ->
       expect(viewModel.orificeBoreDiameter()).toEqual '0.0'

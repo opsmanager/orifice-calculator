@@ -41,4 +41,3 @@
         %div
           %input{ :class => 'compressibilityCorrection', :type => 'radio', "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
           %label{ "data-bind" => "text: $data" }
-      %input{ :id => 'compressibilityCorrectionValue', :type => 'text', "data-bind" => "visible: chosenCompressibilityCorrection() == 'Zf', value: compressibilityCorrectionValue" }
