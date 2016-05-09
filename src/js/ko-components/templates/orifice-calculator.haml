@@ -5,7 +5,7 @@
       %select#pipe-id{ "data-bind" => "options: pipeID, value: selectedPipeID" }
     %li
       %label Operating Pressure
-      %input#operating-pressure{ :type => "text", "data-bind" => "value: operatingPressure" }
+      %input#operating-pressure{ :type => "number", "data-bind" => "value: operatingPressure" }
     %li
       %label Operating Pressure Read
       %div{ "data-bind" => "foreach: operatingPressureRead" }
@@ -17,10 +17,10 @@
       %select#operating-pressure-units{ "data-bind" => "options: operatingPressureUnits, value: selectedOperatingPressureUnits" }
     %li
       %label Base Specific Gravity
-      %input#base-specific-gravity{ :type => "text", "data-bind" => "value: baseSpecificGravity" }
+      %input#base-specific-gravity{ :type => "number", "data-bind" => "value: baseSpecificGravity" }
     %li
       %label Operating Temperature
-      %input#operating-temperature{ :type => "text", "data-bind" => "value: operatingTemperature" }
+      %input#operating-temperature{ :type => "number", "data-bind" => "value: operatingTemperature" }
     %li
       %label Operating Temperature Units
       %div{ "data-bind" => "foreach: operatingTemperatureUnit" }
@@ -29,10 +29,10 @@
           %label{ "data-bind" => "text: $data" }
     %li
       %label Differential Pressure
-      %input#differential-pressure{ :type => "text", "data-bind" => "value: differentialPressure" }
+      %input#differential-pressure{ :type => "number", "data-bind" => "value: differentialPressure" }
     %li
       %label Orifice Bore Diameter
-      %input#orifice-bore-diameter{ :type => "text", "data-bind" => "value: orificeBoreDiameter" }
+      %input#orifice-bore-diameter{ :type => "number", "data-bind" => "value: orificeBoreDiameter" }
     %li
       %label Compressibility Correction
       %div{ "data-bind" => "foreach: compressibilityCorrection" }

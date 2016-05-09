@@ -1,71 +1,50 @@
 describe 'orifice-calculator-view-spec', ->
-  element = null
 
   beforeEach ->
     jasmine.getFixtures().fixturesPath = 'js/ko-components/templates'
     loadFixtures('orifice-calculator.html')
 
-  itShouldBehaveLikeRadioButtons = () ->
+  itShouldBehaveLikeRadioButtons = (element) ->
     it 'should be radio buttons', ->
       $(element).each ->
         expect($(this)).toEqual 'INPUT'
         expect($(this)).toHaveAttr('type', 'radio')
 
-  itShouldBehaveLikeDropdownList = () ->
+  itShouldBehaveLikeDropdownList = (element) ->
     it 'should be a dropdown list', ->
       expect($(element)).toEqual 'SELECT'
 
-  itShouldBehaveLikeTextInput = () ->
-    it 'should be text input', ->
+  itShouldBehaveLikeNumberInput = (element) ->
+    it 'should be number input', ->
       expect($(element)).toEqual 'INPUT'
-      expect($(element)).toHaveAttr('type', 'text')
+      expect($(element)).toHaveAttr('type', 'number')
 
   describe 'Pipe ID', ->
-    beforeEach ->
-      element = '#pipe-id'
-    itShouldBehaveLikeDropdownList()
+    itShouldBehaveLikeDropdownList('#pipe-id')
 
   describe 'Operating Pressure', ->
-    beforeEach -> 
-      element = '#operating-pressure'
-    itShouldBehaveLikeTextInput()
+    itShouldBehaveLikeNumberInput('#operating-pressure')
 
   describe 'Operating Pressure Read', ->
-    beforeEach ->
-      element = '.operating-pressure-read'
-    itShouldBehaveLikeRadioButtons()
+    itShouldBehaveLikeRadioButtons('.operating-pressure-read')
 
   describe 'Operating Pressure Units', ->
-    beforeEach ->
-      element = '#operating-pressure-units'
-    itShouldBehaveLikeDropdownList()
+    itShouldBehaveLikeDropdownList('#operating-pressure-units')
 
   describe 'Basic Specific Gravity', ->
-    beforeEach ->
-      element = '#base-specific-gravity'
-    itShouldBehaveLikeTextInput()
+    itShouldBehaveLikeNumberInput('#base-specific-gravity')
 
   describe 'Operating Temperature', ->
-    beforeEach ->
-      element = '#operating-temperature'
-    itShouldBehaveLikeTextInput()
+    itShouldBehaveLikeNumberInput('#operating-temperature')
 
   describe 'Operating Temperature Units', ->
-    beforeEach ->
-      element = '.operating-temperature-units'
-    itShouldBehaveLikeRadioButtons()
+    itShouldBehaveLikeRadioButtons('.operating-temperature-units')
 
   describe 'Differential Pressure', ->
-    beforeEach ->
-      element = '#differential-pressure'
-    itShouldBehaveLikeTextInput()
+    itShouldBehaveLikeNumberInput('#differential-pressure')
 
   describe 'Orifice Bore Diameter', ->
-    beforeEach ->
-      element = '#orifice-bore-diameter'
-    itShouldBehaveLikeTextInput()
+    itShouldBehaveLikeNumberInput('#orifice-bore-diameter')
 
   describe 'Compressibility Correction', ->
-    beforeEach ->
-      element = '.compressibility-correction'
-    itShouldBehaveLikeRadioButtons()
+    itShouldBehaveLikeRadioButtons('.compressibility-correction')

@@ -17,12 +17,12 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
     @operatingPressureUnits = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits
     @selectedOperatingPressureUnits = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits.psi
 
-    @baseSpecificGravity = ko.observable('0.0').extend {
+    @baseSpecificGravity = ko.observable(0).extend {
       number: { params: true, message: 'Please enter a float' }
       required: { params: true, message: 'Please enter the base specific gravity' }
     }
 
-    @operatingTemperature = ko.observable('0.0').extend {
+    @operatingTemperature = ko.observable(0).extend {
       number: { params: true, message: 'Please enter a float' }
       required: { params: true, message: 'Please enter the operating temperature' }
     }
@@ -35,7 +35,7 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
       digit: { params: true, message: 'Please enter an integer' }
     }
 
-    @orificeBoreDiameter = ko.observable('0.0').extend {
+    @orificeBoreDiameter = ko.observable(0).extend {
       number: { params: true, message: 'Please enter a float' }
       required: { params: true, message: 'Please enter the orifice bore diameter' }
     }
