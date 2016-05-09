@@ -23,12 +23,14 @@ module.exports = (grunt) ->
         src: ['**/*.haml']
         dest: 'build'
         ext: '.html'
-    copy:
-      main:
+      spec:
         expand: true
-        cwd: 'src'
-        src: ['res/*', 'css/*']
+        flatten: false
+        cwd: 'spec'
+        src: ['**/*.haml']
         dest: 'build'
+        ext: '.html'
+    copy:
       spec:
         files:
           'build/js/lib/jasmine-jquery.js': 'node_modules/jasmine-jquery/lib/jasmine-jquery.js'
@@ -41,22 +43,27 @@ module.exports = (grunt) ->
           specs: 'build/js/**/*-spec.js'
           vendor: [
             'build/js/lib/knockout-latest.js'
-            'build/js/lib/knockout-latest.js'
             'build/js/lib/jquery.min.js'
             'build/js/lib/jasmine-jquery.js'
             'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'
           ]
 
+    concurrent:
+      dist:
+        ['watch:coffee', 'watch:haml']
     watch:
       coffee:
         files: ["src/js/**/*.coffee"]
         tasks: ["compile:coffee:dist"]
       haml:
         files: ["src/*.haml"]
-        tasks: ["compile:haml"]
-      static:
-        files: ['src/res/*', 'src/css/*']
-        tasks: ["compile:copy"]
+        tasks: ["compile:haml:dist"]
+      spec_coffee:
+        files: ["spec/js/**/*.coffee"]
+        tasks: ["compile:coffee:spec"]
+      spec_haml:
+        files: ['spec/*.haml']
+        tasks: ["compile:haml:spec"]
 
     connect:
       server:
@@ -71,8 +78,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
+  grunt.loadNpmTasks 'grunt-concurrent'
 
-  grunt.registerTask 'test:setup', ['coffee', 'haml:dist', 'copy:spec']
-  grunt.registerTask 'test', ['coffee', 'haml:dist', 'copy:spec', 'jasmine']
+  grunt.registerTask 'test', ['compile', 'connect:server', 'watch']
   grunt.registerTask 'compile', ['coffee', 'haml', 'copy']
-  grunt.registerTask 'server', ['connect:server', 'watch']
+  grunt.registerTask 'server', ['compile', 'connect:server', 'concurrent:dist']
