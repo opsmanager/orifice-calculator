@@ -37,7 +37,7 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
 
     @orificeBoreDiameter = ko.observable('0.0').extend {
       number: { params: true, message: 'Please enter a float' }
-      required: { params: true, message: "Please enter the orifice bore diameter " }
+      required: { params: true, message: "Please enter the orifice bore diameter" }
     }
 
     @compressibilityCorrection = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection

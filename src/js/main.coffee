@@ -12,14 +12,13 @@ requirejs.config {
       deps: ['orifice-calculator-config']
 }
 
-require ['knockout'], (ko) ->
+require ['knockout', 'knockout.validation', 'orifice-calculator-viewmodel'], (ko, validation) ->
   window.ko = ko
-
-  require ['knockout.validation', 'orifice-calculator-viewmodel'], () ->
-    ko.validation.init()
-    ko.components.register 'orifice-calculator', {
-      viewModel: OPL.KoComponents.ViewModels.OrificeCalculator
-      template: { require: 'text!js/ko-components/templates/orifice-calculator.html' }
-    }
-    ko.validation.registerExtenders()
-    ko.applyBindings()
+  ko.validation = validation
+  ko.validation.init()
+  ko.components.register 'orifice-calculator', {
+    viewModel: OPL.KoComponents.ViewModels.OrificeCalculator
+    template: { require: 'text!js/ko-components/templates/orifice-calculator.html' }
+  }
+  ko.validation.registerExtenders()
+  ko.applyBindings()
