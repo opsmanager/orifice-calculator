@@ -1,5 +1,11 @@
 describe 'orifice-calculator-viewmodel-spec', ->
   viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
+  field = ko.observable()
+
+  itBehavesLikeMandatoryField = () ->
+      it 'has mandatory field validation', ->
+        field('')
+        expect(field.isValid()).toEqual false
 
   describe 'pipeID', ->
     it 'should have initialized the input data', ->
@@ -7,6 +13,11 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
     it 'should have default value of "1.939\'\' XS, Sch 80, Sch 80S"', ->
       expect(viewModel.selectedPipeID()).toEqual '1.939\'\' XS, Sch 80, Sch 80S'
+
+  describe 'operatingPressure', ->
+    beforeEach ->
+      field = viewModel.operatingPressure
+    itBehavesLikeMandatoryField()
 
   describe 'operatingPressureRead', ->
     it 'should have "Gauge" and "Absolute"', ->
