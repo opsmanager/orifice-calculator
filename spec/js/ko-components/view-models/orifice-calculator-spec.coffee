@@ -6,29 +6,29 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
   itBehavesLikeMandatoryField = (field) ->
     it 'has mandatory field validation', ->
-      field('')
+      field ''
       expect(field.isValid()).toEqual false
 
   itBehavesLikeIntegerField = (field) ->
     it 'should only accept integer', ->
-      field(123)
+      field 123
       expect(field.isValid()).toEqual true
 
-      field(123.456)
+      field 123.456
       expect(field.isValid()).toEqual false
 
-      field('123abc')
+      field '123abc'
       expect(field.isValid()).toEqual false
 
   itBehavesLikeFloatField = (field) ->
     it 'should only accept float', ->
-      field(123)
+      field 123
       expect(field.isValid()).toEqual true
 
-      field(123.456)
+      field 123.456
       expect(field.isValid()).toEqual true
 
-      field('123abc')
+      field '123abc'
       expect(field.isValid()).toEqual false
 
   describe 'viewModel', ->
@@ -44,18 +44,37 @@ describe 'orifice-calculator-viewmodel-spec', ->
       expect(viewModel.pipeID().length).toEqual 6
 
     it 'should have default value of "1.939\'\' XS, Sch 80, Sch 80S"', ->
-      expect(viewModel.selectedPipeID()).toEqual '1.939\'\' XS, Sch 80, Sch 80S'
+      expect(viewModel.selectedPipeID()).toEqual OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch
 
   describe 'operatingPressure', ->
     itBehavesLikeMandatoryField viewModel.operatingPressure
     itBehavesLikeIntegerField viewModel.operatingPressure
 
+    describe 'when pressure is high', ->
+
+      it 'should display a operatingPressureWarning message at > 200', ->
+        viewModel.operatingPressure(201)
+        expect(viewModel.operatingPressureWarningMessage()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningMayResult
+
+      it 'should display a operatingPressureWarning message at < 401', ->
+        viewModel.operatingPressure(400)
+        expect(viewModel.operatingPressureWarningMessage()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningMayResult
+
+      it 'should display an operatingPressureError message at > 400', ->
+        viewModel.operatingPressure(401)
+        expect(viewModel.operatingPressureWarningMessage()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningWillResult
+
+    describe 'when pressure is low', ->
+      it 'should not have any messages', ->
+        viewModel.operatingPressure(100)
+        expect(viewModel.operatingPressureWarningMessage()).toEqual undefined
+
   describe 'operatingPressureRead', ->
     it 'should have "Gauge" and "Absolute"', ->
-      expect(viewModel.operatingPressureRead()).toEqual ['Gauge','Absolute']
+      expect(viewModel.operatingPressureRead()).toEqual _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead
 
     it 'should have default value of "Gauge"', ->
-      expect(viewModel.chosenOperatingPressureRead()).toEqual 'Gauge'
+      expect(viewModel.chosenOperatingPressureRead()).toEqual OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead.gauge
 
   describe 'baseSpecificGravity', ->
     itBehavesLikeMandatoryField viewModel.baseSpecificGravity
@@ -73,10 +92,10 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
   describe 'operatingTemperatureUnits', ->
     it 'should have default value of "Fahrenheit"', ->
-      expect(viewModel.selectedOperatingTemperatureUnit()).toEqual 'F'
+      expect(viewModel.selectedOperatingTemperatureUnit()).toEqual OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits.fahrenheit
 
     it 'should have Fahrenheit and Celsius for operating temperature unit', ->
-      expect(viewModel.operatingTemperatureUnit()).toEqual ['F','C']
+      expect(viewModel.operatingTemperatureUnit()).toEqual _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits
 
   describe 'differentialPressure', ->
     itBehavesLikeMandatoryField viewModel.differentialPressure
@@ -94,7 +113,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
   describe 'compressibilityCorrection', ->
     it 'should have a default value of "None"', ->
-      expect(viewModel.chosenCompressibilityCorrection()).toEqual 'None'
+      expect(viewModel.chosenCompressibilityCorrection()).toEqual OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
 
     it 'should have None and Zf for compressibility correction', ->
-      expect(viewModel.compressibilityCorrection()).toEqual [ 'None', 'Zf' ]
+      expect(viewModel.compressibilityCorrection()).toEqual _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection
