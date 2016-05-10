@@ -4,12 +4,12 @@
 @OPL.OrificeCalculator.Config.Dictionaries ||= {}
 
 @OPL.OrificeCalculator.Config.Dictionaries.PipeID = {
-  two_zero_inch: "2.067'' Sch 40, STD, Sch 40S"
-  one_nine_inch: "1.939'' XS, Sch 80, Sch 80S" # Default
-  two_one_inch: "2.157'' Sch 10, Sch 10S"
-  two_two_inch: "2.245'' Sch 5, Sch 5S"
-  one_six_inch: "1.687'' Sch 160"
-  one_half_inch: "1.503'' XXS"
+  twoZeroInch: "2.067'' Sch 40, STD, Sch 40S"
+  oneNineInch: "1.939'' XS, Sch 80, Sch 80S" # Default
+  twoOneInch: "2.157'' Sch 10, Sch 10S"
+  twoTwoInch: "2.245'' Sch 5, Sch 5S"
+  oneSixInch: "1.687'' Sch 160"
+  oneHalfInch: "1.503'' XXS"
 }
 @OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead = { gauge: 'Gauge', absolute: 'Absolute' }
 @OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits = {
@@ -17,10 +17,10 @@
   kgcm: 'kg/cm2'
   kpa: 'kPa'
   bar: 'bar'
-  mm_mercury: 'mm of Mercury'
+  mmMercury: 'mm of Mercury'
   pa: 'Pa'
   mbar: 'mbar'
-  inches_wc: 'inches of W.C'
+  inchesWC: 'inches of W.C'
 }
 
 @OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits = { fahrenheit: 'F', celsius: 'C' }
@@ -31,8 +31,8 @@
   error: 'At this pressure, no compressibility correction will result in erroneous computations'
   float: 'Please enter a float'
   integer: 'Please enter an integer'
-  base_specific_gravity: 'Please enter the base specific gravity'
-  operating_temperature: 'Please enter the operating temperature'
-  differential_pressure: 'Please enter the differential pressure'
-  orifice_bore_diameter: 'Please enter the orifice bore diameter'
+  baseSpecificGravity: 'Please enter the base specific gravity'
+  operatingTemperature: 'Please enter the operating temperature'
+  differentialPressure: 'Please enter the differential pressure'
+  orificeBoreDiameter: 'Please enter the orifice bore diameter'
 }
