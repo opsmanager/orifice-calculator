@@ -26,3 +26,13 @@
 @OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits = { fahrenheit: 'F', celsius: 'C' }
 @OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection = { none: 'None', zf: 'Zf' }
 
+@OPL.OrificeCalculator.Config.Dictionaries.Messages = {
+  warning: 'At this pressure, no compressibility correction may result in erroneous computations'
+  error: 'At this pressure, no compressibility correction will result in erroneous computations'
+  float: 'Please enter a float'
+  integer: 'Please enter an integer'
+  base_specific_gravity: 'Please enter the base specific gravity'
+  operating_temperature: 'Please enter the operating temperature'
+  differential_pressure: 'Please enter the differential pressure'
+  orifice_bore_diameter: 'Please enter the orifice bore diameter'
+}
