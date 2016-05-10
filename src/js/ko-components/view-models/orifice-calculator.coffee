@@ -13,13 +13,13 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
         {
           validator: (val) ->
             !(val > 200 and val < 401)
-          message: OPL.OrificeCalculator.Config.Dictionaries.Messages.warning
+          message: OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarning
           messageClass: 'warning'
         }
         {
           validator: (val) ->
             !(val > 400)
-          message: OPL.OrificeCalculator.Config.Dictionaries.Messages.error
+          message: OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureError
           messageClass: 'error'
         }
       ]

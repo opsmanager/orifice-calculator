@@ -27,8 +27,8 @@
 @OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection = { none: 'None', zf: 'Zf' }
 
 @OPL.OrificeCalculator.Config.Dictionaries.Messages = {
-  warning: 'At this pressure, no compressibility correction may result in erroneous computations'
-  error: 'At this pressure, no compressibility correction will result in erroneous computations'
+  operatingPressureWarning: 'At this pressure, no compressibility correction may result in erroneous computations'
+  operatingPressureError: 'At this pressure, no compressibility correction will result in erroneous computations'
   float: 'Please enter a float'
   integer: 'Please enter an integer'
   baseSpecificGravity: 'Please enter the base specific gravity'
