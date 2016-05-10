@@ -7,7 +7,7 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
     @pipeID = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.PipeID
     @selectedPipeID = ko.observable OPL.OrificeCalculator.Config.Dictionaries.PipeID.one_nine_inch
     @operatingPressure = ko.observable(0).extend {
-      required: { params: true, message: "Please enter the operating pressure" }
+      required: { params: true, message: 'Please enter the operating pressure' }
       digit: { params: true, message: 'Please enter an integer' }
       validation: [
         {
