@@ -62,3 +62,22 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
 
     @compressibilityCorrection = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection
     @chosenCompressibilityCorrection  = ko.observable OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
+    @compressibilityCorrectionValue = ko.observable()
+    @betaRatio = ko.computed =>
+      @orificeBoreDiameter() / @selectedPipeID().value
+
+    @velocityOfApproach = ko.computed =>
+      1 / Math.sqrt 1 - @betaRatio() ** 4
+
+    @flowRate = ko.computed =>
+        coeffDischarge = 0.6
+        expansionFactor = 1
+        baseTemperature = 519.67 # Tb in Rankine, assumed 60F
+        # TODO: make observable return integer instead of string by default?
+        operatingTemperatureInRankine = @operatingTemperature() + 459.67
+        basePressure = 14.73 # Pb in psia
+        compressibility = 1 # Zb
+
+        flowRate = 218.527 * coeffDischarge * expansionFactor * @velocityOfApproach() * Math.pow(@orificeBoreDiameter(), 2) * (baseTemperature/basePressure) \
+                   * Math.pow( (@operatingPressure() * compressibility * @differentialPressure()) \
+                   / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine), 0.5) / 60 # hour

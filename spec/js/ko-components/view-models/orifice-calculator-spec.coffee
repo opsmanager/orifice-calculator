@@ -53,20 +53,20 @@ describe 'orifice-calculator-viewmodel-spec', ->
     describe 'when pressure is high', ->
 
       it 'should display a operatingPressureWarning message at > 200', ->
-        viewModel.operatingPressure(201)
+        viewModel.operatingPressure 201
         expect(viewModel.operatingPressureWarningMessage()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningMayResult
 
       it 'should display a operatingPressureWarning message at < 401', ->
-        viewModel.operatingPressure(400)
+        viewModel.operatingPressure 400
         expect(viewModel.operatingPressureWarningMessage()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningMayResult
 
       it 'should display an operatingPressureError message at > 400', ->
-        viewModel.operatingPressure(401)
+        viewModel.operatingPressure 401
         expect(viewModel.operatingPressureWarningMessage()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningWillResult
 
     describe 'when pressure is low', ->
       it 'should not have any messages', ->
-        viewModel.operatingPressure(100)
+        viewModel.operatingPressure 100
         expect(viewModel.operatingPressureWarningMessage()).toEqual undefined
 
   describe 'operatingPressureRead', ->
@@ -117,3 +117,40 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
     it 'should have None and Zf for compressibility correction', ->
       expect(viewModel.compressibilityCorrection()).toEqual _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection
+
+  describe 'betaRatio', ->
+    it 'should return beta ratio', ->
+      viewModel.selectedPipeID({ name: 'sample pipe', value: 8 })
+      viewModel.orificeBoreDiameter(2)
+      expect(viewModel.betaRatio()).toEqual 0.25
+
+  describe 'velocityOfApproach', ->
+    it 'should return velocity of approach', ->
+      viewModel.selectedPipeID OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch
+      viewModel.orificeBoreDiameter 0.97
+      expect(viewModel.velocityOfApproach()).toEqual 1.04
+      viewModel.orificeBoreDiameter 0.776
+      expect(viewModel.velocityOfApproach()).toEqual 1.02
+
+   describe 'flowRate', ->
+      it 'should return "0" as the default value', ->
+        expect(viewModel.flowRate()).toEqual 0
+
+      it 'should return the flow rate', ->
+        viewModel.orificeBoreDiameter 0.97
+        viewModel.selectedPipeID 1.939
+        viewModel.operatingPressure 900
+        viewModel.compressibilityCorrectionValue 1
+        viewModel.differentialPressure 30
+        viewModel.baseSpecificGravity 1
+        viewModel.operatingTemperature 60
+        expect(viewModel.flowRate()).toEqual 543.783
+
+        viewModel.orificeBoreDiameter 0.776
+        viewModel.selectedPipeID 1.939
+        viewModel.operatingPressure 900
+        viewModel.compressibilityCorrectionValue 1
+        viewModel.differentialPressure 30
+        viewModel.baseSpecificGravity 1
+        viewModel.operatingTemperature 60
+        expect(viewModel.flowRate()).toEqual 341.328
