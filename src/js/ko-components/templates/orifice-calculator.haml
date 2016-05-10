@@ -6,7 +6,7 @@
     %li{ "data-bind" => "validationOptions: { insertMessages: false }" }
       %label Operating Pressure
       %input#operating-pressure{ :type => "number", "data-bind" => "value: operatingPressure" }
-      %span{ "data-bind" => "visible: operatingPressure().length == 0 || isNaN(operatingPressure())" }
+      %span{ "data-bind" => "visible: !operatingPressure()" }
         %span{ "data-bind" => "validationMessage: operatingPressure" }
     %li
       %label Operating Pressure Read
