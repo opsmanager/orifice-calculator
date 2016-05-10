@@ -18,7 +18,8 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
         when 401 <= @operatingPressure() then OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningWillResult
 
     @pipeID = ko.observableArray _.map OPL.OrificeCalculator.Config.Dictionaries.PipeID, (pipeName, pipeDiameter) ->
-      { name: pipeName, value: pipeDiameter }
+      name: pipeName
+      value: pipeDiameter
 
     @selectedPipeID = ko.observable 1.939
 
