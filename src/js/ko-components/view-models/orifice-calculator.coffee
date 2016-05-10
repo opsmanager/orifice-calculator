@@ -4,8 +4,6 @@
 
 class OPL.KoComponents.ViewModels.OrificeCalculator
   constructor: () ->
-    @pipeID = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.PipeID
-    @selectedPipeID = ko.observable OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch
     @operatingPressure = ko.observable(0).extend
       required:
         params: true
@@ -18,6 +16,11 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
       switch
         when 200 < @operatingPressure() <= 400 then OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningMayResult
         when 401 <= @operatingPressure() then OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningWillResult
+
+    @pipeID = ko.observableArray _.map OPL.OrificeCalculator.Config.Dictionaries.PipeID, (pipeName, pipeDiameter) ->
+      { name: pipeName, value: pipeDiameter }
+
+    @selectedPipeID = ko.observable 1.939
 
     @operatingPressureRead = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead
     @chosenOperatingPressureRead = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead.gauge
@@ -62,9 +65,9 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
 
     @compressibilityCorrection = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection
     @chosenCompressibilityCorrection  = ko.observable OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
-    @compressibilityCorrectionValue = ko.observable()
+    @compressibilityCorrectionValue = ko.observable(1)
     @betaRatio = ko.computed =>
-      @orificeBoreDiameter() / @selectedPipeID().value
+      @orificeBoreDiameter() / @selectedPipeID()
 
     @velocityOfApproach = ko.computed =>
       Math.ceil((1 / Math.sqrt 1 - @betaRatio() ** 4) * 10 ** 2) / 10 ** 2
@@ -74,7 +77,7 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
       expansionFactor = 1
       baseTemperature = 519.67 # Tb in Rankine, assumed 60F
       # TODO: make observable return integer instead of string by default?
-      operatingTemperatureInRankine = @operatingTemperature() + 459.67
+      operatingTemperatureInRankine = Number(@operatingTemperature()) + 459.67
       basePressure = 14.73 # Pb in psia
       compressibility = 1 # Zb
       flowRate = 218.527 * coeffDischarge * expansionFactor * @velocityOfApproach() * @orificeBoreDiameter() ** 2 * baseTemperature/basePressure \

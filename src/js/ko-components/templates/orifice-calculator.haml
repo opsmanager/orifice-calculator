@@ -40,6 +40,7 @@
           %input.compressibility-correction{ :type => "radio", "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
           %label{ "data-bind" => "text: $data" }
       %span{ "data-bind" => "visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage" }
+      %input#compressibilityCorrectionValue{ :type => "number", "data-bind" => "visible: chosenCompressibilityCorrection() == OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.zf, value: compressibilityCorrectionValue" }
     %li
       %label Flow Rate
       %span#flowRate{ "data-bind" => "text: flowRate" }

@@ -44,7 +44,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
       expect(viewModel.pipeID().length).toEqual 6
 
     it 'should have default value of "1.939\'\' XS, Sch 80, Sch 80S"', ->
-      expect(viewModel.selectedPipeID()).toEqual OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch
+      expect(viewModel.selectedPipeID()).toEqual 1.939
 
   describe 'operatingPressure', ->
     itBehavesLikeMandatoryField viewModel.operatingPressure
@@ -120,16 +120,17 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
   describe 'betaRatio', ->
     it 'should return beta ratio', ->
-      viewModel.selectedPipeID({ name: 'sample pipe', value: 8 })
-      viewModel.orificeBoreDiameter(2)
+      viewModel.selectedPipeID 8
+      viewModel.orificeBoreDiameter 2
       expect(viewModel.betaRatio()).toEqual 0.25
 
   describe 'velocityOfApproach', ->
     it 'should return velocity of approach', ->
-      viewModel.selectedPipeID OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch
       viewModel.orificeBoreDiameter 0.97
+      viewModel.selectedPipeID 1.939
       expect(viewModel.velocityOfApproach()).toEqual 1.04
       viewModel.orificeBoreDiameter 0.776
+      viewModel.selectedPipeID 1.939
       expect(viewModel.velocityOfApproach()).toEqual 1.02
 
   describe 'flowRate', ->
