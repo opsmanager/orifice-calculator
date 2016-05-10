@@ -132,25 +132,22 @@ describe 'orifice-calculator-viewmodel-spec', ->
       viewModel.orificeBoreDiameter 0.776
       expect(viewModel.velocityOfApproach()).toEqual 1.02
 
-   describe 'flowRate', ->
-      xit 'should return "0" as the default value', ->
-        expect(viewModel.flowRate()).toEqual 0
+  describe 'flowRate', ->
+    it 'should return the flow rate', ->
+      viewModel.orificeBoreDiameter 0.97
+      viewModel.selectedPipeID 1.939
+      viewModel.operatingPressure 900
+      viewModel.compressibilityCorrectionValue 1
+      viewModel.differentialPressure 30
+      viewModel.baseSpecificGravity 1
+      viewModel.operatingTemperature 60
+      expect(viewModel.flowRate()).toEqual 543.783
 
-      it 'should return the flow rate', ->
-        viewModel.orificeBoreDiameter 0.97
-        viewModel.selectedPipeID 1.939
-        viewModel.operatingPressure 900
-        viewModel.compressibilityCorrectionValue 1
-        viewModel.differentialPressure 30
-        viewModel.baseSpecificGravity 1
-        viewModel.operatingTemperature 60
-        expect(viewModel.flowRate()).toEqual 543.783
-
-        viewModel.orificeBoreDiameter 0.776
-        viewModel.selectedPipeID 1.939
-        viewModel.operatingPressure 900
-        viewModel.compressibilityCorrectionValue 1
-        viewModel.differentialPressure 30
-        viewModel.baseSpecificGravity 1
-        viewModel.operatingTemperature 60
-        expect(viewModel.flowRate()).toEqual 341.328
+      viewModel.orificeBoreDiameter 0.776
+      viewModel.selectedPipeID 1.939
+      viewModel.operatingPressure 900
+      viewModel.compressibilityCorrectionValue 1
+      viewModel.differentialPressure 30
+      viewModel.baseSpecificGravity 1
+      viewModel.operatingTemperature 60
+      expect(viewModel.flowRate()).toEqual 341.328

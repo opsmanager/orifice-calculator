@@ -67,16 +67,17 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
       @orificeBoreDiameter() / @selectedPipeID().value
 
     @velocityOfApproach = ko.computed =>
-      1 / Math.sqrt 1 - @betaRatio() ** 4
+      Math.ceil((1 / Math.sqrt 1 - @betaRatio() ** 4) * 10 ** 2) / 10 ** 2
 
     @flowRate = ko.computed =>
-        coeffDischarge = 0.6
-        expansionFactor = 1
-        baseTemperature = 519.67 # Tb in Rankine, assumed 60F
-        # TODO: make observable return integer instead of string by default?
-        operatingTemperatureInRankine = @operatingTemperature() + 459.67
-        basePressure = 14.73 # Pb in psia
-        compressibility = 1 # Zb
-        flowRate = 218.527 * coeffDischarge * expansionFactor * @velocityOfApproach() * Math.pow(@orificeBoreDiameter(), 2) * (baseTemperature/basePressure) \
-                   * Math.pow( (@operatingPressure() * compressibility * @differentialPressure()) \
-                   / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine), 0.5) / 60
+      coeffDischarge = 0.6
+      expansionFactor = 1
+      baseTemperature = 519.67 # Tb in Rankine, assumed 60F
+      # TODO: make observable return integer instead of string by default?
+      operatingTemperatureInRankine = @operatingTemperature() + 459.67
+      basePressure = 14.73 # Pb in psia
+      compressibility = 1 # Zb
+      flowRate = 218.527 * coeffDischarge * expansionFactor * @velocityOfApproach() * @orificeBoreDiameter() ** 2 * baseTemperature/basePressure \
+                 * ((@operatingPressure() * compressibility * @differentialPressure()) \
+                 / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5 / 60
+      Math.ceil(flowRate * 10 ** 3) / 10 ** 3
