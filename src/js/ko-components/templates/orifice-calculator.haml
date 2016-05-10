@@ -43,4 +43,4 @@
       %input#compressibilityCorrectionValue{ :type => "number", "data-bind" => "visible: displayCompressibilityCorrection, value: compressibilityCorrectionValue" }
     %li
       %label Flow Rate
-      %span#flowRate{ "data-bind" => "text: flowRate" }
+      %span#flowRate{ 'data-bind' => 'copyToClipboard, text: flowRate' }

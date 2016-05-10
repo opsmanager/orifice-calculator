@@ -25,11 +25,16 @@ requirejs.config {
       deps: ['knockout']
     'orifice-calculator-viewmodel':
       deps: ['knockout.validation', 'orifice-calculator-config']
+    'ko-bindings':
+      deps: ['knockout']
+    #TODO: Define jasmine requirement within spec module
     'orifice-calculator-viewmodel-spec':
       deps: ['orifice-calculator-viewmodel']
     'orifice-calculator-view-spec':
       deps: ['jasmine-jquery']
+    'ko-bindings-spec':
+      deps: ['ko-bindings']
 }
 
-require ['orifice-calculator-viewmodel-spec', 'orifice-calculator-view-spec'], () ->
+require ['orifice-calculator-viewmodel-spec', 'orifice-calculator-view-spec', 'ko-bindings-spec'], () ->
   window.onload()

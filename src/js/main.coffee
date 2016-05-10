@@ -1,6 +1,7 @@
 requirejs.config {
   baseUrl: '/js/'
   paths:
+    'jquery': 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min'
     'lodash': 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.12.0/lodash.min'
     'knockout': 'https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min'
     'knockout.validation': 'https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min'
@@ -12,9 +13,14 @@ requirejs.config {
       deps: ['knockout']
     'orifice-calculator-viewmodel':
       deps: ['knockout.validation', 'orifice-calculator-config']
+    'orifice-calculator-bindings':
+      deps: ['knockout']
+    'ko-bindings':
+      deps: ['knockout']
+
 }
 
-require ['knockout', 'knockout.validation'], (ko) ->
+require ['knockout', 'knockout.validation', 'ko-bindings'], (ko) ->
   ko.validation.init()
   ko.components.register 'orifice-calculator', {
     viewModel:
