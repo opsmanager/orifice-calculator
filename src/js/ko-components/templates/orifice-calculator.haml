@@ -40,3 +40,6 @@
           %input.compressibility-correction{ :type => "radio", "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
           %label{ "data-bind" => "text: $data" }
       %span{ "data-bind" => "visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage" }
+    %li
+      %label Flow Rate
+      %span#flowRate{ "data-bind" => "text: flowRate" }
