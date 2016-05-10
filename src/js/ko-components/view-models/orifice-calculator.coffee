@@ -15,11 +15,9 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
         message: OPL.OrificeCalculator.Config.Dictionaries.Messages.integerError
 
     @operatingPressureWarningMessage = ko.pureComputed =>
-      switch true
-        when @operatingPressure() > 200 and @operatingPressure() < 401
-          OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningMayResult
-        when @operatingPressure() > 400
-          OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningWillResult
+      switch
+        when @operatingPressure() > 200 and @operatingPressure() < 401 then OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningMayResult
+        when @operatingPressure() > 400 then OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningWillResult
 
     @operatingPressureRead = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead
     @chosenOperatingPressureRead = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead.gauge
