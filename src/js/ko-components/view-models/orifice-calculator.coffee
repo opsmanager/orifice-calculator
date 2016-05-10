@@ -77,7 +77,6 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
         operatingTemperatureInRankine = @operatingTemperature() + 459.67
         basePressure = 14.73 # Pb in psia
         compressibility = 1 # Zb
-
         flowRate = 218.527 * coeffDischarge * expansionFactor * @velocityOfApproach() * Math.pow(@orificeBoreDiameter(), 2) * (baseTemperature/basePressure) \
                    * Math.pow( (@operatingPressure() * compressibility * @differentialPressure()) \
-                   / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine), 0.5) / 60 # hour
+                   / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine), 0.5) / 60
