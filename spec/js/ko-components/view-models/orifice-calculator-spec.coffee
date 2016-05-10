@@ -54,7 +54,6 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
       it 'should display a operatingPressureWarning message at > 200', ->
         viewModel.operatingPressure(201)
-        viewModel.operatingPressure.valueHasMutated()
         expect(viewModel.operatingPressureWarningMessage()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningMayResult
 
       it 'should display a operatingPressureWarning message at < 401', ->
@@ -68,7 +67,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
     describe 'when pressure is low', ->
       it 'should not have any messages', ->
         viewModel.operatingPressure(100)
-        expect(viewModel.operatingPressure.isValid()).toEqual true
+        expect(viewModel.operatingPressureWarningMessage()).toEqual undefined
 
   describe 'operatingPressureRead', ->
     it 'should have "Gauge" and "Absolute"', ->
