@@ -51,23 +51,19 @@ describe 'orifice-calculator-viewmodel-spec', ->
     itBehavesLikeIntegerField viewModel.operatingPressure
 
     describe 'when pressure is high', ->
-      it 'should be invalid at > 200', ->
-        viewModel.operatingPressure(300)
-        expect(viewModel.operatingPressure.isValid()).toEqual false
-        viewModel.operatingPressure(1000)
-        expect(viewModel.operatingPressure.isValid()).toEqual false
 
       it 'should display a operatingPressureWarning message at > 200', ->
         viewModel.operatingPressure(201)
-        expect(viewModel.operatingPressure.error()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarning
+        viewModel.operatingPressure.valueHasMutated()
+        expect(viewModel.operatingPressureWarningMessage()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningMayResult
 
       it 'should display a operatingPressureWarning message at < 401', ->
         viewModel.operatingPressure(400)
-        expect(viewModel.operatingPressure.error()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarning
+        expect(viewModel.operatingPressureWarningMessage()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningMayResult
 
       it 'should display an operatingPressureError message at > 400', ->
         viewModel.operatingPressure(401)
-        expect(viewModel.operatingPressure.error()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureError
+        expect(viewModel.operatingPressureWarningMessage()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningWillResult
 
     describe 'when pressure is low', ->
       it 'should not have any messages', ->

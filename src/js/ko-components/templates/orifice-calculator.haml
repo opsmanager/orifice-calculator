@@ -3,11 +3,9 @@
     %li
       %label Pipe ID
       %select#pipe-id{ "data-bind" => "options: pipeID, value: selectedPipeID" }
-    %li{ "data-bind" => "validationOptions: { insertMessages: false }" }
+    %li
       %label Operating Pressure
       %input#operating-pressure{ :type => "number", "data-bind" => "value: operatingPressure" }
-      %span{ "data-bind" => "visible: !operatingPressure()" }
-        %span{ "data-bind" => "validationMessage: operatingPressure" }
     %li
       %label Operating Pressure Read
       %div{ "data-bind" => "foreach: operatingPressureRead" }
@@ -41,5 +39,4 @@
         %div
           %input.compressibility-correction{ :type => "radio", "data-bind" => "checkedValue: $data, checked: $component.chosenCompressibilityCorrection"  }
           %label{ "data-bind" => "text: $data" }
-      %span{ "data-bind" => "visible: operatingPressure() > 200" }
-        %span{ "data-bind" => "validationMessage: operatingPressure" }
+      %span{ "data-bind" => "visible: operatingPressure() > 200, text: operatingPressureWarningMessage" }
