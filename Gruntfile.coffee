@@ -62,7 +62,7 @@ module.exports = (grunt) ->
         files: ["spec/js/**/*.coffee"]
         tasks: ["compile:coffee:spec"]
       spec_haml:
-        files: ['spec/*.haml']
+        files: ['spec/**/*.haml']
         tasks: ["compile:haml:spec"]
 
     connect:

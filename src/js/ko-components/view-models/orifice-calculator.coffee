@@ -1,4 +1,4 @@
-define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
+define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validation', 'orifice-calculator-config'], (ko, _) ->
   @OPL ||= {}
   @OPL.KoComponents ||= {}
   @OPL.KoComponents.ViewModels ||= {}
@@ -10,6 +10,8 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
 
     # NOTE: The base temperature is in degree rankine
     BASE_TEMPERATURE         = 519.67
+
+    # NOTE: The base pressure is in psia
     BASE_PRESSURE            = 14.73
     BASE_COMPRESSIBILITY     = 1
 
@@ -22,6 +24,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
       @selectedPipeDiameter = ko.observable OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value
 
       @operatingPressure = ko.observable().extend
+        toNumber: true
         required:
           params: true
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureError
@@ -35,12 +38,13 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
           when 401 <= @operatingPressure() then OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarningWillResult
 
       @operatingPressureRead = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead
-      @chosenOperatingPressureRead = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead.gauge
+      @selectedOperatingPressureRead = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead.gauge
 
       @operatingPressureUnits = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits
       @selectedOperatingPressureUnits = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits.psi
 
       @baseSpecificGravity = ko.observable().extend
+        toNumber: true
         number:
           params: true
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.floatError
@@ -49,6 +53,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.baseSpecificGravityError
 
       @operatingTemperature = ko.observable().extend
+        toNumber: true
         number:
           params: true
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.floatError
@@ -60,6 +65,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
       @selectedOperatingTemperatureUnit = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits.fahrenheit
 
       @differentialPressure = ko.observable().extend
+        toNumber: true
         required:
           params: true
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.differentialPressureError
@@ -68,6 +74,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.integerError
 
       @orificeBoreDiameter = ko.observable().extend
+        toNumber: true
         number:
           params: true
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.floatError
@@ -76,9 +83,9 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.orificeBoreDiameterError
 
       @compressibilityCorrection = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection
-      @chosenCompressibilityCorrection  = ko.observable OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
+      @selectedCompressibilityCorrection  = ko.observable OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
       @displayCompressibilityCorrection = ko.computed =>
-        @chosenCompressibilityCorrection() != OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
+        @selectedCompressibilityCorrection() != OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
       @compressibilityCorrectionValue = ko.observable(1)
 
       @betaRatio = ko.computed =>
@@ -88,9 +95,11 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
 
       @flowRate = ko.computed =>
-        operatingTemperatureInRankine = +@operatingTemperature() + ABSOLUTE_ZERO
+        operatingTemperatureInRankine = @operatingTemperature() + ABSOLUTE_ZERO
 
-        flowRate = UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR * @velocityOfApproach() * @orificeBoreDiameter() ** 2 * BASE_TEMPERATURE/BASE_PRESSURE \
-                   * ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) \
-                   / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5 / 60
+        flowRate = UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR *
+          @velocityOfApproach() * @orificeBoreDiameter() ** 2 * BASE_TEMPERATURE / BASE_PRESSURE *
+          ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) /
+          (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5 / 60
+
         _.ceil flowRate, 3

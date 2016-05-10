@@ -10,12 +10,12 @@
     "grunt-contrib-connect": "*",
     "grunt-contrib-copy": "*",
     "grunt-contrib-watch": "*",
-    "grunt-haml2html": "*",
-    "jasmine-jquery": "^2.1.1"
+    "grunt-haml2html": "*"
   },
   "devDependencies": {
     "grunt-concurrent": "^2.3.0",
     "grunt-contrib-jasmine": "^1.0.3",
+    "jasmine-jquery": "^2.1.1",
     "jquery": "^2.2.3",
     "knockout": "^3.4.0"
   },
