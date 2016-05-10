@@ -50,6 +50,20 @@ describe 'orifice-calculator-viewmodel-spec', ->
     itBehavesLikeMandatoryField viewModel.operatingPressure
     itBehavesLikeIntegerField viewModel.operatingPressure
 
+    describe 'when pressure is high', ->
+      it 'should display a warning message', ->
+        viewModel.operatingPressure(300)
+        expect(viewModel.operatingPressure.isValid()).toEqual false
+
+      it 'should display an error message', ->
+        viewModel.operatingPressure(1000)
+        expect(viewModel.operatingPressure.isValid()).toEqual false
+
+    describe 'when pressure is low', ->
+      it 'should not have any messages', ->
+        viewModel.operatingPressure(100)
+        expect(viewModel.operatingPressure.isValid()).toEqual true
+
   describe 'operatingPressureRead', ->
     it 'should have "Gauge" and "Absolute"', ->
       expect(viewModel.operatingPressureRead()).toEqual ['Gauge','Absolute']
