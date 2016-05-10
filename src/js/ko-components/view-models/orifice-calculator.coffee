@@ -12,13 +12,13 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
       validation: [
         {
           validator: (val) ->
-            val <= 200 or val >= 400
+            !(val > 200 and val < 401)
           message: 'At this pressure, no compressibility correction may result in erroneous computations'
           messageClass: 'warning'
         }
         {
           validator: (val) ->
-            val < 400
+            !(val > 400)
           message: 'At this pressure, no compressibility correction will result in erroneous computations'
           messageClass: 'error'
         }

@@ -51,13 +51,23 @@ describe 'orifice-calculator-viewmodel-spec', ->
     itBehavesLikeIntegerField viewModel.operatingPressure
 
     describe 'when pressure is high', ->
-      it 'should display a warning message', ->
+      it 'should be invalid at > 200', ->
         viewModel.operatingPressure(300)
         expect(viewModel.operatingPressure.isValid()).toEqual false
-
-      it 'should display an error message', ->
         viewModel.operatingPressure(1000)
         expect(viewModel.operatingPressure.isValid()).toEqual false
+
+      it 'should display a warning message at > 200', ->
+        viewModel.operatingPressure(201)
+        expect(viewModel.operatingPressure.error()).toEqual 'At this pressure, no compressibility correction may result in erroneous computations'
+
+      it 'should display a warning message at < 401', ->
+        viewModel.operatingPressure(400)
+        expect(viewModel.operatingPressure.error()).toEqual 'At this pressure, no compressibility correction may result in erroneous computations'
+
+      it 'should display an error message at > 400', ->
+        viewModel.operatingPressure(401)
+        expect(viewModel.operatingPressure.error()).toEqual 'At this pressure, no compressibility correction will result in erroneous computations'
 
     describe 'when pressure is low', ->
       it 'should not have any messages', ->
