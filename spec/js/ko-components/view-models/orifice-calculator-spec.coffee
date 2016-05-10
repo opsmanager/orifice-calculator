@@ -6,29 +6,29 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
   itBehavesLikeMandatoryField = (field) ->
     it 'has mandatory field validation', ->
-      field('')
+      field ''
       expect(field.isValid()).toEqual false
 
   itBehavesLikeIntegerField = (field) ->
     it 'should only accept integer', ->
-      field(123)
+      field 123
       expect(field.isValid()).toEqual true
 
-      field(123.456)
+      field 123.456
       expect(field.isValid()).toEqual false
 
-      field('123abc')
+      field '123abc'
       expect(field.isValid()).toEqual false
 
   itBehavesLikeFloatField = (field) ->
     it 'should only accept float', ->
-      field(123)
+      field 123
       expect(field.isValid()).toEqual true
 
-      field(123.456)
+      field 123.456
       expect(field.isValid()).toEqual true
 
-      field('123abc')
+      field '123abc'
       expect(field.isValid()).toEqual false
 
   describe 'viewModel', ->
