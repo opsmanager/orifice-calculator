@@ -59,15 +59,15 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
       it 'should display a operatingPressureWarning message at > 200', ->
         viewModel.operatingPressure(201)
-        expect(viewModel.operatingPressure.operatingPressureError()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarning
+        expect(viewModel.operatingPressure.error()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarning
 
       it 'should display a operatingPressureWarning message at < 401', ->
         viewModel.operatingPressure(400)
-        expect(viewModel.operatingPressure.operatingPressureError()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarning
+        expect(viewModel.operatingPressure.error()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureWarning
 
       it 'should display an operatingPressureError message at > 400', ->
         viewModel.operatingPressure(401)
-        expect(viewModel.operatingPressure.operatingPressureError()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.error
+        expect(viewModel.operatingPressure.error()).toEqual OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureError
 
     describe 'when pressure is low', ->
       it 'should not have any messages', ->

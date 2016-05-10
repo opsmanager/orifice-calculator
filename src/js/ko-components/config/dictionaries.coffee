@@ -29,10 +29,10 @@
 @OPL.OrificeCalculator.Config.Dictionaries.Messages = {
   operatingPressureWarning: 'At this pressure, no compressibility correction may result in erroneous computations'
   operatingPressureError: 'At this pressure, no compressibility correction will result in erroneous computations'
-  float: 'Please enter a float'
-  integer: 'Please enter an integer'
-  baseSpecificGravity: 'Please enter the base specific gravity'
-  operatingTemperature: 'Please enter the operating temperature'
-  differentialPressure: 'Please enter the differential pressure'
-  orificeBoreDiameter: 'Please enter the orifice bore diameter'
+  floatError: 'Please enter a float'
+  integerError: 'Please enter an integer'
+  baseSpecificGravityError: 'Please enter the base specific gravity'
+  operatingTemperatureError: 'Please enter the operating temperature'
+  differentialPressureError: 'Please enter the differential pressure'
+  orificeBoreDiameterError: 'Please enter the orifice bore diameter'
 }
