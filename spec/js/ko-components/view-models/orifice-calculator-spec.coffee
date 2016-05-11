@@ -136,6 +136,7 @@ define 'orifice-calculator-viewmodel-spec', ['knockout', 'jquery', 'jasmine-boot
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
+        viewModel.selectedFlowRateUnit OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.minute
         expect(viewModel.flowRate()).toEqual 543.783
 
         viewModel.orificeBoreDiameter 0.776
@@ -145,4 +146,31 @@ define 'orifice-calculator-viewmodel-spec', ['knockout', 'jquery', 'jasmine-boot
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
+        viewModel.selectedFlowRateUnit OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.minute
         expect(viewModel.flowRate()).toEqual 341.328
+
+    describe 'selectedFlowRateUnit', ->
+      beforeEach ->
+        viewModel.orificeBoreDiameter 0.97
+        viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value
+        viewModel.operatingPressure 900
+        viewModel.compressibilityCorrectionValue 1
+        viewModel.differentialPressure 30
+        viewModel.baseSpecificGravity 1
+        viewModel.operatingTemperature 60
+
+      it 'when minute is chosen', ->
+        viewModel.selectedFlowRateUnit 'Minute'
+        expect(viewModel.flowRate()).toEqual 543.783
+
+      it 'when hour is chosen', ->
+        viewModel.selectedFlowRateUnit 'Hour'
+        expect(viewModel.flowRate()).toEqual 32626.924
+
+      it 'when day is chosen', ->
+        viewModel.selectedFlowRateUnit 'Day'
+        expect(viewModel.flowRate()).toEqual 783046.156
+
+      it 'when second is chosen', ->
+        viewModel.selectedFlowRateUnit 'Second'
+        expect(viewModel.flowRate()).toEqual 9.064

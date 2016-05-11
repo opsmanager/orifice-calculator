@@ -44,3 +44,5 @@
     %li
       %label Flow Rate
       %span#flow-rate{ 'data-bind' => 'copyToClipboard, text: flowRate' }
+    %li
+      %select#flow-rate-unit{ 'data-bind' => 'options: flowRateUnit, value: selectedFlowRateUnit' }

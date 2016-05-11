@@ -94,12 +94,19 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
       @velocityOfApproach = ko.computed =>
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
 
+      @flowRateUnit = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits
+      @selectedFlowRateUnit = ko.observable OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.hour
       @flowRate = ko.computed =>
         operatingTemperatureInRankine = @operatingTemperature() + ABSOLUTE_ZERO
 
         flowRate = UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR *
           @velocityOfApproach() * @orificeBoreDiameter() ** 2 * BASE_TEMPERATURE / BASE_PRESSURE *
           ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) /
-          (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5 / 60
+          (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5
+
+        switch @selectedFlowRateUnit()
+          when OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.day then flowRate = flowRate * 24
+          when OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.minute then flowRate = flowRate / 60
+          when OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.second then flowRate = flowRate / 3600
 
         _.ceil flowRate, 3
