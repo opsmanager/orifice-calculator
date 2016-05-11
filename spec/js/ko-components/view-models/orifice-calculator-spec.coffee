@@ -41,7 +41,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
       expect(viewModel.availablePipes().length).toEqual 6
 
     it 'should have default value of "1.939\'\' XS, Sch 80, Sch 80S"', ->
-      expect(viewModel.selectedPipeDiameter()).toEqual OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
+      expect(viewModel.selectedPipeDiameter()).toEqual OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value
 
   describe 'operatingPressure', ->
     itBehavesLikeMandatoryField viewModel.operatingPressure
@@ -116,23 +116,23 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
   describe 'betaRatio', ->
     it 'should return beta ratio', ->
-      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.PipeId.twoZeroInch.value
+      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.twoZeroInch.value
       viewModel.orificeBoreDiameter 0.97
       expect(viewModel.betaRatio()).toEqual 0.47
 
   describe 'velocityOfApproach', ->
     it 'should return velocity of approach', ->
       viewModel.orificeBoreDiameter 0.97
-      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
+      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value
       expect(viewModel.velocityOfApproach()).toEqual 1.04
       viewModel.orificeBoreDiameter 0.776
-      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
+      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value
       expect(viewModel.velocityOfApproach()).toEqual 1.02
 
   describe 'flowRate', ->
     it 'should return the flow rate', ->
       viewModel.orificeBoreDiameter 0.97
-      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
+      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value
       viewModel.operatingPressure 900
       viewModel.compressibilityCorrectionValue 1
       viewModel.differentialPressure 30
@@ -141,7 +141,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
       expect(viewModel.flowRate()).toEqual 543.783
 
       viewModel.orificeBoreDiameter 0.776
-      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
+      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value
       viewModel.operatingPressure 900
       viewModel.compressibilityCorrectionValue 1
       viewModel.differentialPressure 30

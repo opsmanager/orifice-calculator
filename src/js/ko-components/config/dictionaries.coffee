@@ -3,7 +3,7 @@
 @OPL.OrificeCalculator.Config ||= {}
 @OPL.OrificeCalculator.Config.Dictionaries ||= {}
 
-@OPL.OrificeCalculator.Config.Dictionaries.PipeId =
+@OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes =
   twoZeroInch:
     name: "2.067'' Sch 40, STD, Sch 40S"
     value: 2.067

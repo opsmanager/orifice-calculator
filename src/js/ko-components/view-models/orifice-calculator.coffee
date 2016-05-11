@@ -17,8 +17,8 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
   ABSOLUTE_ZERO            = 459.67
 
   constructor: () ->
-    @availablePipes = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.PipeId
-    @selectedPipeDiameter = ko.observable OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
+    @availablePipes = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes
+    @selectedPipeDiameter = ko.observable OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value
 
     @operatingPressure = ko.observable().extend
       required:
