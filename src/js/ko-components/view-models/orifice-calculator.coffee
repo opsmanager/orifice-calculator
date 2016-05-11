@@ -3,6 +3,7 @@
 @OPL.KoComponents.ViewModels ||= {}
 
 class OPL.KoComponents.ViewModels.OrificeCalculator
+  UNIT_CONVERSION_FACTOR = 218.527
   COEFFICIENT_OF_DISCHARGE = 0.6
   EXPANSION_FACTOR         = 1
 
@@ -101,7 +102,7 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
     @flowRate = ko.computed =>
       operatingTemperatureInRankine = +@operatingTemperature() + ABSOLUTE_ZERO
 
-      flowRate = 218.527 * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR * @velocityOfApproach() * @orificeBoreDiameter() ** 2 * BASE_TEMPERATURE/BASE_PRESSURE \
+      flowRate = UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR * @velocityOfApproach() * @orificeBoreDiameter() ** 2 * BASE_TEMPERATURE/BASE_PRESSURE \
                  * ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) \
                  / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5 / 60
       _.ceil flowRate, 3
