@@ -152,3 +152,9 @@ describe 'orifice-calculator-viewmodel-spec', ->
       viewModel.baseSpecificGravity 1
       viewModel.operatingTemperature 60
       expect(viewModel.flowRate()).toEqual 341.328
+
+  describe 'Math.ceil10', ->
+    it 'should round up numbers to closest decimal place', ->
+      expect(Math.ceil10(12.3456, -1)).toEqual 12.4
+      expect(Math.ceil10(123.456, -1)).toEqual 123.5
+      expect(Math.ceil10(123.456, -2)).toEqual 123.46

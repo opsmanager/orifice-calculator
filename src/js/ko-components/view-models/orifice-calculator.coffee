@@ -71,15 +71,30 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
     @compressibilityCorrection = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection
     @chosenCompressibilityCorrection  = ko.observable OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
     @compressibilityCorrectionValue = ko.observable(1)
+
+    Math.ceil10 ||= {}
+    Math.ceil10 = (value, exp) ->
+      if typeof exp is undefined or +exp == 0 then Math.ceil value
+      value = +value
+      exp = +exp
+
+      if isNaN(value) or !(typeof exp is 'number' and exp % 1 is 0) then NaN
+
+      value = value.toString().split 'e'
+      value = Math.ceil(value[0] + 'e' + if value[1] then (+value[1] - exp) else -exp)
+      value = value.toString().split 'e'
+      +(value[0] + 'e' + if value[1] then (+value[1] + exp) else exp)
+
     @betaRatio = ko.computed =>
-      @orificeBoreDiameter() / @selectedPipeID()
+      Math.ceil10(@orificeBoreDiameter() / @selectedPipeID(), -2)
 
     @velocityOfApproach = ko.computed =>
-      1 / Math.sqrt(1 - @betaRatio() ** 4)
+      Math.ceil10(1 / Math.sqrt(1 - @betaRatio() ** 4), -2)
 
     @flowRate = ko.computed =>
-      operatingTemperatureInRankine = Number(@operatingTemperature()) + ABSOLUTE_ZERO
+      operatingTemperatureInRankine = +@operatingTemperature() + ABSOLUTE_ZERO
 
       flowRate = 218.527 * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR * @velocityOfApproach() * @orificeBoreDiameter() ** 2 * BASE_TEMPERATURE/BASE_PRESSURE \
                  * ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) \
                  / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5 / 60
+      Math.ceil10(flowRate, -3)
