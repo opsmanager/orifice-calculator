@@ -32,19 +32,16 @@ describe 'orifice-calculator-viewmodel-spec', ->
       expect(field.isValid()).toEqual false
 
   describe 'viewModel', ->
-    it 'should be valid when loaded', ->
-      expect(ko.validatedObservable(viewModel).isValid()).toEqual true
-
     it 'should be invalid when it does not contain valid fields', ->
       viewModel.operatingPressure('abc123')
       expect(ko.validatedObservable(viewModel).isValid()).toEqual false
 
-  describe 'pipeID', ->
+  describe 'availablePipes', ->
     it 'should have initialized the input data', ->
-      expect(viewModel.pipeID().length).toEqual 6
+      expect(viewModel.availablePipes().length).toEqual 6
 
     it 'should have default value of "1.939\'\' XS, Sch 80, Sch 80S"', ->
-      expect(viewModel.selectedPipeID()).toEqual OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
+      expect(viewModel.selectedPipeDiameter()).toEqual OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
 
   describe 'operatingPressure', ->
     itBehavesLikeMandatoryField viewModel.operatingPressure
@@ -80,15 +77,9 @@ describe 'orifice-calculator-viewmodel-spec', ->
     itBehavesLikeMandatoryField viewModel.baseSpecificGravity
     itBehavesLikeFloatField viewModel.baseSpecificGravity
 
-    it 'should have a default value of "0"', ->
-      expect(viewModel.baseSpecificGravity()).toEqual 0
-
   describe 'operatingTemperature', ->
     itBehavesLikeMandatoryField viewModel.operatingTemperature
     itBehavesLikeFloatField viewModel.operatingTemperature
-
-    it 'should have a default value of "0"', ->
-      expect(viewModel.operatingTemperature()).toEqual 0
 
   describe 'operatingTemperatureUnits', ->
     it 'should have default value of "Fahrenheit"', ->
@@ -101,15 +92,9 @@ describe 'orifice-calculator-viewmodel-spec', ->
     itBehavesLikeMandatoryField viewModel.differentialPressure
     itBehavesLikeIntegerField viewModel.differentialPressure
 
-    it 'should have a default value of "0"', ->
-      expect(viewModel.differentialPressure()).toEqual 0
-
   describe 'orificeBoreDiameter', ->
     itBehavesLikeMandatoryField viewModel.orificeBoreDiameter
     itBehavesLikeFloatField viewModel.orificeBoreDiameter
-
-    it 'should have a default value of "0"', ->
-      expect(viewModel.orificeBoreDiameter()).toEqual 0
 
   describe 'compressibilityCorrection', ->
     it 'should have a default value of "None"', ->
@@ -118,25 +103,36 @@ describe 'orifice-calculator-viewmodel-spec', ->
     it 'should have None and Zf for compressibility correction', ->
       expect(viewModel.compressibilityCorrection()).toEqual _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection
 
+  describe 'displayCompressibilityCorrection', ->
+    describe 'when compressibilityCorrection is none', ->
+      it 'is false', ->
+        viewModel.chosenCompressibilityCorrection OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
+        expect(viewModel.displayCompressibilityCorrection()).toEqual false
+
+    describe 'when compressibilityCorrection is not none', ->
+      it 'is true', ->
+        viewModel.chosenCompressibilityCorrection OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.zf
+        expect(viewModel.displayCompressibilityCorrection()).toEqual true
+
   describe 'betaRatio', ->
     it 'should return beta ratio', ->
-      viewModel.selectedPipeID OPL.OrificeCalculator.Config.Dictionaries.PipeID.twoZeroInch.value
+      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.PipeId.twoZeroInch.value
       viewModel.orificeBoreDiameter 0.97
       expect(viewModel.betaRatio()).toEqual 0.47
 
   describe 'velocityOfApproach', ->
     it 'should return velocity of approach', ->
       viewModel.orificeBoreDiameter 0.97
-      viewModel.selectedPipeID OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
+      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
       expect(viewModel.velocityOfApproach()).toEqual 1.04
       viewModel.orificeBoreDiameter 0.776
-      viewModel.selectedPipeID OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
+      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
       expect(viewModel.velocityOfApproach()).toEqual 1.02
 
   describe 'flowRate', ->
     it 'should return the flow rate', ->
       viewModel.orificeBoreDiameter 0.97
-      viewModel.selectedPipeID  OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
+      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
       viewModel.operatingPressure 900
       viewModel.compressibilityCorrectionValue 1
       viewModel.differentialPressure 30
@@ -145,7 +141,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
       expect(viewModel.flowRate()).toEqual 543.783
 
       viewModel.orificeBoreDiameter 0.776
-      viewModel.selectedPipeID OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
+      viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
       viewModel.operatingPressure 900
       viewModel.compressibilityCorrectionValue 1
       viewModel.differentialPressure 30

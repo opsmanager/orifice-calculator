@@ -11,10 +11,10 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
   ABSOLUTE_ZERO            = 459.67
 
   constructor: () ->
-    @pipeID = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.PipeID
-    @selectedPipeID = ko.observable OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
+    @availablePipes = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.PipeId
+    @selectedPipeDiameter = ko.observable OPL.OrificeCalculator.Config.Dictionaries.PipeId.oneNineInch.value
 
-    @operatingPressure = ko.observable(0).extend
+    @operatingPressure = ko.observable().extend
       required:
         params: true
         message: OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureError
@@ -33,7 +33,7 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
     @operatingPressureUnits = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits
     @selectedOperatingPressureUnits = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits.psi
 
-    @baseSpecificGravity = ko.observable(0).extend
+    @baseSpecificGravity = ko.observable().extend
       number:
         params: true
         message: OPL.OrificeCalculator.Config.Dictionaries.Messages.floatError
@@ -41,7 +41,7 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
         params: true
         message: OPL.OrificeCalculator.Config.Dictionaries.Messages.baseSpecificGravityError
 
-    @operatingTemperature = ko.observable(0).extend
+    @operatingTemperature = ko.observable().extend
       number:
         params: true
         message: OPL.OrificeCalculator.Config.Dictionaries.Messages.floatError
@@ -52,7 +52,7 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
     @operatingTemperatureUnit = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits
     @selectedOperatingTemperatureUnit = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits.fahrenheit
 
-    @differentialPressure = ko.observable(0).extend
+    @differentialPressure = ko.observable().extend
       required:
         params: true
         message: OPL.OrificeCalculator.Config.Dictionaries.Messages.differentialPressureError
@@ -60,7 +60,7 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
         params: true
         message: OPL.OrificeCalculator.Config.Dictionaries.Messages.integerError
 
-    @orificeBoreDiameter = ko.observable(0).extend
+    @orificeBoreDiameter = ko.observable().extend
       number:
         params: true
         message: OPL.OrificeCalculator.Config.Dictionaries.Messages.floatError
@@ -70,6 +70,8 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
 
     @compressibilityCorrection = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection
     @chosenCompressibilityCorrection  = ko.observable OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
+    @displayCompressibilityCorrection = ko.computed =>
+      @chosenCompressibilityCorrection() != OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
     @compressibilityCorrectionValue = ko.observable(1)
 
     Math.ceil10 ||= {}
@@ -86,7 +88,7 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
       +(value[0] + 'e' + if value[1] then (+value[1] + exp) else exp)
 
     @betaRatio = ko.computed =>
-      Math.ceil10(@orificeBoreDiameter() / @selectedPipeID(), -2)
+      Math.ceil10(@orificeBoreDiameter() / @selectedPipeDiameter(), -2)
 
     @velocityOfApproach = ko.computed =>
       Math.ceil10(1 / Math.sqrt(1 - @betaRatio() ** 4), -2)
