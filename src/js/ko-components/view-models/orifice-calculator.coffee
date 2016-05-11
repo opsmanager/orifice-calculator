@@ -80,19 +80,6 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
       @chosenCompressibilityCorrection() != OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
     @compressibilityCorrectionValue = ko.observable(1)
 
-    Math.ceil10 ||= {}
-    Math.ceil10 = (value, exp) ->
-      if typeof exp is undefined or +exp == 0 then Math.ceil value
-      value = +value
-      exp = +exp
-
-      if isNaN(value) or !(typeof exp is 'number' and exp % 1 is 0) then NaN
-
-      value = value.toString().split 'e'
-      value = Math.ceil(value[0] + 'e' + if value[1] then (+value[1] - exp) else -exp)
-      value = value.toString().split 'e'
-      +(value[0] + 'e' + if value[1] then (+value[1] + exp) else exp)
-
     @betaRatio = ko.computed =>
       _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 2
 
