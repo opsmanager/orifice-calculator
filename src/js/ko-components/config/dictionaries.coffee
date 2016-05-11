@@ -4,12 +4,24 @@
 @OPL.OrificeCalculator.Config.Dictionaries ||= {}
 
 @OPL.OrificeCalculator.Config.Dictionaries.PipeID =
-  2.067: "2.067'' Sch 40, STD, Sch 40S"
-  1.939: "1.939'' XS, Sch 80, Sch 80S"
-  2.157: "2.157'' Sch 10, Sch 10S"
-  2.245: "2.245'' Sch 5, Sch 5S"
-  1.687: "1.687'' Sch 160"
-  1.503: "1.503'' XXS"
+  twoZeroInch:
+    name: "2.067'' Sch 40, STD, Sch 40S"
+    value: 2.067
+  oneNineInch:
+    name: "1.939'' XS, Sch 80, Sch 80S"
+    value: 1.939
+  twoOneInch:
+    name: "2.157'' Sch 10, Sch 10S"
+    value: 2.157
+  twoTwoInch:
+    name: "2.245'' Sch 5, Sch 5S"
+    value: 2.245
+  oneSixInch:
+    name: "1.687'' Sch 160"
+    value: 1.687
+  oneHalfInch:
+    name: "1.503'' XXS"
+    value: 1.503
 
 @OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead =
   gauge: 'Gauge'

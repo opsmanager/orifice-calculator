@@ -44,7 +44,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
       expect(viewModel.pipeID().length).toEqual 6
 
     it 'should have default value of "1.939\'\' XS, Sch 80, Sch 80S"', ->
-      expect(viewModel.selectedPipeID()).toEqual 1.939
+      expect(viewModel.selectedPipeID()).toEqual OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
 
   describe 'operatingPressure', ->
     itBehavesLikeMandatoryField viewModel.operatingPressure
@@ -120,23 +120,23 @@ describe 'orifice-calculator-viewmodel-spec', ->
 
   describe 'betaRatio', ->
     it 'should return beta ratio', ->
-      viewModel.selectedPipeID 8
-      viewModel.orificeBoreDiameter 2
-      expect(viewModel.betaRatio()).toEqual 0.25
+      viewModel.selectedPipeID OPL.OrificeCalculator.Config.Dictionaries.PipeID.twoZeroInch.value
+      viewModel.orificeBoreDiameter 0.97
+      expect(viewModel.betaRatio()).toEqual 0.47
 
   describe 'velocityOfApproach', ->
     it 'should return velocity of approach', ->
       viewModel.orificeBoreDiameter 0.97
-      viewModel.selectedPipeID 1.939
+      viewModel.selectedPipeID OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
       expect(viewModel.velocityOfApproach()).toEqual 1.04
       viewModel.orificeBoreDiameter 0.776
-      viewModel.selectedPipeID 1.939
+      viewModel.selectedPipeID OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
       expect(viewModel.velocityOfApproach()).toEqual 1.02
 
   describe 'flowRate', ->
     it 'should return the flow rate', ->
       viewModel.orificeBoreDiameter 0.97
-      viewModel.selectedPipeID 1.939
+      viewModel.selectedPipeID  OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
       viewModel.operatingPressure 900
       viewModel.compressibilityCorrectionValue 1
       viewModel.differentialPressure 30
@@ -145,7 +145,7 @@ describe 'orifice-calculator-viewmodel-spec', ->
       expect(viewModel.flowRate()).toEqual 543.783
 
       viewModel.orificeBoreDiameter 0.776
-      viewModel.selectedPipeID 1.939
+      viewModel.selectedPipeID OPL.OrificeCalculator.Config.Dictionaries.PipeID.oneNineInch.value
       viewModel.operatingPressure 900
       viewModel.compressibilityCorrectionValue 1
       viewModel.differentialPressure 30
