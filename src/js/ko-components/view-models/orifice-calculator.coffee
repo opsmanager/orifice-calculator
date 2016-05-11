@@ -5,9 +5,14 @@
 class OPL.KoComponents.ViewModels.OrificeCalculator
   COEFFICIENT_OF_DISCHARGE = 0.6
   EXPANSION_FACTOR         = 1
+
+  # NOTE: The base temperature is in degree rankine
   BASE_TEMPERATURE         = 519.67
   BASE_PRESSURE            = 14.73
   BASE_COMPRESSIBILITY     = 1
+
+  # NOTE: The absolute zero in fahrenheit is -459.67F.
+  # This constant is used to convert degree fahrenheit to degree rankine
   ABSOLUTE_ZERO            = 459.67
 
   constructor: () ->
@@ -88,10 +93,10 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
       +(value[0] + 'e' + if value[1] then (+value[1] + exp) else exp)
 
     @betaRatio = ko.computed =>
-      Math.ceil10(@orificeBoreDiameter() / @selectedPipeDiameter(), -2)
+      _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 2
 
     @velocityOfApproach = ko.computed =>
-      Math.ceil10(1 / Math.sqrt(1 - @betaRatio() ** 4), -2)
+      _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
 
     @flowRate = ko.computed =>
       operatingTemperatureInRankine = +@operatingTemperature() + ABSOLUTE_ZERO
@@ -99,4 +104,4 @@ class OPL.KoComponents.ViewModels.OrificeCalculator
       flowRate = 218.527 * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR * @velocityOfApproach() * @orificeBoreDiameter() ** 2 * BASE_TEMPERATURE/BASE_PRESSURE \
                  * ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) \
                  / (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5 / 60
-      Math.ceil10(flowRate, -3)
+      _.ceil flowRate, 3
