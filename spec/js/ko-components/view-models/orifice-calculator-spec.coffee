@@ -69,7 +69,7 @@ define 'orifice-calculator-viewmodel-spec', ['knockout', 'jquery', 'jasmine-boot
         expect(viewModel.operatingPressureRead()).toEqual _.values OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead
 
       it 'should have default value of "Gauge"', ->
-        expect(viewModel.chosenOperatingPressureRead()).toEqual OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead.gauge
+        expect(viewModel.selectedOperatingPressureRead()).toEqual OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureRead.gauge
 
     describe 'baseSpecificGravity', ->
       itBehavesLikeMandatoryField viewModel.baseSpecificGravity
@@ -96,7 +96,7 @@ define 'orifice-calculator-viewmodel-spec', ['knockout', 'jquery', 'jasmine-boot
 
     describe 'compressibilityCorrection', ->
       it 'should have a default value of "None"', ->
-        expect(viewModel.chosenCompressibilityCorrection()).toEqual OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
+        expect(viewModel.selectedCompressibilityCorrection()).toEqual OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
 
       it 'should have None and Zf for compressibility correction', ->
         expect(viewModel.compressibilityCorrection()).toEqual _.values OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection
@@ -104,12 +104,12 @@ define 'orifice-calculator-viewmodel-spec', ['knockout', 'jquery', 'jasmine-boot
     describe 'displayCompressibilityCorrection', ->
       describe 'when compressibilityCorrection is none', ->
         it 'is false', ->
-          viewModel.chosenCompressibilityCorrection OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
+          viewModel.selectedCompressibilityCorrection OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
           expect(viewModel.displayCompressibilityCorrection()).toEqual false
 
       describe 'when compressibilityCorrection is not none', ->
         it 'is true', ->
-          viewModel.chosenCompressibilityCorrection OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.zf
+          viewModel.selectedCompressibilityCorrection OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.zf
           expect(viewModel.displayCompressibilityCorrection()).toEqual true
 
     describe 'betaRatio', ->

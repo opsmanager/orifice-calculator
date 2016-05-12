@@ -10,7 +10,7 @@
       %label Operating Pressure Read
       %div{ 'data-bind' => 'foreach: operatingPressureRead' }
         %div
-          %input.operating-pressure-read{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.chosenOperatingPressureRead'  }
+          %input.operating-pressure-read{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.selectedOperatingPressureRead'  }
           %label{ 'data-bind' => 'text: $data' }
     %li
       %label Operating Pressure Units
@@ -37,7 +37,7 @@
       %label Compressibility Correction
       %div{ 'data-bind' => 'foreach: compressibilityCorrection' }
         %div
-          %input.compressibility-correction{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.chosenCompressibilityCorrection'  }
+          %input.compressibility-correction{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.selectedCompressibilityCorrection'  }
           %label{ 'data-bind' => 'text: $data' }
       %span{ 'data-bind' => 'visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage' }
       %input#compressibility-correction-value{ :type => 'number', 'data-bind' => 'visible: displayCompressibilityCorrection, value: compressibilityCorrectionValue' }
