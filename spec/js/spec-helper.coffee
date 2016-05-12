@@ -32,4 +32,4 @@ requirejs.config {
 }
 
 require ['orifice-calculator-viewmodel-spec', 'orifice-calculator-view-spec'], () ->
-    window.onload()
+  window.onload()

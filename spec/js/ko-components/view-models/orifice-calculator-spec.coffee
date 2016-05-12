@@ -2,9 +2,6 @@ define 'orifice-calculator-viewmodel-spec', ['knockout', 'knockout.validation'],
   describe 'orifice-calculator-viewmodel-spec', ->
     viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
 
-    beforeEach ->
-      viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
-
     itBehavesLikeMandatoryField = (field) ->
       it 'has mandatory field validation', ->
         field ''
