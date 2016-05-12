@@ -5,8 +5,12 @@
     %meta{:charset => 'utf-8'}/
     %meta{:content => 'ie=edge', 'http-equiv' => 'x-ua-compatible'}/
     %title Daniel Orifice Flow Calculator
-    %meta{:name => 'description'}/
-    %meta{:content => 'width=device-width, initial-scale=1', :name => 'viewport'}/
+    %meta{:name => "description"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %link{href: 'css/orifice-calculator.css', rel: 'stylesheet', type:'text/css'}
+    %link{href: 'css/grid.css', rel: 'stylesheet', type:'text/css'}
+    %link{href: 'http://fonts.googleapis.com/css?family=Open+Sans:400,300,700', rel: 'stylesheet', type:'text/css'}
+
   %body
     %div{'data-bind' => 'component: "orifice-calculator"'}
     %script{:src => 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js', 'data-main' => 'js/main.js'}
