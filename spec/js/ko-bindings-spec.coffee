@@ -1,4 +1,4 @@
-define 'ko-bindings-spec', ['knockout', 'jasmine-boot'], (ko) ->
+define 'ko-bindings-spec', ['knockout', 'ko-bindings', 'jasmine-boot'], (ko) ->
   describe 'ko-bindings', ->
     viewModel = { copyText: ko.observable('copy to clipboard!') }
     mockElement = document.createElement 'div'

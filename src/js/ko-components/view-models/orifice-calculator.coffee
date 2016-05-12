@@ -1,4 +1,4 @@
-define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
+define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validation', 'orifice-calculator-config'], (ko, _) ->
   @OPL ||= {}
   @OPL.KoComponents ||= {}
   @OPL.KoComponents.ViewModels ||= {}
@@ -10,6 +10,8 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash'], (ko, _) ->
 
     # NOTE: The base temperature is in degree rankine
     BASE_TEMPERATURE         = 519.67
+
+    # NOTE: The base pressure is in psia
     BASE_PRESSURE            = 14.73
     BASE_COMPRESSIBILITY     = 1
 

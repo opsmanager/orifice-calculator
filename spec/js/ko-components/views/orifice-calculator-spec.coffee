@@ -1,4 +1,4 @@
-define 'orifice-calculator-view-spec', ['jasmine-jquery'], () ->
+define 'orifice-calculator-view-spec', ['jquery', 'jasmine-jquery'], ($) ->
   describe 'orifice-calculator-view-spec', ->
 
     beforeEach ->
@@ -49,3 +49,10 @@ define 'orifice-calculator-view-spec', ['jasmine-jquery'], () ->
 
     describe 'Compressibility Correction', ->
       itShouldBehaveLikeRadioButtons '.compressibility-correction'
+
+    describe 'Compressibility Correction Value', ->
+      itShouldBehaveLikeNumberInput '#compressibility-correction-value'
+
+    describe 'Flow Rate', ->
+      it 'should be in the template', ->
+        expect($('#flow-rate')).toExist()
