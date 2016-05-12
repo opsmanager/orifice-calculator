@@ -89,7 +89,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
       @compressibilityCorrectionValue = ko.observable(1)
 
       @betaRatio = ko.computed =>
-        _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 2
+        _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 4
 
       @velocityOfApproach = ko.computed =>
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
@@ -109,5 +109,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
           when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.day then flowRate *= 24
           when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute then flowRate /= 60
           when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.second then flowRate /= 3600
+
+        operatingTemperatureInRankine = Number(@operatingTemperature()) + ABSOLUTE_ZERO
 
         _.ceil flowRate, 3
