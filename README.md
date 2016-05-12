@@ -10,6 +10,9 @@
 6. run the server `grunt server`
 
 
+
+### License
+
 MIT License
 
 Copyright (c) [year] [fullname]
