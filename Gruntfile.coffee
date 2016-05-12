@@ -30,6 +30,18 @@ module.exports = (grunt) ->
         src: ['**/*.haml']
         dest: 'build'
         ext: '.html'
+    sass:
+      dist:
+        options:
+          style: 'expanded'
+          trace: true
+        files: [
+          expand: true
+          cwd: 'src/css'
+          src: ['**/*.scss']
+          dest: 'build/css'
+          ext: '.css'
+        ]
     copy:
       spec:
         files:
@@ -50,7 +62,7 @@ module.exports = (grunt) ->
 
     concurrent:
       dist:
-        ['watch:coffee', 'watch:haml']
+        ['watch']
     watch:
       coffee:
         files: ["src/js/**/*.coffee"]
@@ -58,6 +70,9 @@ module.exports = (grunt) ->
       haml:
         files: ["src/**/*.haml"]
         tasks: ["compile:haml:dist"]
+      scss:
+        files: ['src/css/*']
+        tasks: ['compile:scss']
       spec_coffee:
         files: ["spec/js/**/*.coffee"]
         tasks: ["compile:coffee:spec"]
@@ -79,7 +94,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-connect'
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
   grunt.loadNpmTasks 'grunt-concurrent'
+  grunt.loadNpmTasks 'grunt-contrib-sass'
 
-  grunt.registerTask 'test', ['compile', 'connect:server', 'watch']
-  grunt.registerTask 'compile', ['coffee', 'haml', 'copy']
-  grunt.registerTask 'server', ['compile', 'connect:server', 'concurrent:dist']
+  grunt.registerTask 'compile', ['coffee', 'haml', 'copy', 'sass']
+  grunt.registerTask 'server', ['compile', 'connect:server', 'watch', 'concurrent:dist']

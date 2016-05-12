@@ -116,7 +116,7 @@ define 'orifice-calculator-viewmodel-spec', ['knockout', 'jquery', 'jasmine-boot
       it 'should return beta ratio', ->
         viewModel.selectedPipeDiameter OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.twoZeroInch.value
         viewModel.orificeBoreDiameter 0.97
-        expect(viewModel.betaRatio()).toEqual 0.47
+        expect(viewModel.betaRatio()).toEqual 0.4693
 
     describe 'velocityOfApproach', ->
       it 'should return velocity of approach', ->
