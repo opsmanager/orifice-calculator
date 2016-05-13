@@ -136,7 +136,7 @@ define 'orifice-calculator-viewmodel-spec', ['knockout', 'jquery', 'jasmine-boot
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
-        viewModel.selectedFlowRateUnit OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.minute
+        viewModel.selectedFlowRateUnit OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute
         expect(viewModel.flowRate()).toEqual 543.783
 
         viewModel.orificeBoreDiameter 0.776
@@ -146,8 +146,15 @@ define 'orifice-calculator-viewmodel-spec', ['knockout', 'jquery', 'jasmine-boot
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
-        viewModel.selectedFlowRateUnit OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.minute
+        viewModel.selectedFlowRateUnit OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute
         expect(viewModel.flowRate()).toEqual 341.328
+
+    describe 'availableAvailableFlowRateUnits', ->
+      it 'should have initialized the input data', ->
+        expect(viewModel.availableFlowRateUnits().length).toEqual 4
+
+      it 'should have default value of "Minutes"', ->
+        expect(viewModel.selectedFlowRateUnit()).toEqual OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute
 
     describe 'selectedFlowRateUnit', ->
       beforeEach ->
@@ -160,17 +167,17 @@ define 'orifice-calculator-viewmodel-spec', ['knockout', 'jquery', 'jasmine-boot
         viewModel.operatingTemperature 60
 
       it 'when minute is chosen', ->
-        viewModel.selectedFlowRateUnit 'Minute'
+        viewModel.selectedFlowRateUnit OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute
         expect(viewModel.flowRate()).toEqual 543.783
 
       it 'when hour is chosen', ->
-        viewModel.selectedFlowRateUnit 'Hour'
+        viewModel.selectedFlowRateUnit OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.hour
         expect(viewModel.flowRate()).toEqual 32626.924
 
       it 'when day is chosen', ->
-        viewModel.selectedFlowRateUnit 'Day'
+        viewModel.selectedFlowRateUnit OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.day
         expect(viewModel.flowRate()).toEqual 783046.156
 
       it 'when second is chosen', ->
-        viewModel.selectedFlowRateUnit 'Second'
+        viewModel.selectedFlowRateUnit OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.second
         expect(viewModel.flowRate()).toEqual 9.064

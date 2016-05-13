@@ -94,8 +94,8 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
       @velocityOfApproach = ko.computed =>
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
 
-      @flowRateUnit = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits
-      @selectedFlowRateUnit = ko.observable OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.hour
+      @availableFlowRateUnits = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits
+      @selectedFlowRateUnit = ko.observable OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute
       @flowRate = ko.computed =>
         operatingTemperatureInRankine = @operatingTemperature() + ABSOLUTE_ZERO
 
@@ -105,8 +105,8 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
           (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5
 
         switch @selectedFlowRateUnit()
-          when OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.day then flowRate = flowRate * 24
-          when OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.minute then flowRate = flowRate / 60
-          when OPL.OrificeCalculator.Config.Dictionaries.FlowRateUnits.second then flowRate = flowRate / 3600
+          when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.day then flowRate = flowRate * 24
+          when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute then flowRate = flowRate / 60
+          when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.second then flowRate = flowRate / 3600
 
         _.ceil flowRate, 3
