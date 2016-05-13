@@ -2,7 +2,7 @@
   %ul
     %li
       %label Pipe ID
-      %select#pipe-id{ 'data-bind' => 'options: availablePipes, value: selectedPipeDiameter, optionsText: "name", optionsValue: "value"' }
+      %select#available-pipes{ 'data-bind' => 'options: availablePipes, value: selectedPipeDiameter, optionsText: "name", optionsValue: "value"' }
     %li
       %label Operating Pressure
       %input#operating-pressure{ :type => 'number', 'data-bind' => 'value: operatingPressure' }

@@ -20,8 +20,8 @@ define 'orifice-calculator-view-spec', ['jquery', 'jasmine-jquery'], ($) ->
         expect($(element)).toEqual 'INPUT'
         expect($(element)).toHaveAttr 'type', 'number'
 
-    describe 'Pipe ID', ->
-      itShouldBehaveLikeDropdownList '#pipe-id'
+    describe 'Available Pipes', ->
+      itShouldBehaveLikeDropdownList '#available-pipes'
 
     describe 'Operating Pressure', ->
       itShouldBehaveLikeNumberInput '#operating-pressure'
