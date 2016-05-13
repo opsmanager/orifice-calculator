@@ -12,10 +12,22 @@
         %label Base Specific Gravity
         %input#base-specific-gravity{ :type => 'number', 'data-bind' => 'value: baseSpecificGravity' }
 
+    #operating-temperature-container.row
+      .column-4
+        %label Operating Temperature
+        %input#operating-temperature{ :type => 'number', 'data-bind' => 'value: operatingTemperature' }
+
+      .column-4
+        %div{ "data-bind" => "foreach: operatingTemperatureUnit" }
+          %label{ "data-bind" => "text: $data" }
+          %input.operating-temperature-units{ :type => "radio", "data-bind" => "checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"  }
+
     #operating-pressure-container.row
       .column-4
         %label Operating Pressure
+
         %input#operating-pressure{ :type => 'number', 'data-bind' => 'value: operatingPressure' }
+        #warning-message{ "data-bind" => "visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage" }
 
       .column-4
         %div{ 'data-bind' => 'foreach: operatingPressureRead' }
@@ -25,16 +37,6 @@
       .column-4
         %select#operating-pressure-units{ 'data-bind' => 'options: operatingPressureUnits, value: selectedOperatingPressureUnits' }
 
-    #operating-temperature-container.row
-      .column-4
-        %label Operating Temperature
-        %input#operating-temperature{ :type => 'number', 'data-bind' => 'value: operatingTemperature' }
-
-      .column-4
-        %div{ 'data-bind' => 'foreach: operatingTemperatureUnit' }
-          %label{ 'data-bind' => 'text: $data' }
-          %input.operating-temperature-units{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit'  }
-
     #compressibility-correction-container.row
       .column-4
         %label Compressibility Correction
@@ -43,8 +45,8 @@
           %input.compressibility-correction{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.chosenCompressibilityCorrection'  }
 
     .row
-      %span{ 'data-bind' => 'visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage' }
-      %input#compressibilityCorrectionValue{ :type => 'number', 'data-bind' => 'visible: displayCompressibilityCorrection, value: compressibilityCorrectionValue' }
+      .column-4
+        %input#compressibilityCorrectionValue{ :type => "number", "data-bind" => "visible: displayCompressibilityCorrection, value: compressibilityCorrectionValue" }
 
     .row
       #diferential-pressure-container.column-4
@@ -56,8 +58,9 @@
         %input#orifice-bore-diameter{ :type => 'number', 'data-bind' => 'value: orificeBoreDiameter' }
 
       #beta-ratio-container.column-4
-        %label Beta Ratio
-        #beta-ratio{"data-bind" => "text: betaRatio" }
+        #beta-ratio
+          Beta Ratio
+          %span{"data-bind" => "text: betaRatio" }
 
 
     .row
