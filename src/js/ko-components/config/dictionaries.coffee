@@ -59,7 +59,15 @@ define 'orifice-calculator-config', () ->
     orificeBoreDiameterError: 'Please enter the orifice bore diameter'
 
   @OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits =
-    minute: 'Minute'
-    hour: 'Hour'
-    day: 'Day'
-    second: 'Second'
+    minute:
+      name: 'Minute'
+      value: 1 / 60
+    hour:
+      name: 'Hour'
+      value: 1
+    day:
+      name: 'Day'
+      value: 24
+    second:
+      name: 'Second'
+      value: 1 / 3600

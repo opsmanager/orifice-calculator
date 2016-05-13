@@ -1,4 +1,4 @@
-define 'orifice-calculator-view-spec', ['jquery', 'jasmine-jquery'], ($) ->
+define 'orifice-calculator-view-spec', ['jquery', 'lodash', 'jasmine-jquery'], ($, _) ->
   describe 'orifice-calculator-view-spec', ->
 
     beforeEach ->
@@ -58,4 +58,7 @@ define 'orifice-calculator-view-spec', ['jquery', 'jasmine-jquery'], ($) ->
         expect($('#flow-rate')).toExist()
 
     describe 'Flow Rate Unit', ->
+      it 'should have "text: availableFlowRateUnit" in data-bind', ->
+        expect(_.includes($('#flow-rate-unit').attr('data-bind'), 'options: availableFlowRateUnits')).toEqual true
+
       itShouldBehaveLikeDropdownList '#flow-rate-unit'

@@ -95,7 +95,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
 
       @availableFlowRateUnits = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits
-      @selectedFlowRateUnit = ko.observable OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute
+      @selectedFlowRateUnit = ko.observable OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute.name
       @flowRate = ko.computed =>
         operatingTemperatureInRankine = @operatingTemperature() + ABSOLUTE_ZERO
 
@@ -109,5 +109,5 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
           when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.day then flowRate *= 24
           when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute then flowRate /= 60
           when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.second then flowRate /= 3600
-
+        _.pick 
         _.ceil flowRate, 3
