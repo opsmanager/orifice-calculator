@@ -1,5 +1,5 @@
 require ['lib/shared-config'], ->
-  require ['knockout', 'knockout.validation', 'ko-bindings'], (ko) ->
+  require ['knockout', 'knockout.validation', 'ko-bindings', 'ko-extenders'], (ko) ->
     ko.validation.init()
     ko.components.register 'orifice-calculator', {
       viewModel:

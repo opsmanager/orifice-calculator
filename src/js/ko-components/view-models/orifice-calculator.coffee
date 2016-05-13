@@ -24,6 +24,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
       @selectedPipeDiameter = ko.observable OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value
 
       @operatingPressure = ko.observable().extend
+        toNumber: true
         required:
           params: true
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.operatingPressureError
@@ -43,6 +44,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
       @selectedOperatingPressureUnits = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingPressureUnits.psi
 
       @baseSpecificGravity = ko.observable().extend
+        toNumber: true
         number:
           params: true
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.floatError
@@ -51,6 +53,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.baseSpecificGravityError
 
       @operatingTemperature = ko.observable().extend
+        toNumber: true
         number:
           params: true
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.floatError
@@ -62,6 +65,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
       @selectedOperatingTemperatureUnit = ko.observable OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits.fahrenheit
 
       @differentialPressure = ko.observable().extend
+        toNumber: true
         required:
           params: true
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.differentialPressureError
@@ -70,6 +74,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.integerError
 
       @orificeBoreDiameter = ko.observable().extend
+        toNumber: true
         number:
           params: true
           message: OPL.OrificeCalculator.Config.Dictionaries.Messages.floatError
@@ -90,7 +95,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
 
       @flowRate = ko.computed =>
-        operatingTemperatureInRankine = +@operatingTemperature() + ABSOLUTE_ZERO
+        operatingTemperatureInRankine = @operatingTemperature() + ABSOLUTE_ZERO
 
         flowRate = UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR * @velocityOfApproach() * @orificeBoreDiameter() ** 2 * BASE_TEMPERATURE/BASE_PRESSURE \
                    * ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) \

@@ -1,8 +1,8 @@
 requirejs.config {
   baseUrl: '/js/'
   paths:
-    # NOTE: ko-bindings is not declared in paths because
-    # the namespace and the filenames are the same
+    # NOTE: ko-bindings and ko-extenders is not declared in "paths"
+    # because the namespace and the filenames are the same
     'jquery': 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min'
     'lodash': 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.12.0/lodash.min'
     'knockout': 'https://cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min'
