@@ -1,7 +1,7 @@
-define 'ko-bindings', ['knockout', 'jquery'], (ko, $) ->
+define 'ko-bindings', ['knockout'], (ko) ->
   ko.bindingHandlers.copyToClipboard =
     init: (element) ->
-      $(element).on 'click', (event) ->
+      element.onclick = () ->
         temp = document.createElement 'input'
         temp.setAttribute 'value', element.innerHTML
         document.body.appendChild temp
