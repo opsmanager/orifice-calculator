@@ -6,7 +6,7 @@
     .row
       #pipe-container.column-6
         %label Pipe ID
-        %select#pipe-id{ 'data-bind' => "options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value'" }
+        %select#available-pipes{ 'data-bind' => "options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value'" }
 
       #specific-gravity-container.column-6
         %label Base Specific Gravity
