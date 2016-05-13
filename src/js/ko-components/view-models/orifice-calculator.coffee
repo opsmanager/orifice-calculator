@@ -104,9 +104,10 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
           ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) /
           (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5
 
+        # TODO: Find a better way of doing this. Maybe something related to ko.subscription?
         switch @selectedFlowRateUnit()
-          when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.day then flowRate = flowRate * 24
-          when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute then flowRate = flowRate / 60
-          when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.second then flowRate = flowRate / 3600
+          when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.day then flowRate *= 24
+          when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.minute then flowRate /= 60
+          when OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits.second then flowRate /= 3600
 
         _.ceil flowRate, 3
