@@ -43,9 +43,8 @@
           %label{ 'data-bind' => 'text: $data' }
           %input.compressibility-correction{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.chosenCompressibilityCorrection'  }
 
-    .row
       .column-4
-        %input#compressibilityCorrectionValue{ :type => "number", "data-bind" => "visible: displayCompressibilityCorrection, value: compressibilityCorrectionValue" }
+        %input#compressibility-correction-value{ :type => "number", "data-bind" => "visible: displayCompressibilityCorrection, value: compressibilityCorrectionValue" }
 
     .row
       #diferential-pressure-container.column-5
