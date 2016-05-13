@@ -13,7 +13,7 @@
         %input#base-specific-gravity{ :type => 'number', 'data-bind' => 'value: baseSpecificGravity' }
 
     #operating-temperature-container.row
-      .column-6
+      .column-5
         %label Operating Temperature
         %input#operating-temperature{ :type => 'number', 'data-bind' => 'value: operatingTemperature' }
 
@@ -23,17 +23,17 @@
           %input.operating-temperature-units{ :type => "radio", "data-bind" => "checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"  }
 
     #operating-pressure-container.row
-      .column-6
+      .column-5
         %label Operating Pressure
         %input#operating-pressure{ :type => 'number', 'data-bind' => 'value: operatingPressure' }
         #warning-message{ "data-bind" => "visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage" }
 
-      .column-2
+      .column-3
         %div{ 'data-bind' => 'foreach: operatingPressureRead' }
           %label{ 'data-bind' => 'text: $data' }
           %input.operating-pressure-read{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.chosenOperatingPressureRead'  }
 
-      .column-4
+      .column-2
         %select#operating-pressure-units{ 'data-bind' => 'options: operatingPressureUnits, value: selectedOperatingPressureUnits' }
 
     #compressibility-correction-container.row
