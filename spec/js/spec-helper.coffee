@@ -1,6 +1,5 @@
 require ['lib/shared-config'], ->
   requirejs.config {
-    baseUrl: '/js/'
     paths:
       'jasmine': "https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/jasmine.min"
       'jasmine-html': "https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.4.1/jasmine-html.min"

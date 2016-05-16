@@ -46,8 +46,6 @@ module.exports = (grunt) ->
       spec:
         files:
           'build/js/lib/jasmine-jquery.js': 'node_modules/jasmine-jquery/lib/jasmine-jquery.js'
-          'build/js/lib/jquery.min.js': 'node_modules/jquery/dist/jquery.min.js'
-          'build/js/lib/knockout-latest.js': 'node_modules/knockout/build/output/knockout-latest.js'
     jasmine:
       spec:
         src: ['build/js/**/main.js']

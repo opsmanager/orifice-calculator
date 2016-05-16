@@ -1,5 +1,8 @@
 requirejs.config {
-  baseUrl: '/js/'
+  # NOTE: The baseUrl does not begin with a backslash in the
+  # case we need to host it on a subfolder. For example,
+  # http://server/subfolder
+  baseUrl: 'js/'
   paths:
     # NOTE: ko-bindings and ko-extenders is not declared in "paths"
     # because the namespace and the filenames are the same
