@@ -1,6 +1,6 @@
 (function() {
   requirejs.config({
-    baseUrl: '/js/',
+    baseUrl: 'js/',
     paths: {
       'jquery': 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min',
       'lodash': 'https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.12.0/lodash.min',

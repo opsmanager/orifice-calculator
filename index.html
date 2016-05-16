@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class='no-js'>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
     <meta charset='utf-8'>
@@ -7,13 +7,14 @@
     <title>Daniel Orifice Flow Calculator</title>
     <meta name='description'>
     <meta content='width=device-width, initial-scale=1' name='viewport'>
-    <link href='css/orifice-calculator.css' rel='stylesheet' type='text/css'>
-    <link href='css/grid.css' rel='stylesheet' type='text/css'>
-    <link href='css/animations.css' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <div data-bind='component: "orifice-calculator"'></div>
-    <script data-main='js/main.js' src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
+    <div data-bind="component: 'orifice-calculator'"></div>
+    <script src='http://code.jquery.com/jquery-2.1.4.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js'></script>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.min.css' rel='stylesheet'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.0/lodash.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
+    <script src='js/main.js'></script>
   </body>
 </html>
