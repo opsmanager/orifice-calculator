@@ -5,10 +5,16 @@
 1. checkout the code
 2. ensure latest version of npm is installed `npm update npm -g`
 3. run `npm install`
-4. ensure that haml is installed `gem install haml`
+4. ensure that haml and sass are installed
+  1. `gem install haml`
+  2. `gem install sass`
 5. compile `grunt compile`
 6. run the server `grunt server`
 
+### Specs
+
+1. run the server `grunt server`
+2. visit localhost:8000/specrunner.html
 
 
 ### License

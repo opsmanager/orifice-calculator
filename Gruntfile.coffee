@@ -43,6 +43,9 @@ module.exports = (grunt) ->
           ext: '.css'
         ]
     copy:
+      dist:
+        files:
+          'build/css/bootstrap.min.css': 'src/css/bootstrap.min.css'
       spec:
         files:
           'build/js/lib/jasmine-jquery.js': 'node_modules/jasmine-jquery/lib/jasmine-jquery.js'
