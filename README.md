@@ -16,6 +16,9 @@
 1. run the server `grunt server`
 2. visit localhost:8000/specrunner.html
 
+### Deploy
+
+1. run `grunt gh-pages`
 
 ### License
 

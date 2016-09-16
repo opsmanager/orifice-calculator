@@ -87,6 +87,12 @@ module.exports = (grunt) ->
           port: 8000
           base: 'build'
 
+    'gh-pages':
+      options:
+        base: 'build'
+      src: ['**']
+
+
   #Load Tasks
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
@@ -96,6 +102,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-jasmine'
   grunt.loadNpmTasks 'grunt-concurrent'
   grunt.loadNpmTasks 'grunt-contrib-sass'
+  grunt.loadNpmTasks 'grunt-gh-pages'
 
   grunt.registerTask 'compile', ['coffee', 'haml', 'copy', 'sass']
   grunt.registerTask 'server', ['compile', 'connect:server', 'watch', 'concurrent:dist']
