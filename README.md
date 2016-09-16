@@ -11,6 +11,10 @@
 5. compile `grunt compile`
 6. run the server `grunt server`
 
+### Specs
+
+1. run the server `grunt server`
+2. visit localhost:8000/specrunner.html
 
 
 ### License
