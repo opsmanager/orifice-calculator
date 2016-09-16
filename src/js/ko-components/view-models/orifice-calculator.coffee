@@ -86,7 +86,14 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
       @selectedCompressibilityCorrection  = ko.observable OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
       @displayCompressibilityCorrection = ko.computed =>
         @selectedCompressibilityCorrection() != OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none
-      @compressibilityCorrectionValue = ko.observable(1)
+
+      @compressibilityCorrectionValue = ko.observable()
+      @displayCompressibilityCorrection.subscribe (newValue) =>
+        if newValue
+          @compressibilityCorrectionValue 1
+        else
+          @compressibilityCorrectionValue undefined
+
 
       @betaRatio = ko.computed =>
         _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 4
