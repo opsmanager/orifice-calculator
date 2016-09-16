@@ -3,80 +3,107 @@
     <h2>Daniel Orifice Flow Calculator</h2>
   </div>
   <form>
-    <div class='row'>
-      <div class='column-6' id='pipe-container'>
-        <label>Pipe ID</label>
-        <select data-bind="options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value'" id='available-pipes'></select>
+    <div class='form-group row'>
+      <div class='col-xs-12 col-sm-4' id='pipe-container'>
+        <label for='available-pipes'>Pipe ID</label>
+        <select class='form-control' data-bind="options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value'" id='available-pipes'></select>
       </div>
-      <div class='column-6' id='specific-gravity-container'>
-        <label>Base Specific Gravity</label>
-        <input data-bind='value: baseSpecificGravity' id='base-specific-gravity' type='number'>
+      <div class='col-xs-12 col-sm-4' id='orifice-bore-diameter-container'>
+        <label for='differential-pressure'>Orifice Bore Diameter</label>
+        <input class='form-control' data-bind='value: orificeBoreDiameter' id='orifice-bore-diameter' type='number'>
       </div>
-    </div>
-    <div class='row' id='operating-temperature-container'>
-      <div class='column-5'>
-        <label>Operating Temperature</label>
-        <input data-bind='value: operatingTemperature' id='operating-temperature' type='number'>
-      </div>
-      <div class='column-6'>
-        <div data-bind='foreach: operatingTemperatureUnit'>
-          <label data-bind='text: $data'></label>
-          <input class='operating-temperature-units' data-bind='checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit' type='radio'>
-        </div>
-      </div>
-    </div>
-    <div class='row' id='operating-pressure-container'>
-      <div class='column-5'>
-        <label>Operating Pressure</label>
-        <input data-bind='value: operatingPressure' id='operating-pressure' type='number'>
-        <div data-bind='visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage' id='warning-message'></div>
-      </div>
-      <div class='column-3'>
-        <div data-bind='foreach: operatingPressureRead'>
-          <label data-bind='text: $data'></label>
-          <input class='operating-pressure-read' data-bind='checkedValue: $data, checked: $component.selectedOperatingPressureRead' type='radio'>
-        </div>
-      </div>
-      <div class='column-2'>
-        <select data-bind='options: operatingPressureUnits, value: selectedOperatingPressureUnits' id='operating-pressure-units'></select>
-      </div>
-    </div>
-    <div class='row' id='compressibility-correction-container'>
-      <div class='column-12'>
-        <label>Compressibility Correction</label>
-        <div data-bind='foreach: compressibilityCorrection'>
-          <label data-bind='text: $data'></label>
-          <input class='compressibility-correction' data-bind='checkedValue: $data, checked: $component.selectedCompressibilityCorrection' type='radio'>
-        </div>
-      </div>
-      <div class='column-4'>
-        <input data-bind='visible: displayCompressibilityCorrection, value: compressibilityCorrectionValue' id='compressibility-correction-value' type='number'>
-      </div>
-    </div>
-    <div class='row'>
-      <div class='column-5' id='diferential-pressure-container'>
-        <label>Differential Pressure</label>
-        <input data-bind='value: differentialPressure' id='differential-pressure' type='number'>
-      </div>
-      <div class='column-5' id='orifice-bore-diameter-container'>
-        <label>Orifice Bore Diameter</label>
-        <input data-bind='value: orificeBoreDiameter' id='orifice-bore-diameter' type='number'>
-      </div>
-      <div class='column-2' id='beta-ratio-container'>
-        <div id='beta-ratio'>
-          Beta Ratio
-          <span data-bind='text: betaRatio'></span>
-        </div>
-      </div>
-    </div>
-    <div class='row'>
-      <div class='column-4'>
-        <label>Flow Rate</label>
-        <span data-bind='copyToClipboard, text: flowRate' id='flow-rate'></span>
-      </div>
-      <div class='column-4'>
-        <select data-bind='options: availableFlowRateUnits, value: selectedFlowRateUnit' id='flow-rate-unit'></select>
+      <div class='col-xs-12 col-sm-2' id='beta-ratio-container'>
+        <label for='beta-ratio'>Beta Ratio</label>
+        <input class='form-control' data-bind='value: betaRatio' disabled id='beta-ratio' type='number'>
       </div>
     </div>
   </form>
+  <div class='form-group row'>
+    <div class='col-xs-12 col-sm-4' id='specific-gravity-container'>
+      <label for='base-specific-gravity'>Base Specific Gravity</label>
+      <input class='form-control' data-bind='value: baseSpecificGravity' id='base-specific-gravity' type='number'>
+    </div>
+  </div>
+  <div class='form-group row'>
+    <div id='temperature-pressure-container'>
+      <div id='operating-temperature-container'>
+        <div class='col-xs-12 col-sm-4'>
+          <label for='operating-temperature'>Operating Temperature</label>
+          <input class='form-control' data-bind='value: operatingTemperature' id='operating-temperature' type='number'>
+        </div>
+        <div class='col-xs-12 col-sm-6'>
+          <label>Units</label>
+          <!-- ko foreach: operatingTemperatureUnit -->
+          <div class='form-check'>
+            <label class='form-check-label'>
+              <input class='form-check-input operating-temperature-units' data-bind='checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit, attr: { id: $data }' name='operatingTemperature' type='radio'>
+                <span data-bind='text: $data'></span>
+              </input>
+            </label>
+          </div>
+          <!-- /ko -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='form-group row'>
+    <div id='operating-pressure-container'>
+      <div class='col-xs-12 col-sm-4' data-bind="css: { 'has-error': operatingPressureWarningMessage }">
+        <label for='operating-pressure'>Operating Pressure</label>
+        <input class='form-control' data-bind='value: operatingPressure' id='operating-pressure' type='number'>
+        <div class='help-block' data-bind='visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage' id='warning-message'></div>
+      </div>
+      <div class='col-xs-12 col-sm-2'>
+        <label class='col-xs-12' for='operating-pressure-units'>Units</label>
+        <select class='form-control' data-bind='options: operatingPressureUnits, value: selectedOperatingPressureUnits' id='operating-pressure-units'></select>
+      </div>
+      <div class='col-xs-12 col-sm-4'>
+        <label>Operating Pressure Read</label>
+        <!-- ko foreach: operatingPressureRead -->
+        <div class='form-check'>
+          <label class='form-check-label'>
+            <input class='form-check-input operating-pressure-read' data-bind='checkedValue: $data, checked: $component.selectedOperatingOperatingPressureRead, attr: { id: $data }' name='operatingPressureRead' type='radio'>
+              <span data-bind='text: $data'></span>
+            </input>
+          </label>
+        </div>
+        <!-- /ko -->
+      </div>
+    </div>
+  </div>
+  <div class='form-group row'>
+    <div id='compressibility-correction-container'>
+      <div class='col-xs-12 col-sm-4'>
+        <label>Compressibility Correction</label>
+        <!-- ko foreach: compressibilityCorrection -->
+        <div class='form-check'>
+          <label class='form-check-label'>
+            <input class='form-check-input compressibility-correction' data-bind='checkedValue: $data, checked: $component.selectedCompressibilityCorrection, attr: { id: $data }' name='compressibilityCorrection' type='radio'>
+              <span data-bind='text: $data'></span>
+            </input>
+          </label>
+        </div>
+        <!-- /ko -->
+        <div class='col-xs-12 col-sm-4'>
+          <input class='form-control' data-bind='enable: displayCompressibilityCorrection, value: compressibilityCorrectionValue' id='compressibility-correction-value' type='number'>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='form-group row'>
+    <div class='col-xs-5' id='diferential-pressure-container'>
+      <label for='differential-pressure'>Differential Pressure</label>
+      <input class='form-control' data-bind='value: differentialPressure' id='differential-pressure' type='number'>
+    </div>
+  </div>
+  <div class='form-group row'>
+    <div class='col-xs-12 col-sm-5'>
+      <label for='flow-rate'>Flow Rate</label>
+      <input class='form-control' data-bind='copyToClipboard, value: flowRate' disabled='disabled' id='flow-rate'>
+    </div>
+    <div class='col-xs-12 col-sm-4'>
+      <label for='flow-rate-unit'>Rate Unit</label>
+      <select class='form-control' data-bind='options: availableFlowRateUnits, value: selectedFlowRateUnit' id='flow-rate-unit'></select>
+    </div>
+  </div>
 </section>

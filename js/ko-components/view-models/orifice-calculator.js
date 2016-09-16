@@ -103,7 +103,16 @@
             return _this.selectedCompressibilityCorrection() !== OPL.OrificeCalculator.Config.Dictionaries.CompressibilityCorrection.none;
           };
         })(this));
-        this.compressibilityCorrectionValue = ko.observable(1);
+        this.compressibilityCorrectionValue = ko.observable();
+        this.displayCompressibilityCorrection.subscribe((function(_this) {
+          return function(newValue) {
+            if (newValue) {
+              return _this.compressibilityCorrectionValue(1);
+            } else {
+              return _this.compressibilityCorrectionValue(void 0);
+            }
+          };
+        })(this));
         this.betaRatio = ko.computed((function(_this) {
           return function() {
             return _.ceil(_this.orificeBoreDiameter() / _this.selectedPipeDiameter(), 4);
