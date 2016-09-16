@@ -3,68 +3,79 @@
     %h2 Daniel Orifice Flow Calculator
 
   %form
-    .row
-      #pipe-container.column-6
-        %label Pipe ID
-        %select#available-pipes{ 'data-bind' => "options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value'" }
+    .form-group.row
+      #pipe-container.col-xs-6
+        %label{ for: 'available-pipes'} Pipe ID
+        %select.form-control#available-pipes{ 'data-bind' => "options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value'" }
 
-      #specific-gravity-container.column-6
-        %label Base Specific Gravity
-        %input#base-specific-gravity{ :type => 'number', 'data-bind' => 'value: baseSpecificGravity' }
+      #specific-gravity-container.col-xs-6
+        %label{ for: 'base-specific-gravity' } Base Specific Gravity
+        %input.form-control#base-specific-gravity{ :type => 'number', 'data-bind' => 'value: baseSpecificGravity' }
 
-    #temperature-pressure-container.row
-      #operating-temperature-container.column-6
-        .row
-          .column-6
-            %label Operating Temperature
-            %input#operating-temperature{ :type => 'number', 'data-bind' => 'value: operatingTemperature' }
+    .form-group.row
+      #temperature-pressure-container
+        #operating-temperature-container
+          .col-xs-4
+            %label{ for: 'operating-temperature' } Operating Temperature
+            %input.form-control#operating-temperature{ :type => 'number', 'data-bind' => 'value: operatingTemperature' }
 
-          .column-6
-            %div{ "data-bind" => "foreach: operatingTemperatureUnit" }
-              %label{ "data-bind" => "text: $data" }
-              %input.operating-temperature-units{ :type => "radio", "data-bind" => "checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit"  }
+          .col-xs-6
+            %label Units
+            / ko foreach: operatingTemperatureUnit
+            .form-check
+              %label.form-check-label
+                %input.form-check-input.operating-temperature-units{ :type => "radio", :name => 'operatingTemperature', "data-bind" => 'checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit, attr: { id: $data }' }
+                  %span{'data-bind' => 'text: $data' }
+            / /ko
 
-    #operating-pressure-container.row
-      .column-5
-        %label Operating Pressure
-        %input#operating-pressure{ :type => 'number', 'data-bind' => 'value: operatingPressure' }
-        #warning-message{ "data-bind" => "visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage" }
+    .form-group.row
+      #operating-pressure-container
+        .col-xs-4
+          %label{ for: 'operating-pressure' } Operating Pressure
+          %input.form-control#operating-pressure{ :type => 'number', 'data-bind' => 'value: operatingPressure' }
+          #warning-message{ "data-bind" => "visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage" }
 
-      .column-3
-        %div{ 'data-bind' => 'foreach: operatingPressureRead' }
-          %label{ 'data-bind' => 'text: $data' }
-          %input.operating-pressure-read{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.selectedOperatingPressureRead'  }
+        .col-xs-2
+          %label.col-xs-12{ for: 'operating-pressure-units' } Units
+          %select#operating-pressure-units{ 'data-bind' => 'options: operatingPressureUnits, value: selectedOperatingPressureUnits' }
 
-      .column-2
-        %select#operating-pressure-units{ 'data-bind' => 'options: operatingPressureUnits, value: selectedOperatingPressureUnits' }
+        .col-xs-3
+          %label Operating Pressure Read
+          / ko foreach: operatingPressureRead
+          .form-check
+            %label.form-check-label
+              %input.form-check-input.operating-pressure-read{ :type => "radio", :name => 'operatingPressureRead', "data-bind" => 'checkedValue: $data, checked: $component.selectedOperatingOperatingPressureRead, attr: { id: $data }' }
+                %span{'data-bind' => 'text: $data' }
+          / /ko
 
-    #compressibility-correction-container.row
-      .column-12
-        %label Compressibility Correction
-        %div{ 'data-bind' => 'foreach: compressibilityCorrection' }
-          %label{ 'data-bind' => 'text: $data' }
-          %input.compressibility-correction{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.selectedCompressibilityCorrection'  }
+    .form-group.row
+      #compressibility-correction-container
+        .col-xs-4
+          %label Compressibility Correction
+          %div{ 'data-bind' => 'foreach: compressibilityCorrection' }
+            %label{ 'data-bind' => 'text: $data' }
+            %input.compressibility-correction{ :type => 'radio', 'data-bind' => 'checkedValue: $data, checked: $component.selectedCompressibilityCorrection'  }
 
-      .column-4
-        %input#compressibility-correction-value{ :type => "number", "data-bind" => "visible: displayCompressibilityCorrection, value: compressibilityCorrectionValue" }
+        .col-xs-4
+          %input#compressibility-correction-value{ :type => "number", "data-bind" => "visible: displayCompressibilityCorrection, value: compressibilityCorrectionValue" }
 
-    .row
-      #diferential-pressure-container.column-5
+    .form-group.row
+      #diferential-pressure-container.col-xs-5
         %label Differential Pressure
         %input#differential-pressure{ :type => 'number', 'data-bind' => 'value: differentialPressure' }
 
-      #orifice-bore-diameter-container.column-5
+      #orifice-bore-diameter-container.col-xs-5
         %label Orifice Bore Diameter
         %input#orifice-bore-diameter{ :type => 'number', 'data-bind' => 'value: orificeBoreDiameter' }
 
-      #beta-ratio-container.column-2
+      #beta-ratio-container.col-xs-2
         #beta-ratio
           Beta Ratio
           %span{"data-bind" => "text: betaRatio" }
 
-    .row
-      .column-4
+    .form-group.row
+      .col-xs-4
         %label Flow Rate
         %span#flow-rate{ 'data-bind' => 'copyToClipboard, text: flowRate' }
-      .column-4
+      .col-xs-4
         %select#flow-rate-unit{ 'data-bind' => 'options: availableFlowRateUnits, value: selectedFlowRateUnit' }
