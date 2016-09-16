@@ -4,31 +4,31 @@
 
   %form
     .form-group.row
-      #pipe-container.col-xs-4
+      #pipe-container.col-xs-12.col-sm-4
         %label{ for: 'available-pipes'} Pipe ID
         %select.form-control#available-pipes{ 'data-bind' => "options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value'" }
 
-      #orifice-bore-diameter-container.col-xs-4
+      #orifice-bore-diameter-container.col-xs-12.col-sm-4
         %label{ for: 'differential-pressure' } Orifice Bore Diameter
         %input.form-control#orifice-bore-diameter{ :type => 'number', 'data-bind' => 'value: orificeBoreDiameter' }
 
-      #beta-ratio-container.col-xs-2
+      #beta-ratio-container.col-xs-12.col-sm-2
         %label{ for: 'beta-ratio' } Beta Ratio
         %input#beta-ratio.form-control{ :type => 'number', :disabled => true, "data-bind" => "value: betaRatio" }
 
   .form-group.row
-    #specific-gravity-container.col-xs-4
+    #specific-gravity-container.col-xs-12.col-sm-4
       %label{ for: 'base-specific-gravity' } Base Specific Gravity
       %input.form-control#base-specific-gravity{ :type => 'number', 'data-bind' => 'value: baseSpecificGravity' }
 
   .form-group.row
     #temperature-pressure-container
       #operating-temperature-container
-        .col-xs-4
+        .col-xs-12.col-sm-4
           %label{ for: 'operating-temperature' } Operating Temperature
           %input.form-control#operating-temperature{ :type => 'number', 'data-bind' => 'value: operatingTemperature' }
 
-        .col-xs-6
+        .col-xs-12.col-sm-6
           %label Units
           / ko foreach: operatingTemperatureUnit
           .form-check
@@ -39,16 +39,16 @@
 
   .form-group.row
     #operating-pressure-container
-      .col-xs-4.col-md-4
+      .col-xs-12.col-sm-4
         %label{ for: 'operating-pressure' } Operating Pressure
         %input.form-control#operating-pressure{ :type => 'number', 'data-bind' => 'value: operatingPressure' }
         #warning-message{ "data-bind" => "visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage" }
 
-      .col-xs-4.col-md-2
+      .col-xs-12.col-sm-2
         %label.col-xs-12{ for: 'operating-pressure-units' } Units
         %select.form-control#operating-pressure-units{ 'data-bind' => 'options: operatingPressureUnits, value: selectedOperatingPressureUnits' }
 
-      .col-xs-4.col-md-4
+      .col-xs-12.col-sm-4
         %label Operating Pressure Read
         / ko foreach: operatingPressureRead
         .form-check
@@ -59,7 +59,7 @@
 
   .form-group.row
     #compressibility-correction-container
-      .col-xs-4
+      .col-xs-12.col-sm-4
         %label Compressibility Correction
         / ko foreach: compressibilityCorrection
         .form-check
@@ -68,7 +68,7 @@
               %span{'data-bind' => 'text: $data' }
         / /ko
 
-        .col-xs-4
+        .col-xs-12.col-sm-4
           %input.form-control#compressibility-correction-value{ :type => "number", "data-bind" => "enable: displayCompressibilityCorrection, value: compressibilityCorrectionValue" }
 
   .form-group.row
@@ -77,9 +77,9 @@
       %input.form-control#differential-pressure{ :type => 'number', 'data-bind' => 'value: differentialPressure' }
 
   .form-group.row
-    .col-xs-5
+    .col-xs-12.col-sm-5
       %label{ for: 'flow-rate' } Flow Rate
       %input.form-control#flow-rate{ 'data-bind' => 'copyToClipboard, value: flowRate', disabled: 'disabled' }
-    .col-xs-4
+    .col-xs-12.col-sm-4
       %label{ for: 'flow-rate-unit' } Rate Unit
       %select.form-control#flow-rate-unit{ 'data-bind' => 'options: availableFlowRateUnits, value: selectedFlowRateUnit' }
