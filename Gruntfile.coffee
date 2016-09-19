@@ -46,6 +46,7 @@ module.exports = (grunt) ->
       dist:
         files:
           'build/css/bootstrap.min.css': 'src/css/bootstrap.min.css'
+          'build/css/animate.css': 'src/css/animate.css'
       spec:
         files:
           'build/js/lib/jasmine-jquery.js': 'node_modules/jasmine-jquery/lib/jasmine-jquery.js'

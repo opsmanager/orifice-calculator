@@ -14,7 +14,10 @@
 
       #beta-ratio-container.col-xs-12.col-sm-2
         %label{ for: 'beta-ratio' } Beta Ratio
-        %input#beta-ratio.form-control{ :type => 'number', :disabled => true, "data-bind" => "value: betaRatio" }
+        %figure.highlight
+          %pre
+            %code
+              %span#beta-ratio{ "data-bind" => "text: betaRatio" }
 
   .form-group.row
     #specific-gravity-container.col-xs-12.col-sm-4
@@ -53,7 +56,7 @@
         / ko foreach: operatingPressureRead
         .form-check
           %label.form-check-label
-            %input.form-check-input.operating-pressure-read{ :type => "radio", :name => 'operatingPressureRead', "data-bind" => 'checkedValue: $data, checked: $component.selectedOperatingOperatingPressureRead, attr: { id: $data }' }
+            %input.form-check-input.operating-pressure-read{ :type => "radio", :name => 'operatingPressureRead', "data-bind" => 'checkedValue: $data, checked: $component.selectedOperatingPressureRead, attr: { id: $data }' }
               %span{'data-bind' => 'text: $data' }
         / /ko
 
@@ -79,7 +82,16 @@
   .form-group.row
     .col-xs-12.col-sm-5
       %label{ for: 'flow-rate' } Flow Rate
-      %input.form-control#flow-rate{ 'data-bind' => 'copyToClipboard, value: flowRate', disabled: 'disabled' }
+      %figure.highlight
+        %pre
+          %code
+            %span#flow-rate{ 'data-bind' => 'copyToClipboard: { callback: copyFeedback }, text: flowRate' }
+      .help-block#info-message
+        Click the
+        %strong flow rate value
+        to copy it
+      .help-block#copy-feedback.animated{ 'data-bind' => 'css: copyFeedbackClass' } Copied
+
     .col-xs-12.col-sm-4
       %label{ for: 'flow-rate-unit' } Rate Unit
       %select.form-control#flow-rate-unit{ 'data-bind' => 'options: availableFlowRateUnits, value: selectedFlowRateUnit' }

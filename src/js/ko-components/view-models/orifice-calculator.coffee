@@ -19,7 +19,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
     # This constant is used to convert degree fahrenheit to degree rankine
     ABSOLUTE_ZERO            = 459.67
 
-    constructor: () ->
+    constructor: ->
       @availablePipes = ko.observableArray _.values OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes
       @selectedPipeDiameter = ko.observable OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value
 
@@ -96,7 +96,9 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
 
 
       @betaRatio = ko.computed =>
-        _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 4
+        betaRatio = _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 4
+        return undefined if _.isNaN betaRatio
+        betaRatio
 
       @velocityOfApproach = ko.computed =>
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
@@ -119,4 +121,21 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
 
         operatingTemperatureInRankine = Number(@operatingTemperature()) + ABSOLUTE_ZERO
 
-        _.ceil flowRate, 3
+        if _.isNaN flowRate
+          return undefined
+        else
+          return _.ceil flowRate, 3
+
+      @copyFeedbackActive = ko.observable false
+
+      @copyFeedbackClass = ko.pureComputed =>
+        if @copyFeedbackActive()
+          return 'bounce-in'
+        else
+          return 'hidden'
+
+    copyFeedback: =>
+      @copyFeedbackActive true
+      setTimeout =>
+        @copyFeedbackActive false
+      , 1000
