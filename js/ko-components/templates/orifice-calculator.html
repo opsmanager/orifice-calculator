@@ -14,7 +14,9 @@
       </div>
       <div class='col-xs-12 col-sm-2' id='beta-ratio-container'>
         <label for='beta-ratio'>Beta Ratio</label>
-        <input class='form-control' data-bind='value: betaRatio' disabled id='beta-ratio' type='number'>
+        <figure class='highlight'>
+          <pre><code><span data-bind='text: betaRatio' id='beta-ratio'></span></code></pre>
+        </figure>
       </div>
     </div>
   </form>
@@ -62,7 +64,7 @@
         <!-- ko foreach: operatingPressureRead -->
         <div class='form-check'>
           <label class='form-check-label'>
-            <input class='form-check-input operating-pressure-read' data-bind='checkedValue: $data, checked: $component.selectedOperatingOperatingPressureRead, attr: { id: $data }' name='operatingPressureRead' type='radio'>
+            <input class='form-check-input operating-pressure-read' data-bind='checkedValue: $data, checked: $component.selectedOperatingPressureRead, attr: { id: $data }' name='operatingPressureRead' type='radio'>
               <span data-bind='text: $data'></span>
             </input>
           </label>
@@ -99,7 +101,15 @@
   <div class='form-group row'>
     <div class='col-xs-12 col-sm-5'>
       <label for='flow-rate'>Flow Rate</label>
-      <input class='form-control' data-bind='copyToClipboard, value: flowRate' disabled='disabled' id='flow-rate'>
+      <figure class='highlight'>
+        <pre><code><span data-bind='copyToClipboard: { callback: copyFeedback }, text: flowRate' id='flow-rate'></span></code></pre>
+      </figure>
+      <div class='help-block' id='info-message'>
+        Click the
+        <strong>flow rate value</strong>
+        to copy it
+      </div>
+      <div class='help-block animated' data-bind='css: copyFeedbackClass' id='copy-feedback'>Copied</div>
     </div>
     <div class='col-xs-12 col-sm-4'>
       <label for='flow-rate-unit'>Rate Unit</label>

@@ -1,4 +1,6 @@
 (function() {
+  var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
   define('orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validation', 'orifice-calculator-config'], function(ko, _) {
     var base, base1;
     this.OPL || (this.OPL = {});
@@ -22,6 +24,7 @@
       ABSOLUTE_ZERO = 459.67;
 
       function OrificeCalculator() {
+        this.copyFeedback = bind(this.copyFeedback, this);
         this.availablePipes = ko.observableArray(_.values(OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes));
         this.selectedPipeDiameter = ko.observable(OPL.OrificeCalculator.Config.Dictionaries.AvailablePipes.oneNineInch.value);
         this.operatingPressure = ko.observable().extend({
@@ -115,7 +118,12 @@
         })(this));
         this.betaRatio = ko.computed((function(_this) {
           return function() {
-            return _.ceil(_this.orificeBoreDiameter() / _this.selectedPipeDiameter(), 4);
+            var betaRatio;
+            betaRatio = _.ceil(_this.orificeBoreDiameter() / _this.selectedPipeDiameter(), 4);
+            if (_.isNaN(betaRatio)) {
+              return void 0;
+            }
+            return betaRatio;
           };
         })(this));
         this.velocityOfApproach = ko.computed((function(_this) {
@@ -141,10 +149,33 @@
                 flowRate /= 3600;
             }
             operatingTemperatureInRankine = Number(_this.operatingTemperature()) + ABSOLUTE_ZERO;
-            return _.ceil(flowRate, 3);
+            if (_.isNaN(flowRate)) {
+              return void 0;
+            } else {
+              return _.ceil(flowRate, 3);
+            }
+          };
+        })(this));
+        this.copyFeedbackActive = ko.observable(false);
+        this.copyFeedbackClass = ko.pureComputed((function(_this) {
+          return function() {
+            if (_this.copyFeedbackActive()) {
+              return 'bounce-in';
+            } else {
+              return 'hidden';
+            }
           };
         })(this));
       }
+
+      OrificeCalculator.prototype.copyFeedback = function() {
+        this.copyFeedbackActive(true);
+        return setTimeout((function(_this) {
+          return function() {
+            return _this.copyFeedbackActive(false);
+          };
+        })(this), 1000);
+      };
 
       return OrificeCalculator;
 
