@@ -2,13 +2,14 @@
   define('ko-bindings', ['knockout'], function(ko) {
     return ko.bindingHandlers.copyToClipboard = {
       init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-        var ref;
+        var _findNestedValue, ref;
         this.callback = (ref = valueAccessor()) != null ? ref.callback : void 0;
-        return element.onclick = (function(_this) {
+        element.onclick = (function(_this) {
           return function() {
-            var temp;
+            var nestedElement, temp;
             temp = document.createElement('input');
-            temp.setAttribute('value', element.innerHTML);
+            nestedElement = _findNestedValue(element);
+            temp.setAttribute('value', nestedElement.innerHTML);
             document.body.appendChild(temp);
             temp.select();
             document.execCommand('copy');
@@ -18,6 +19,18 @@
             }
           };
         })(this);
+        return _findNestedValue = function(element) {
+          var lastChildren;
+          if (element.children.length > 0) {
+            lastChildren = element.children[0];
+            while (lastChildren.children.length !== 0) {
+              lastChildren = lastChildren.children[0];
+            }
+          } else {
+            lastChildren = element;
+          }
+          return lastChildren;
+        };
       }
     };
   });

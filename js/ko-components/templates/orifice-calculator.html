@@ -101,8 +101,8 @@
   <div class='form-group row'>
     <div class='col-xs-12 col-sm-5'>
       <label for='flow-rate'>Flow Rate</label>
-      <figure class='highlight'>
-        <pre><code><span data-bind='copyToClipboard: { callback: copyFeedback }, text: flowRate' id='flow-rate'></span></code></pre>
+      <figure class='highlight' data-bind='copyToClipboard: { callback: copyFeedback }'>
+        <pre><code><span data-bind='text: flowRate' id='flow-rate'></span></code></pre>
       </figure>
       <div class='help-block' id='info-message'>
         Click the
