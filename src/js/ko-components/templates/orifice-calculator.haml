@@ -85,7 +85,13 @@
       %figure.highlight
         %pre
           %code
-            %span#flow-rate{ 'data-bind' => 'copyToClipboard, text: flowRate' }
+            %span#flow-rate{ 'data-bind' => 'copyToClipboard: { callback: copyFeedback }, text: flowRate' }
+      .help-block#info-message
+        Click the
+        %strong flow rate value
+        to copy it
+      .help-block#copy-feedback.animated{ 'data-bind' => 'css: copyFeedbackClass' } Copied
+
     .col-xs-12.col-sm-4
       %label{ for: 'flow-rate-unit' } Rate Unit
       %select.form-control#flow-rate-unit{ 'data-bind' => 'options: availableFlowRateUnits, value: selectedFlowRateUnit' }
