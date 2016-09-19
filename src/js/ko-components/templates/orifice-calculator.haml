@@ -82,10 +82,10 @@
   .form-group.row
     .col-xs-12.col-sm-5
       %label{ for: 'flow-rate' } Flow Rate
-      %figure.highlight
+      %figure.highlight{ 'data-bind' => 'copyToClipboard: { callback: copyFeedback }' }
         %pre
           %code
-            %span#flow-rate{ 'data-bind' => 'copyToClipboard: { callback: copyFeedback }, text: flowRate' }
+            %span#flow-rate{ 'data-bind' => 'text: flowRate' }
       .help-block#info-message
         Click the
         %strong flow rate value
