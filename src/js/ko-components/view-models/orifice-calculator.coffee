@@ -96,7 +96,9 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
 
 
       @betaRatio = ko.computed =>
-        _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 4
+        betaRatio = _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 4
+        return undefined if _.isNaN betaRatio
+        betaRatio
 
       @velocityOfApproach = ko.computed =>
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
@@ -119,4 +121,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
 
         operatingTemperatureInRankine = Number(@operatingTemperature()) + ABSOLUTE_ZERO
 
-        _.ceil flowRate, 3
+        if _.isNaN flowRate
+          return undefined
+        else
+          return _.ceil flowRate, 3
