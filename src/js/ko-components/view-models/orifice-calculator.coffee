@@ -25,6 +25,8 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @availablePipes = ko.observableArray _.values config.AvailablePipes
       @selectedPipeDiameter = ko.observable config.AvailablePipes.oneNineInch.value
 
+      @availablePressureUnits = ko.observable _.values config.PressureUnits
+
       @operatingPressure = ko.observable().extend
         toNumber: true
         required:
@@ -36,20 +38,18 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
       @operatingPressureRead = ko.observableArray _.values config.OperatingPressureRead
       @selectedOperatingPressureRead = ko.observable config.OperatingPressureRead.gauge
-
-      @operatingPressureUnits = ko.observableArray _.values config.OperatingPressureUnits
-      @selectedOperatingPressureUnits = ko.observable config.OperatingPressureUnits.psi
+      @selectedOperatingPressureUnits = ko.observable config.PressureUnits.psi
 
       @operatingPressureInPSI = ko.pureComputed =>
         switch @selectedOperatingPressureUnits()
-          when config.OperatingPressureUnits.psi then @operatingPressure()
-          when config.OperatingPressureUnits.kgcm then OPL.Converter.Pressure.kgcm2ToPSI(@operatingPressure())
-          when config.OperatingPressureUnits.kpa then OPL.Converter.Pressure.kpaToPSI(@operatingPressure())
-          when config.OperatingPressureUnits.bar then OPL.Converter.Pressure.barToPSI(@operatingPressure())
-          when config.OperatingPressureUnits.mbar then OPL.Converter.Pressure.mbarToPSI(@operatingPressure())
-          when config.OperatingPressureUnits.mmMercury then OPL.Converter.Pressure.mmHgToPSI(@operatingPressure())
-          when config.OperatingPressureUnits.pa then OPL.Converter.Pressure.paToPSI(@operatingPressure())
-          when config.OperatingPressureUnits.inchesWC then OPL.Converter.Pressure.inWaterToPSI(@operatingPressure())
+          when config.PressureUnits.psi then @operatingPressure()
+          when config.PressureUnits.kgcm then OPL.Converter.Pressure.kgcm2ToPSI(@operatingPressure())
+          when config.PressureUnits.kpa then OPL.Converter.Pressure.kpaToPSI(@operatingPressure())
+          when config.PressureUnits.bar then OPL.Converter.Pressure.barToPSI(@operatingPressure())
+          when config.PressureUnits.mbar then OPL.Converter.Pressure.mbarToPSI(@operatingPressure())
+          when config.PressureUnits.mmMercury then OPL.Converter.Pressure.mmHgToPSI(@operatingPressure())
+          when config.PressureUnits.pa then OPL.Converter.Pressure.paToPSI(@operatingPressure())
+          when config.PressureUnits.inchesWC then OPL.Converter.Pressure.inWaterToPSI(@operatingPressure())
 
       @operatingPressureWarningMessage = ko.pureComputed =>
         switch
@@ -151,8 +151,7 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
         else
           return _.ceil flowRate, 3
 
-      @availableDifferentialPressureUnits = ko.observable _.values config.DifferentialPressureUnits
-      @selectedDifferentialPressureUnit = ko.observable config.DifferentialPressureUnits.inchesWater
+      @selectedDifferentialPressureUnit = ko.observable config.PressureUnits.inchesWater
 
       @copyFeedbackActive = ko.observable false
 
