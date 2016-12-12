@@ -46,7 +46,7 @@ define "unit-converter", ["lodash"], (_) ->
       value * @ONE_BAR_IN_PSI/1000
 
     # NOTE: At 0 deg C
-    mmToPSI: (value) ->
+    mmHgToPSI: (value) ->
       value * @ONE_MMHG_IN_PSI
 
     paToPSI: (value) ->

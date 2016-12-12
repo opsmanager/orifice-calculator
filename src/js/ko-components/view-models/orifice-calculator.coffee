@@ -34,19 +34,28 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           params: true
           message: config.Messages.integerError
 
-      @operatingPressureInPSI = ko.pureComputed =>
-        @operatingPressure()
-
-      @operatingPressureWarningMessage = ko.pureComputed =>
-        switch
-          when 200 < @operatingPressure() <= 400 then config.Messages.operatingPressureWarningMayResult
-          when 401 <= @operatingPressure() then config.Messages.operatingPressureWarningWillResult
-
       @operatingPressureRead = ko.observableArray _.values config.OperatingPressureRead
       @selectedOperatingPressureRead = ko.observable config.OperatingPressureRead.gauge
 
       @operatingPressureUnits = ko.observableArray _.values config.OperatingPressureUnits
       @selectedOperatingPressureUnits = ko.observable config.OperatingPressureUnits.psi
+
+      @operatingPressureInPSI = ko.pureComputed =>
+        switch @selectedOperatingPressureUnits()
+          when config.OperatingPressureUnits.psi then @operatingPressure()
+          when config.OperatingPressureUnits.kgcm then OPL.Converter.Pressure.kgcm2ToPSI(@operatingPressure())
+          when config.OperatingPressureUnits.kpa then OPL.Converter.Pressure.kpaToPSI(@operatingPressure())
+          when config.OperatingPressureUnits.bar then OPL.Converter.Pressure.barToPSI(@operatingPressure())
+          when config.OperatingPressureUnits.mbar then OPL.Converter.Pressure.mbarToPSI(@operatingPressure())
+          when config.OperatingPressureUnits.mmMercury then OPL.Converter.Pressure.mmHgToPSI(@operatingPressure())
+          when config.OperatingPressureUnits.pa then OPL.Converter.Pressure.paToPSI(@operatingPressure())
+          when config.OperatingPressureUnits.inchesWC then OPL.Converter.Pressure.inWaterToPSI(@operatingPressure())
+
+      @operatingPressureWarningMessage = ko.pureComputed =>
+        switch
+          when 200 < @operatingPressureInPSI() <= 400 then config.Messages.operatingPressureWarningMayResult
+          when 401 <= @operatingPressureInPSI() then config.Messages.operatingPressureWarningWillResult
+
 
       @baseSpecificGravity = ko.observable().extend
         toNumber: true
@@ -89,6 +98,12 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
       @availableBoreDiameterUnits = ko.observable _.values config.OrificeBoreDiameterUnits
       @selectedBoreDiameterUnit = ko.observable config.OrificeBoreDiameterUnits.inches
+
+      @orificeBoreDiameterInInches = ko.pureComputed =>
+        switch @selectedBoreDiameterUnit()
+          when config.OrificeBoreDiameterUnits.inches then @orificeBoreDiameter()
+          when config.OrificeBoreDiameterUnits.centimeters then OPL.Converter.Dimensions.cmToInches(@orificeBoreDiameter())
+          when config.OrificeBoreDiameterUnits.millimeters then OPL.Converter.Dimensions.mmToInches(@orificeBoreDiameter())
 
       @compressibilityCorrection = ko.observableArray _.values config.CompressibilityCorrection
       @selectedCompressibilityCorrection  = ko.observable config.CompressibilityCorrection.none
