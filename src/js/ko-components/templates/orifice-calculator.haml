@@ -6,58 +6,58 @@
     .form-group.row
       #pipe-container.col-xs-12.col-sm-4
         %label{ for: 'available-pipes'} Pipe ID
-        %select.form-control#available-pipes{ 'data-bind' => "options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value'" }
+        %select.form-control#available-pipes(data-bind="{ options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value' }" )
 
       #orifice-bore-diameter-container.col-xs-12.col-sm-4
-        %label{ for: 'differential-pressure' } Orifice Bore Diameter
-        %input.form-control#orifice-bore-diameter{ :type => 'number', 'data-bind' => 'value: orificeBoreDiameter' }
+        %label(for="differential-pressure") Orifice Bore Diameter
+        %input.form-control#orifice-bore-diameter(type="number" data-bind="value: orificeBoreDiameter")
 
       #beta-ratio-container.col-xs-12.col-sm-2
-        %label{ for: 'beta-ratio' } Beta Ratio
+        %label(for="beta-ratio") Beta Ratio
         %figure.highlight
           %pre
             %code
-              %span#beta-ratio{ "data-bind" => "text: betaRatio" }
+              %span#beta-ratio(data-bind="text: betaRatio")
 
   .form-group.row
     #specific-gravity-container.col-xs-12.col-sm-4
-      %label{ for: 'base-specific-gravity' } Base Specific Gravity
-      %input.form-control#base-specific-gravity{ :type => 'number', 'data-bind' => 'value: baseSpecificGravity' }
+      %label(for="base-specific-gravity") Base Specific Gravity
+      %input.form-control#base-specific-gravity(type="number" data-bind="value: baseSpecificGravity")
 
   .form-group.row
     #temperature-pressure-container
       #operating-temperature-container
         .col-xs-12.col-sm-4
-          %label{ for: 'operating-temperature' } Operating Temperature
-          %input.form-control#operating-temperature{ :type => 'number', 'data-bind' => 'value: operatingTemperature' }
+          %label(for="operating-temperature") Operating Temperature
+          %input.form-control#operating-temperature(type="number" data-bind="value: operatingTemperature")
 
         .col-xs-12.col-sm-6
           %label Units
           / ko foreach: operatingTemperatureUnit
           .form-check
             %label.form-check-label
-              %input.form-check-input.operating-temperature-units{ :type => "radio", :name => 'operatingTemperature', "data-bind" => 'checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit, attr: { id: $data }' }
-                %span{'data-bind' => 'text: $data' }
+              %input.form-check-input.operating-temperature-units(type="radio" name="operatingTemperature" data-bind="checkedValue: $data, checked: $component.selectedOperatingTemperatureUnit, attr: { id: $data }" )
+                %span(data-bind="text: $data")
           / /ko
 
   .form-group.row
     #operating-pressure-container
-      .col-xs-12.col-sm-4{ "data-bind" => "css: { 'has-error': operatingPressureWarningMessage }" }
-        %label{ for: 'operating-pressure' } Operating Pressure
-        %input.form-control#operating-pressure{ :type => 'number', 'data-bind' => 'value: operatingPressure' }
-        .help-block#warning-message{ "data-bind" => "visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage" }
+      .col-xs-12.col-sm-4(data-bind="css: { 'has-error': operatingPressureWarningMessage }")
+        %label(for="operating-pressure") Operating Pressure
+        %input.form-control#operating-pressure(type="number" data-bind="value: operatingPressure")
+        .help-block#warning-message(data-bind="visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage")
 
       .col-xs-12.col-sm-2
-        %label.col-xs-12{ for: 'operating-pressure-units' } Units
-        %select.form-control#operating-pressure-units{ 'data-bind' => 'options: operatingPressureUnits, value: selectedOperatingPressureUnits' }
+        %label.col-xs-12(for="operating-pressure-units") Units
+        %select.form-control#operating-pressure-units(data-bind="options: operatingPressureUnits, value: selectedOperatingPressureUnits")
 
       .col-xs-12.col-sm-4
         %label Operating Pressure Read
         / ko foreach: operatingPressureRead
         .form-check
           %label.form-check-label
-            %input.form-check-input.operating-pressure-read{ :type => "radio", :name => 'operatingPressureRead', "data-bind" => 'checkedValue: $data, checked: $component.selectedOperatingPressureRead, attr: { id: $data }' }
-              %span{'data-bind' => 'text: $data' }
+            %input.form-check-input.operating-pressure-read(type="radio" name="operatingPressureRead" data-bind="checkedValue: $data, checked: $component.selectedOperatingPressureRead, attr: { id: $data }")
+              %span(data-bind="text: $data")
         / /ko
 
   .form-group.row
@@ -67,31 +67,35 @@
         / ko foreach: compressibilityCorrection
         .form-check
           %label.form-check-label
-            %input.form-check-input.compressibility-correction{ :type => "radio", :name => 'compressibilityCorrection', "data-bind" => 'checkedValue: $data, checked: $component.selectedCompressibilityCorrection, attr: { id: $data }' }
-              %span{'data-bind' => 'text: $data' }
+            %input.form-check-input.compressibility-correction(type="radio" name="compressibilityCorrection" data-bind="checkedValue: $data, checked: $component.selectedCompressibilityCorrection, attr: { id: $data }")
+              %span(data-bind="text: $data")
         / /ko
 
         .col-xs-12.col-sm-4
-          %input.form-control#compressibility-correction-value{ :type => "number", "data-bind" => "enable: displayCompressibilityCorrection, value: compressibilityCorrectionValue" }
+          %input.form-control#compressibility-correction-value(type="number" data-bind="enable: displayCompressibilityCorrection, value: compressibilityCorrectionValue")
 
   .form-group.row
     #diferential-pressure-container.col-xs-5
-      %label{ for: 'differential-pressure' } Differential Pressure
-      %input.form-control#differential-pressure{ :type => 'number', 'data-bind' => 'value: differentialPressure' }
+      %label(for="differential-pressure") Differential Pressure
+      %input.form-control#differential-pressure(type="number" data-bind="value: differentialPressure")
+
+    #diferential-pressure-container.col-xs-4
+      %label(for="differential-pressure-units") Units
+      %select.form-control#differential-pressure-units(data-bind="value: differentialPressure")
 
   .form-group.row
     .col-xs-12.col-sm-5
-      %label{ for: 'flow-rate' } Flow Rate
-      %figure.highlight{ 'data-bind' => 'copyToClipboard: { callback: copyFeedback }' }
+      %label(for="flow-rate") Flow Rate
+      %figure.highlight(data-bind="copyToClipboard: { callback: copyFeedback }")
         %pre
           %code
-            %span#flow-rate{ 'data-bind' => 'text: flowRate' }
+            %span#flow-rate(data-bind="text: flowRate")
       .help-block#info-message
         Click the
         %strong flow rate value
         to copy it
-      .help-block#copy-feedback.animated{ 'data-bind' => 'css: copyFeedbackClass' } Copied
+      .help-block#copy-feedback.animated(data-bind="css: copyFeedbackClass") Copied
 
     .col-xs-12.col-sm-4
-      %label{ for: 'flow-rate-unit' } Rate Unit
-      %select.form-control#flow-rate-unit{ 'data-bind' => 'options: availableFlowRateUnits, value: selectedFlowRateUnit' }
+      %label(for="flow-rate-unit") Rate Unit
+      %select.form-control#flow-rate-unit(data-bind="options: availableFlowRateUnits, value: selectedFlowRateUnit")
