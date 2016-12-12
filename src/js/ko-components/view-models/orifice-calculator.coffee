@@ -1,4 +1,4 @@
-define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validation', 'orifice-calculator-config'], (ko, _) ->
+define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validation", "orifice-calculator-config", "unit-converter"], (ko, _) ->
   @OPL ||= {}
   @OPL.KoComponents ||= {}
   @OPL.KoComponents.ViewModels ||= {}
@@ -111,13 +111,16 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
       @availableFlowRateUnits = ko.observableArray _.values config.AvailableFlowRateUnits
       @selectedFlowRateUnit = ko.observable config.AvailableFlowRateUnits.minute
 
-      @flowRate = ko.computed =>
-        operatingTemperatureInRankine = @operatingTemperature() + ABSOLUTE_ZERO
+      @operatingTemperatureInRankine = ko.pureComputed =>
+        switch @selectedOperatingTemperatureUnit()
+          when config.OperatingTemperatureUnits.fahrenheit then OPL.Converter.Temperature.fToRankin(@operatingTemperature())
+          when config.OperatingTemperatureUnits.celsius then OPL.Converter.Temperature.cToRankin(@operatingTemperature())
 
+      @flowRate = ko.pureComputed =>
         flowRate = UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR *
-          @velocityOfApproach() * @orificeBoreDiameter() ** 2 * BASE_TEMPERATURE / BASE_PRESSURE *
+          @velocityOfApproach() * @orificeBoreDiameterInInches() ** 2 * BASE_TEMPERATURE / BASE_PRESSURE *
           ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) /
-          (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5
+          (@baseSpecificGravity() * @compressibilityCorrectionValue() * @operatingTemperatureInRankine())) ** 0.5
 
         # TODO: Find a better way of doing this. Maybe something related to ko.subscription?
         switch @selectedFlowRateUnit()
