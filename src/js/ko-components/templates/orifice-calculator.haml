@@ -53,7 +53,7 @@
 
       .col-xs-12.col-sm-2
         %label.col-xs-12(for="operating-pressure-units") Units
-        %select.form-control#operating-pressure-units(data-bind="options: operatingPressureUnits, value: selectedOperatingPressureUnits")
+        %select.form-control#operating-pressure-units(data-bind="options: availablePressureUnits, optionsText: 'displayName', optionsValue: 'key', value: selectedOperatingPressureUnit")
 
       .col-xs-12.col-sm-4
         %label Operating Pressure Read
@@ -85,7 +85,7 @@
 
     #diferential-pressure-container.col-xs-4
       %label(for="differential-pressure-units") Units
-      %select.form-control#differential-pressure-units(data-bind="options: availableDifferentialPressureUnits, value: selectedDifferentialPressureUnit")
+      %select.form-control#differential-pressure-units(data-bind="options: availablePressureUnits, optionsText: 'displayName', optionsValue: 'key', value: selectedDifferentialPressureUnit")
 
   .form-group.row
     .col-xs-12.col-sm-5

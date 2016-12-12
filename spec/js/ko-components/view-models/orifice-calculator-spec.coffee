@@ -1,4 +1,4 @@
-define "orifice-calculator-viewmodel-spec", ["knockout", "jquery", "jasmine-boot", "orifice-calculator-viewmodel"],  (ko, $) ->
+define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orifice-calculator-viewmodel"],  (ko) ->
   describe "orifice-calculator-viewmodel-spec", ->
     config = OPL.OrificeCalculator.Config.Dictionaries
     viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
@@ -42,12 +42,12 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jquery", "jasmine-boot
       it "should have default value of '1.939\" XS, Sch 80, Sch 80S'", ->
         expect(viewModel.selectedPipeDiameter()).toEqual config.AvailablePipes.oneNineInch.value
 
-    describe "availableDifferentialPressureUnits", ->
+    describe "availablePressureUnits", ->
       it "should have initialized the input data", ->
-        expect(viewModel.availableDifferentialPressureUnits().length).toEqual 9
+        expect(viewModel.availablePressureUnits().length).toEqual 10
 
       it "should have default value of 'inches water'", ->
-        expect(viewModel.selectedDifferentialPressureUnit()).toEqual config.DifferentialPressureUnits.inchesWater
+        expect(viewModel.selectedDifferentialPressureUnit()).toEqual "inh2o"
 
     describe "availableBoreDiameterUnits", ->
       it "should have initialized the input data", ->
