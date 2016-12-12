@@ -1,4 +1,4 @@
-define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validation', 'orifice-calculator-config'], (ko, _) ->
+define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validation", "orifice-calculator-config", "unit-converter"], (ko, _) ->
   @OPL ||= {}
   @OPL.KoComponents ||= {}
   @OPL.KoComponents.ViewModels ||= {}
@@ -84,6 +84,16 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
           params: true
           message: config.Messages.orificeBoreDiameterError
 
+
+      @availableBoreDiameterUnits = ko.observable _.values config.OrificeBoreDiameterUnits
+      @selectedBoreDiameterUnit = ko.observable config.OrificeBoreDiameterUnits.inches
+
+      @orificeBoreDiameterInInches = ko.computed =>
+        switch @selectedBoreDiameterUnit()
+          when config.OrificeBoreDiameterUnits.inches then @orificeBoreDiameter()
+          when config.OrificeBoreDiameterUnits.centimeters then OPL.Converter.Dimensions.cmToInches(@orificeBoreDiameter())
+          when config.OrificeBoreDiameterUnits.millimiters then OPL.Converter.Dimensions.mmToInches(@orificeBoreDiameter())
+
       @compressibilityCorrection = ko.observableArray _.values config.CompressibilityCorrection
       @selectedCompressibilityCorrection  = ko.observable config.CompressibilityCorrection.none
       @displayCompressibilityCorrection = ko.computed =>
@@ -98,7 +108,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
 
 
       @betaRatio = ko.computed =>
-        betaRatio = _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 4
+        betaRatio = _.ceil @orificeBoreDiameterInInches() / @selectedPipeDiameter(), 5
         return undefined if _.isNaN betaRatio
         betaRatio
 
@@ -108,21 +118,22 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
       @availableFlowRateUnits = ko.observableArray _.values config.AvailableFlowRateUnits
       @selectedFlowRateUnit = ko.observable config.AvailableFlowRateUnits.minute
 
-      @flowRate = ko.computed =>
-        operatingTemperatureInRankine = @operatingTemperature() + ABSOLUTE_ZERO
+      @operatingTemperatureInRankine = ko.pureComputed =>
+        switch @selectedOperatingTemperatureUnit()
+          when config.OperatingTemperatureUnits.fahrenheit then OPL.Converter.Temperature.fToRankin(@operatingTemperature())
+          when config.OperatingTemperatureUnits.celsius then OPL.Converter.Temperature.cToRankin(@operatingTemperature())
 
+      @flowRate = ko.pureComputed =>
         flowRate = UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR *
-          @velocityOfApproach() * @orificeBoreDiameter() ** 2 * BASE_TEMPERATURE / BASE_PRESSURE *
+          @velocityOfApproach() * @orificeBoreDiameterInInches() ** 2 * BASE_TEMPERATURE / BASE_PRESSURE *
           ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) /
-          (@baseSpecificGravity() * @compressibilityCorrectionValue() * operatingTemperatureInRankine)) ** 0.5
+          (@baseSpecificGravity() * @compressibilityCorrectionValue() * @operatingTemperatureInRankine())) ** 0.5
 
         # TODO: Find a better way of doing this. Maybe something related to ko.subscription?
         switch @selectedFlowRateUnit()
           when config.AvailableFlowRateUnits.day then flowRate *= 24
           when config.AvailableFlowRateUnits.minute then flowRate /= 60
           when config.AvailableFlowRateUnits.second then flowRate /= 3600
-
-        operatingTemperatureInRankine = Number(@operatingTemperature()) + ABSOLUTE_ZERO
 
         if _.isNaN flowRate
           return undefined
@@ -131,9 +142,6 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
 
       @availableDifferentialPressureUnits = ko.observable _.values config.DifferentialPressureUnits
       @selectedDifferentialPressureUnit = ko.observable config.DifferentialPressureUnits.inchesWater
-
-      @availableBoreDiameterUnits = ko.observable _.values config.OrificeBoreDiameterUnits
-      @selectedBoreDiameterUnit = ko.observable config.OrificeBoreDiameterUnits.inches
 
       @copyFeedbackActive = ko.observable false
 

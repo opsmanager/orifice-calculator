@@ -1,5 +1,5 @@
 define "orifice-calculator-config", () ->
-  @OPL = {}
+  @OPL ||= {}
   @OPL.OrificeCalculator ||= {}
   @OPL.OrificeCalculator.Config ||= {}
   @OPL.OrificeCalculator.Config.Dictionaries ||= {}
