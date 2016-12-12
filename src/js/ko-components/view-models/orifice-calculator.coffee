@@ -38,10 +38,10 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
       @operatingPressureRead = ko.observableArray _.values config.OperatingPressureRead
       @selectedOperatingPressureRead = ko.observable config.OperatingPressureRead.gauge
-      @selectedOperatingPressureUnits = ko.observable config.PressureUnits.psi
+      @selectedOperatingPressureUnit = ko.observable config.PressureUnits.psi
 
       @operatingPressureInPSI = ko.pureComputed =>
-        switch @selectedOperatingPressureUnits()
+        switch @selectedOperatingPressureUnit()
           when config.PressureUnits.psi then @operatingPressure()
           when config.PressureUnits.kgcm then OPL.Converter.Pressure.kgcm2ToPSI(@operatingPressure())
           when config.PressureUnits.kpa then OPL.Converter.Pressure.kpaToPSI(@operatingPressure())
@@ -49,13 +49,12 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           when config.PressureUnits.mbar then OPL.Converter.Pressure.mbarToPSI(@operatingPressure())
           when config.PressureUnits.mmMercury then OPL.Converter.Pressure.mmHgToPSI(@operatingPressure())
           when config.PressureUnits.pa then OPL.Converter.Pressure.paToPSI(@operatingPressure())
-          when config.PressureUnits.inchesWC then OPL.Converter.Pressure.inWaterToPSI(@operatingPressure())
+          when config.PressureUnits.inchesWater then OPL.Converter.Pressure.inWaterToPSI(@operatingPressure())
 
       @operatingPressureWarningMessage = ko.pureComputed =>
         switch
           when 200 < @operatingPressureInPSI() <= 400 then config.Messages.operatingPressureWarningMayResult
           when 401 <= @operatingPressureInPSI() then config.Messages.operatingPressureWarningWillResult
-
 
       @baseSpecificGravity = ko.observable().extend
         toNumber: true
@@ -87,6 +86,19 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           params: true
           message: config.Messages.integerError
 
+      @selectedDifferentialPressureUnit = ko.observable config.PressureUnits.inchesWater
+
+      @differentialPressureInInchesWater = ko.pureComputed =>
+        switch @selectedDifferentialPressureUnit()
+          when config.PressureUnits.psi then OPL.Converter.Pressure.psiToInWater(@differentialPressure())
+          when config.PressureUnits.kgcm then OPL.Converter.Pressure.kgcm2ToInWater(@differentialPressure())
+          when config.PressureUnits.kpa then OPL.Converter.Pressure.kpaToInWater(@differentialPressure())
+          when config.PressureUnits.bar then OPL.Converter.Pressure.barToInWater(@differentialPressure())
+          when config.PressureUnits.mbar then OPL.Converter.Pressure.mbarToInWater(@differentialPressure())
+          when config.PressureUnits.mmMercury then OPL.Converter.Pressure.mmHgToInWater(@differentialPressure())
+          when config.PressureUnits.pa then OPL.Converter.Pressure.paToInWater(@differentialPressure())
+          when config.PressureUnits.inchesWater then @differentialPressure()
+
       @orificeBoreDiameter = ko.observable().extend
         toNumber: true
         number:
@@ -117,7 +129,6 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
         else
           @compressibilityCorrectionValue undefined
 
-
       @betaRatio = ko.computed =>
         betaRatio = _.ceil @orificeBoreDiameterInInches() / @selectedPipeDiameter(), 5
         return undefined if _.isNaN betaRatio
@@ -137,7 +148,7 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @flowRate = ko.pureComputed =>
         flowRate = UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR *
           @velocityOfApproach() * @orificeBoreDiameterInInches() ** 2 * BASE_TEMPERATURE / BASE_PRESSURE *
-          ((@operatingPressure() * BASE_COMPRESSIBILITY * @differentialPressure()) /
+          ((@operatingPressureInPSI() * BASE_COMPRESSIBILITY * @differentialPressureInInchesWater()) /
           (@baseSpecificGravity() * @compressibilityCorrectionValue() * @operatingTemperatureInRankine())) ** 0.5
 
         # TODO: Find a better way of doing this. Maybe something related to ko.subscription?
@@ -150,8 +161,6 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           return undefined
         else
           return _.ceil flowRate, 3
-
-      @selectedDifferentialPressureUnit = ko.observable config.PressureUnits.inchesWater
 
       @copyFeedbackActive = ko.observable false
 

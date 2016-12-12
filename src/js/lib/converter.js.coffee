@@ -27,11 +27,17 @@ define "unit-converter", ["lodash"], (_) ->
 
   _.extend @OPL.Converter.Pressure,
     ONE_KGCM2_IN_PSI: 14.22334
+    ONE_KGCM2_IN_INH2O: 394.095
     ONE_KPA_IN_PSI: 0.14504
+    ONE_KPA_IN_INH2O: 4.01865
     ONE_BAR_IN_PSI: 14.50377
+    ONE_BAR_IN_INH2O: 401.865
     ONE_MMHG_IN_PSI: 0.019336721269668
+    ONE_MMHG_IN_INH2O: 0.535776
     ONE_PA_IN_PSI: 0.00014503773773022
+    ONE_PA_IN_INH2O: 0.00401865
     ONE_INH2O_IN_PSI: 0.036126
+    ONE_PSI_IN_INH2O: 27.7076
 
     kgcm2ToPSI: (value) ->
       value * @ONE_KGCM2_IN_PSI
@@ -54,3 +60,25 @@ define "unit-converter", ["lodash"], (_) ->
 
     inWaterToPSI: (value) ->
       value * @ONE_INH2O_IN_PSI
+
+    kgcm2ToInWater: (value) ->
+      value * @ONE_KGCM2_IN_INH2O
+
+    kpaToInWater: (value) ->
+      value * @ONE_KPA_IN_INH2O
+
+    barToInWater: (value) ->
+      value * @ONE_BAR_IN_INH2O
+
+    mbarToInWater: (value) ->
+      value * @ONE_BAR_IN_INH2O/1000
+
+    # NOTE: At 0 deg C
+    mmHgToInWater: (value) ->
+      value * @ONE_MMHG_IN_INH2O
+
+    paToInWater: (value) ->
+      value * @ONE_PA_IN_PSI
+
+    psiToInWater: (value) ->
+      value * @ONE_PSI_IN_INH2O
