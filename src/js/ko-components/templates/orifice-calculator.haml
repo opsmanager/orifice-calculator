@@ -81,7 +81,7 @@
 
     #diferential-pressure-container.col-xs-4
       %label(for="differential-pressure-units") Units
-      %select.form-control#differential-pressure-units(data-bind="value: differentialPressure")
+      %select.form-control#differential-pressure-units(data-bind="options: availableDifferentialPressureUnits, value: selectedDifferentialPressureUnit")
 
   .form-group.row
     .col-xs-12.col-sm-5
