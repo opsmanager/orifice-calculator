@@ -15,10 +15,6 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
     BASE_PRESSURE            = 14.73
     BASE_COMPRESSIBILITY     = 1
 
-    # NOTE: The absolute zero in fahrenheit is -459.67F.
-    # This constant is used to convert degree fahrenheit to degree rankine
-    ABSOLUTE_ZERO            = 459.67
-
     constructor: ->
       config = OPL.OrificeCalculator.Config.Dictionaries
 
