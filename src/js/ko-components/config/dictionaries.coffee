@@ -1,5 +1,5 @@
 define "orifice-calculator-config", () ->
-  @OPL = {}
+  @OPL ||= {}
   @OPL.OrificeCalculator ||= {}
   @OPL.OrificeCalculator.Config ||= {}
   @OPL.OrificeCalculator.Config.Dictionaries ||= {}
@@ -48,6 +48,11 @@ define "orifice-calculator-config", () ->
     mbar: "mbar"
     kpa: "kPa"
     pa: "Pa"
+
+  @OPL.OrificeCalculator.Config.Dictionaries.OrificeBoreDiameterUnits =
+    inches: "Inches"
+    millimiters: "Millimiters"
+    centimeters: "Centimeters"
 
   @OPL.OrificeCalculator.Config.Dictionaries.OperatingTemperatureUnits =
     fahrenheit: "F"

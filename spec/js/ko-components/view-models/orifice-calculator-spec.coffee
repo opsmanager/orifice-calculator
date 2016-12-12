@@ -49,6 +49,13 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jquery", "jasmine-boot
       it "should have default value of 'inches water'", ->
         expect(viewModel.selectedDifferentialPressureUnit()).toEqual config.DifferentialPressureUnits.inchesWater
 
+    describe "availableBoreDiameterUnits", ->
+      it "should have initialized the input data", ->
+        expect(viewModel.availableBoreDiameterUnits().length).toEqual 3
+
+      it "should have default value of 'inches'", ->
+        expect(viewModel.selectedBoreDiameterUnit()).toEqual config.OrificeBoreDiameterUnits.inches
+
     describe "operatingPressure", ->
       itBehavesLikeMandatoryField viewModel.operatingPressure
       itBehavesLikeIntegerField viewModel.operatingPressure
@@ -124,7 +131,7 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jquery", "jasmine-boot
       it "should return beta ratio", ->
         viewModel.selectedPipeDiameter config.AvailablePipes.twoZeroInch.value
         viewModel.orificeBoreDiameter 0.97
-        expect(viewModel.betaRatio()).toEqual 0.4693
+        expect(viewModel.betaRatio()).toEqual 0.46928
 
     describe "velocityOfApproach", ->
       it "should return velocity of approach", ->

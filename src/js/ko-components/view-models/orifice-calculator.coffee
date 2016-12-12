@@ -84,6 +84,9 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
           params: true
           message: config.Messages.orificeBoreDiameterError
 
+      @availableBoreDiameterUnits = ko.observable _.values config.OrificeBoreDiameterUnits
+      @selectedBoreDiameterUnit = ko.observable config.OrificeBoreDiameterUnits.inches
+
       @compressibilityCorrection = ko.observableArray _.values config.CompressibilityCorrection
       @selectedCompressibilityCorrection  = ko.observable config.CompressibilityCorrection.none
       @displayCompressibilityCorrection = ko.computed =>
@@ -98,7 +101,7 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
 
 
       @betaRatio = ko.computed =>
-        betaRatio = _.ceil @orificeBoreDiameter() / @selectedPipeDiameter(), 4
+        betaRatio = _.ceil @orificeBoreDiameterInInches() / @selectedPipeDiameter(), 5
         return undefined if _.isNaN betaRatio
         betaRatio
 
@@ -121,8 +124,6 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
           when config.AvailableFlowRateUnits.day then flowRate *= 24
           when config.AvailableFlowRateUnits.minute then flowRate /= 60
           when config.AvailableFlowRateUnits.second then flowRate /= 3600
-
-        operatingTemperatureInRankine = Number(@operatingTemperature()) + ABSOLUTE_ZERO
 
         if _.isNaN flowRate
           return undefined
