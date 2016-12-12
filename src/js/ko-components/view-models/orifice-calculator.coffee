@@ -132,6 +132,9 @@ define 'orifice-calculator-viewmodel', ['knockout', 'lodash', 'knockout.validati
       @availableDifferentialPressureUnits = ko.observable _.values config.DifferentialPressureUnits
       @selectedDifferentialPressureUnit = ko.observable config.DifferentialPressureUnits.inchesWater
 
+      @availableBoreDiameterUnits = ko.observable _.values config.OrificeBoreDiameterUnits
+      @selectedBoreDiameterUnit = ko.observable config.OrificeBoreDiameterUnits.inches
+
       @copyFeedbackActive = ko.observable false
 
       @copyFeedbackClass = ko.pureComputed =>

@@ -49,6 +49,13 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jquery", "jasmine-boot
       it "should have default value of 'inches water'", ->
         expect(viewModel.selectedDifferentialPressureUnit()).toEqual config.DifferentialPressureUnits.inchesWater
 
+    describe "availableBoreDiameterUnits", ->
+      it "should have initialized the input data", ->
+        expect(viewModel.availableBoreDiameterUnits().length).toEqual 3
+
+      it "should have default value of 'inches'", ->
+        expect(viewModel.selectedBoreDiameterUnit()).toEqual config.OrificeBoreDiameterUnits.inches
+
     describe "operatingPressure", ->
       itBehavesLikeMandatoryField viewModel.operatingPressure
       itBehavesLikeIntegerField viewModel.operatingPressure
