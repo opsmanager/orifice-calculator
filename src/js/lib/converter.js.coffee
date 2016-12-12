@@ -29,6 +29,9 @@ define "unit-converter", ["lodash"], (_) ->
     ONE_KGCM2_IN_PSI: 14.22334
     ONE_KPA_IN_PSI: 0.14504
     ONE_BAR_IN_PSI: 14.50377
+    ONE_MMHG_IN_PSI: 0.019336721269668
+    ONE_PA_IN_PSI: 0.00014503773773022
+    ONE_INH2O_IN_PSI: 0.036126
 
     kgcm2ToPSI: (value) ->
       value * @ONE_KGCM2_IN_PSI
@@ -38,3 +41,16 @@ define "unit-converter", ["lodash"], (_) ->
 
     barToPSI: (value) ->
       value * @ONE_BAR_IN_PSI
+
+    mbarToPSI: (value) ->
+      value * @ONE_BAR_IN_PSI/1000
+
+    # NOTE: At 0 deg C
+    mmToPSI: (value) ->
+      value * @ONE_MMHG_IN_PSI
+
+    paToPSI: (value) ->
+      value * @ONE_PA_IN_PSI
+
+    inWaterToPSI: (value) ->
+      value * @ONE_INH2O_IN_PSI

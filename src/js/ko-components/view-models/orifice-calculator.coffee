@@ -34,6 +34,9 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           params: true
           message: config.Messages.integerError
 
+      @operatingPressureInPSI = ko.pureComputed =>
+        @operatingPressure()
+
       @operatingPressureWarningMessage = ko.pureComputed =>
         switch
           when 200 < @operatingPressure() <= 400 then config.Messages.operatingPressureWarningMayResult
