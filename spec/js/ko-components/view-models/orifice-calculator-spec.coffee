@@ -1,4 +1,4 @@
-define "orifice-calculator-viewmodel-spec", ["knockout", "jquery", "jasmine-boot", "orifice-calculator-viewmodel"],  (ko, $) ->
+define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orifice-calculator-viewmodel"],  (ko) ->
   describe "orifice-calculator-viewmodel-spec", ->
     config = OPL.OrificeCalculator.Config.Dictionaries
     viewModel = new OPL.KoComponents.ViewModels.OrificeCalculator()
