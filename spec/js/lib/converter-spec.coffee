@@ -16,44 +16,12 @@ define "unit-converter-spec", ["jasmine-boot", "unit-converter"], ->
         expect(OPL.Converter.Temperature.cToRankin(60)).toEqual 599.67
 
     describe "Pressure", ->
-      it "converts kgcm2 to PSI", ->
-        expect(OPL.Converter.Pressure.kgcm2ToPSI(58)).toEqual 824.95372
+      it "converts multiple units to psi", ->
+        expectedResult = [824.95372, 8.41218834, 0.008412188788352759, 841.21887866, 0.84121887866, 1.1215329326, 2.0953079999999997]
+        ["kgcm2", "kpa", "pa", "bar", "mbar", "mmhg", "inh2o"].forEach (from, index) ->
+          expect(OPL.Converter.Pressure.convert(from, "psi", 58)).toEqual expectedResult[index]
 
-      it "converts kpa to PSI", ->
-        expect(OPL.Converter.Pressure.kpaToPSI(58)).toEqual 8.41218834
-
-      it "converts pa to PSI", ->
-        expect(OPL.Converter.Pressure.paToPSI(58)).toEqual 0.008412188788352759
-
-      it "converts bar to PSI", ->
-        expect(OPL.Converter.Pressure.barToPSI(58)).toEqual 841.21887866
-
-      it "converts mbar to PSI", ->
-        expect(OPL.Converter.Pressure.mbarToPSI(58)).toEqual 0.84121887866
-
-      it "converts mmHg to PSI", ->
-        expect(OPL.Converter.Pressure.mmHgToPSI(58)).toEqual 1.1215329326
-
-      it "converts inH2O to PSI", ->
-        expect(OPL.Converter.Pressure.inWaterToPSI(58)).toEqual 2.0953079999999997
-
-      it "converts kgcm2 to inH2O", ->
-        expect(OPL.Converter.Pressure.kgcm2ToInWater(23)).toEqual 9064.175754
-
-      it "converts kpa to inH2O", ->
-        expect(OPL.Converter.Pressure.kpaToInWater(23)).toEqual 92.4288695
-
-      it "converts pa to inH2O", ->
-        expect(OPL.Converter.Pressure.paToInWater(25)).toEqual 0.10046625
-
-      it "converts bar to inH2O", ->
-        expect(OPL.Converter.Pressure.barToInWater(23)).toEqual 9242.8869937
-
-      it "converts mbar to inH2O", ->
-        expect(OPL.Converter.Pressure.mbarToInWater(23)).toEqual 9.242886993699999
-
-      it "converts mmHg to inH2O", ->
-        expect(OPL.Converter.Pressure.mmHgToInWater(23)).toEqual 12.322848
-
-      it "converts PSI to inH2O", ->
-        expect(OPL.Converter.Pressure.psiToInWater(23)).toEqual 637.2746252
+      it "converts multiple units to inh2o", ->
+        expectedResult = [9064.175754, 92.4288695, 0.09242895000000001, 9242.8869937, 9.242886993699999, 12.322848, 637.2746252]
+        ["kgcm2", "kpa", "pa", "bar", "mbar", "mmhg", "psi"].forEach (from, index) ->
+          expect(OPL.Converter.Pressure.convert(from, "inh2o", 23)).toEqual expectedResult[index]
