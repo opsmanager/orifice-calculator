@@ -39,6 +39,9 @@ define "unit-converter", ["lodash"], (_) ->
       "mbar":
         "psi": 0.01450377377
         "inh2o": 0.4018646519
+      "inhg":
+        "psi": 0.4911540
+        "inh2o": 13.6086969
       "mmhg":
         "psi": 0.0193367747
         "inh2o": 0.535776
@@ -47,6 +50,9 @@ define "unit-converter", ["lodash"], (_) ->
         "inh2o": 0.00401865
       "inh2o":
         "psi": 0.036126
+      "mmh2o":
+        "psi": 0.0014223
+        "inh2o": 0.039370087
       "psi":
         "inh2o": 27.7075924
 

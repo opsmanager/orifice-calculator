@@ -17,11 +17,11 @@ define "unit-converter-spec", ["jasmine-boot", "unit-converter"], ->
 
     describe "Pressure", ->
       it "converts multiple units to psi", ->
-        expectedResult = [824.95372, 8.41218834, 0.008412188788352759, 841.21887866, 0.84121887866, 1.1215329326, 2.0953079999999997]
-        ["kgcm2", "kpa", "pa", "bar", "mbar", "mmhg", "inh2o"].forEach (from, index) ->
+        expectedResult = [824.95372, 8.41218834, 0.008412188788352759, 841.21887866, 0.84121887866, 1.1215329326, 28.486932, 2.0953079999999997, 0.08249340000000001]
+        ["kgcm2", "kpa", "pa", "bar", "mbar", "mmhg", "inhg", "inh2o", "mmh2o"].forEach (from, index) ->
           expect(OPL.Converter.Pressure.convert(from, "psi", 58)).toEqual expectedResult[index]
 
       it "converts multiple units to inh2o", ->
-        expectedResult = [9064.175754, 92.4288695, 0.09242895000000001, 9242.8869937, 9.242886993699999, 12.322848, 637.2746252]
-        ["kgcm2", "kpa", "pa", "bar", "mbar", "mmhg", "psi"].forEach (from, index) ->
+        expectedResult = [9064.175754, 92.4288695, 0.09242895000000001, 9242.8869937, 9.242886993699999, 12.322848, 313.0000287, 0.905512001, 637.2746252]
+        ["kgcm2", "kpa", "pa", "bar", "mbar", "mmhg", "inhg", "mmh2o", "psi"].forEach (from, index) ->
           expect(OPL.Converter.Pressure.convert(from, "inh2o", 23)).toEqual expectedResult[index]

@@ -21,7 +21,7 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @availablePipes = ko.observableArray _.values config.AvailablePipes
       @selectedPipeDiameter = ko.observable config.AvailablePipes.oneNineInch.value
 
-      @availablePressureUnits = ko.observable _.values config.PressureUnits
+      @availablePressureUnits = ko.observable config.PressureUnits
 
       @operatingPressure = ko.observable().extend
         toNumber: true
@@ -34,18 +34,11 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
       @operatingPressureRead = ko.observableArray _.values config.OperatingPressureRead
       @selectedOperatingPressureRead = ko.observable config.OperatingPressureRead.gauge
-      @selectedOperatingPressureUnit = ko.observable config.PressureUnits.psi
+      @selectedOperatingPressureUnit = ko.observable "psi"
 
       @operatingPressureInPSI = ko.pureComputed =>
-        switch @selectedOperatingPressureUnit()
-          when config.PressureUnits.psi then @operatingPressure()
-          when config.PressureUnits.kgcm then OPL.Converter.Pressure.kgcm2ToPSI(@operatingPressure())
-          when config.PressureUnits.kpa then OPL.Converter.Pressure.kpaToPSI(@operatingPressure())
-          when config.PressureUnits.bar then OPL.Converter.Pressure.barToPSI(@operatingPressure())
-          when config.PressureUnits.mbar then OPL.Converter.Pressure.mbarToPSI(@operatingPressure())
-          when config.PressureUnits.mmMercury then OPL.Converter.Pressure.mmHgToPSI(@operatingPressure())
-          when config.PressureUnits.pa then OPL.Converter.Pressure.paToPSI(@operatingPressure())
-          when config.PressureUnits.inchesWater then OPL.Converter.Pressure.inWaterToPSI(@operatingPressure())
+        return @operatingPressure() if @selectedOperatingPressureUnit() == "psi"
+        OPL.Converter.Pressure.convert(@selectedOperatingPressureUnit(), "psi", @operatingPressure())
 
       @operatingPressureWarningMessage = ko.pureComputed =>
         switch
@@ -82,18 +75,11 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           params: true
           message: config.Messages.integerError
 
-      @selectedDifferentialPressureUnit = ko.observable config.PressureUnits.inchesWater
+      @selectedDifferentialPressureUnit = ko.observable "inh2o"
 
       @differentialPressureInInchesWater = ko.pureComputed =>
-        switch @selectedDifferentialPressureUnit()
-          when config.PressureUnits.psi then OPL.Converter.Pressure.psiToInWater(@differentialPressure())
-          when config.PressureUnits.kgcm then OPL.Converter.Pressure.kgcm2ToInWater(@differentialPressure())
-          when config.PressureUnits.kpa then OPL.Converter.Pressure.kpaToInWater(@differentialPressure())
-          when config.PressureUnits.bar then OPL.Converter.Pressure.barToInWater(@differentialPressure())
-          when config.PressureUnits.mbar then OPL.Converter.Pressure.mbarToInWater(@differentialPressure())
-          when config.PressureUnits.mmMercury then OPL.Converter.Pressure.mmHgToInWater(@differentialPressure())
-          when config.PressureUnits.pa then OPL.Converter.Pressure.paToInWater(@differentialPressure())
-          when config.PressureUnits.inchesWater then @differentialPressure()
+        return @differentialPressure() if @selectedDifferentialPressureUnit() == "inh2o"
+        OPL.Converter.Pressure.convert(@selectedDifferentialPressureUnit(), "inh2o", @differentialPressure())
 
       @orificeBoreDiameter = ko.observable().extend
         toNumber: true

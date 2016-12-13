@@ -28,17 +28,48 @@ define "orifice-calculator-config", () ->
     gauge: "Gauge"
     absolute: "Absolute"
 
-  @OPL.OrificeCalculator.Config.Dictionaries.PressureUnits =
-    psi: "PSI"
-    kgcm: "kg/cm2"
-    bar: "bar"
-    mbar: "mbar"
-    mmMercury: "mm of Mercury"
-    inchesMercury: "Inches Mercury"
-    kpa: "kPa"
-    pa: "Pa"
-    mmWater: "mm of Water"
-    inchesWater: "Inches Water"
+  @OPL.OrificeCalculator.Config.Dictionaries.PressureUnits = [
+    {
+      displayName: "Psi"
+      key: "psi"
+    }
+    {
+      displayName: "kg/cm2"
+      key: "kgcm2"
+    }
+    {
+      displayName: "Bar"
+      key: "bar"
+    }
+    {
+      displayName: "mBar"
+      key: "mbar"
+    }
+    {
+      displayName: "mm of Mercury"
+      key: "mmhg"
+    }
+    {
+      displayName: "in of Mercury"
+      key: "inhg"
+    }
+    {
+      displayName: "kPa"
+      key: "kpa"
+    }
+    {
+      displayName: "Pa"
+      key: "pa"
+    }
+    {
+      displayName: "mm of Water"
+      key: "mmh2o"
+    }
+    {
+      displayName: "in of Water"
+      key: "inh2o"
+    }
+  ]
 
   @OPL.OrificeCalculator.Config.Dictionaries.OrificeBoreDiameterUnits =
     inches: "Inches"
