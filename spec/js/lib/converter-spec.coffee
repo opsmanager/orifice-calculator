@@ -38,22 +38,22 @@ define "unit-converter-spec", ["jasmine-boot", "unit-converter"], ->
         expect(OPL.Converter.Pressure.inWaterToPSI(58)).toEqual 2.0953079999999997
 
       it "converts kgcm2 to inH2O", ->
-        expect(OPL.Converter.Pressure.kgcm2ToPSI(58)).toEqual 824.95372
+        expect(OPL.Converter.Pressure.kgcm2ToInWater(23)).toEqual 9064.175754
 
       it "converts kpa to inH2O", ->
-        expect(OPL.Converter.Pressure.kgcm2ToPSI(58)).toEqual 824.95372
-
-      it "converts bar to inH2O", ->
-        expect(OPL.Converter.Pressure.kgcm2ToPSI(58)).toEqual 824.95372
-
-      it "converts mbar to inH2O", ->
-        expect(OPL.Converter.Pressure.kgcm2ToPSI(58)).toEqual 824.95372
-
-      it "converts mmHg to inH2O", ->
-        expect(OPL.Converter.Pressure.kgcm2ToPSI(58)).toEqual 824.95372
+        expect(OPL.Converter.Pressure.kpaToInWater(23)).toEqual 92.4288695
 
       it "converts pa to inH2O", ->
-        expect(OPL.Converter.Pressure.kgcm2ToPSI(58)).toEqual 824.95372
+        expect(OPL.Converter.Pressure.paToInWater(25)).toEqual 0.10046625
+
+      it "converts bar to inH2O", ->
+        expect(OPL.Converter.Pressure.barToInWater(23)).toEqual 9242.8869937
+
+      it "converts mbar to inH2O", ->
+        expect(OPL.Converter.Pressure.mbarToInWater(23)).toEqual 9.242886993699999
+
+      it "converts mmHg to inH2O", ->
+        expect(OPL.Converter.Pressure.mmHgToInWater(23)).toEqual 12.322848
 
       it "converts PSI to inH2O", ->
-        expect(OPL.Converter.Pressure.kgcm2ToPSI(58)).toEqual 824.95372
+        expect(OPL.Converter.Pressure.psiToInWater(23)).toEqual 637.2746252
