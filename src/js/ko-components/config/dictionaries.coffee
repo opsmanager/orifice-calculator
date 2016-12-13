@@ -108,7 +108,13 @@ define "orifice-calculator-config", () ->
     differentialPressureError: "Please enter the differential pressure"
     orificeBoreDiameterError: "Please enter the orifice bore diameter"
 
-  @OPL.OrificeCalculator.Config.Dictionaries.AvailableFlowRateUnits =
+  @OPL.OrificeCalculator.Config.Dictionaries.FlowRatePressureUnits =
+    standardCubicFeet: "Standard Cubic Feet"
+    pounds: "Pounds"
+    kilograms: "Kilograms"
+    standardCubicMeters: "Standard Cubic Meters"
+
+  @OPL.OrificeCalculator.Config.Dictionaries.FlowRateTimeUnits =
     minute: "Minute"
     hour: "Hour"
     day: "Day"

@@ -121,7 +121,7 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @velocityOfApproach = ko.computed =>
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
 
-      @availableFlowRateUnits = ko.observableArray _.values config.AvailableFlowRateUnits
+      @availableFlowRateUnits = ko.observableArray _.values config.FlowRateTimeUnits
       @selectedFlowRateUnit = ko.observable config.AvailableFlowRateUnits.minute
 
       @operatingTemperatureInRankine = ko.pureComputed =>
