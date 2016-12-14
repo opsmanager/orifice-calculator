@@ -86,6 +86,10 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
       it "should have default value of 'Gauge'", ->
         expect(viewModel.selectedOperatingPressureRead()).toEqual config.OperatingPressureRead.gauge
 
+    describe "availableBaseSpecificGravity", ->
+      it "should have the options in the dictionary", ->
+        expect(viewModel.availableBaseSpecificGravity()).toEqual _.values config.BaseSpecificGravity
+
     describe "baseSpecificGravity", ->
       itBehavesLikeMandatoryField viewModel.baseSpecificGravity
       itBehavesLikeFloatField viewModel.baseSpecificGravity
