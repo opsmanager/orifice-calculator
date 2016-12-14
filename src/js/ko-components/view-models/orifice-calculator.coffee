@@ -125,7 +125,7 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @selectedFlowUnit = ko.observable config.FlowRatePressureUnits.standardCubicFeet
 
       @availableFlowRateUnits = ko.observableArray _.values config.FlowRateTimeUnits
-      @selectedFlowRateUnit = ko.observable config.FlowRateTimeUnits.minute
+      @selectedFlowRateUnit = ko.observable config.FlowRateTimeUnits.hour
 
       @operatingTemperatureInRankine = ko.pureComputed =>
         switch @selectedOperatingTemperatureUnit()
@@ -143,6 +143,8 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           when config.FlowRateTimeUnits.day then flowRate *= 24
           when config.FlowRateTimeUnits.minute then flowRate /= 60
           when config.FlowRateTimeUnits.second then flowRate /= 3600
+
+        OPL.Converter.Flowrate.convert(config.FlowRatePressureUnits.standardCubicFeet, @selectedFlowUnit(), flowRate)
 
         if _.isNaN flowRate
           return undefined

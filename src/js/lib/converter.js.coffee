@@ -4,6 +4,7 @@ define "unit-converter", ["lodash"], (_) ->
   @OPL.Converter.Dimensions ||= {}
   @OPL.Converter.Temperature ||= {}
   @OPL.Converter.Pressure ||= {}
+  @OPL.Converter.Flowrate ||= {}
 
   _.extend @OPL.Converter.Dimensions,
     ONE_CM_IN_INCHES: 0.3937007874
@@ -55,6 +56,31 @@ define "unit-converter", ["lodash"], (_) ->
         "inh2o": 0.039370087
       "psi":
         "inh2o": 27.7075924
+
+    convert: (from, to, value) ->
+      @CONSTANTS[from][to] * value
+
+  _.extend @OPL.Converter.Flowrate,
+    # STANDARD_AIR_DENSITY: 1.225
+    # AMERICAN_AIR_DENSITY: 0.0765
+
+    CONSTANTS:
+      "Standard Cubic Feet":
+        "Pounds": 0.0765
+        "Kilograms": 0.3048 ** 3 * 1.225
+        "Standard Cubic Meters": 0.3048 ** 3
+      # "Pounds":
+      #   "Standard Cubic Feet": 1 / 0.0765
+      #   "Kilograms": 0.454
+      #   "Standard Cubic Meters": 0.454 / 1.225
+      # "Kilograms":
+      #   "Pounds": 1 / 0.454
+      #   "Standard Cubic Feet": (1 / 0.454) / 0.0765
+      #   "Standard Cubic Meters": 1.225
+      # "Standard Cubic Meters":
+      #   "Pounds": ( 1.225 / 0.454 )
+      #   "Kilograms": 1 / 1.225
+      #   "Standard Cubic Feet": 3.281 ** 3
 
     convert: (from, to, value) ->
       @CONSTANTS[from][to] * value
