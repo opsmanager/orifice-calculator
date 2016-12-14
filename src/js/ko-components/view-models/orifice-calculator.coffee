@@ -144,7 +144,9 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           when config.FlowRateTimeUnits.minute then flowRate /= 60
           when config.FlowRateTimeUnits.second then flowRate /= 3600
 
-        OPL.Converter.Flowrate.convert(config.FlowRatePressureUnits.standardCubicFeet, @selectedFlowUnit(), flowRate)
+        # NOTE: The flowRate will be always converted from standardCubicFeet since this is the final units of the calculation
+        if @selectedFlowUnit() != config.FlowRatePressureUnits.standardCubicFeet
+          flowRate = OPL.Converter.Flowrate.convert(config.FlowRatePressureUnits.standardCubicFeet, @selectedFlowUnit(), flowRate)
 
         if _.isNaN flowRate
           return undefined
