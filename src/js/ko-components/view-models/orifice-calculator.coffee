@@ -121,8 +121,11 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @velocityOfApproach = ko.computed =>
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
 
+      @availableFlowUnits = ko.observableArray _.values config.FlowRatePressureUnits
+      @selectedFlowUnit = ko.observable config.FlowRatePressureUnits.standardCubicFeet
+
       @availableFlowRateUnits = ko.observableArray _.values config.FlowRateTimeUnits
-      @selectedFlowRateUnit = ko.observable config.AvailableFlowRateUnits.minute
+      @selectedFlowRateUnit = ko.observable config.FlowRateTimeUnits.minute
 
       @operatingTemperatureInRankine = ko.pureComputed =>
         switch @selectedOperatingTemperatureUnit()
@@ -137,9 +140,9 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
         # TODO: Find a better way of doing this. Maybe something related to ko.subscription?
         switch @selectedFlowRateUnit()
-          when config.AvailableFlowRateUnits.day then flowRate *= 24
-          when config.AvailableFlowRateUnits.minute then flowRate /= 60
-          when config.AvailableFlowRateUnits.second then flowRate /= 3600
+          when config.FlowRateTimeUnits.day then flowRate *= 24
+          when config.FlowRateTimeUnits.minute then flowRate /= 60
+          when config.FlowRateTimeUnits.second then flowRate /= 3600
 
         if _.isNaN flowRate
           return undefined

@@ -105,5 +105,9 @@
       .help-block#copy-feedback.animated(data-bind="css: copyFeedbackClass") Copied
 
     .col-xs-12.col-sm-4
+      %label(for="flow-rate-unit") Flow Unit
+      %select.form-control#flow-unit(data-bind="options: availableFlowUnits, value: selectedFlowUnit")
+
+    .col-xs-12.col-sm-3
       %label(for="flow-rate-unit") Rate Unit
       %select.form-control#flow-rate-unit(data-bind="options: availableFlowRateUnits, value: selectedFlowRateUnit")
