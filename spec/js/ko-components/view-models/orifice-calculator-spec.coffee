@@ -131,6 +131,16 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
           viewModel.selectedCompressibilityCorrection config.CompressibilityCorrection.zf
           expect(viewModel.displayCompressibilityCorrection()).toEqual true
 
+    describe "selectedCompressibilityCorrection", ->
+      beforeEach ->
+        viewModel.selectedCompressibilityCorrection config.CompressibilityCorrection.zf
+        viewModel.compressibilityCorrectionValue 3
+        viewModel.selectedCompressibilityCorrection config.CompressibilityCorrection.none
+
+      describe "when displayCompressibilityCorrection is false", ->
+        it "will displayed the compressibilityCorrectionValue's default value", ->
+          expect(viewModel.compressibilityCorrectionValue()).toEqual 1
+
     describe "betaRatio", ->
       it "should return beta ratio", ->
         viewModel.selectedPipeDiameter config.AvailablePipes.twoZeroInch.value
@@ -210,7 +220,6 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.orificeBoreDiameter 0.97
         viewModel.selectedPipeDiameter config.AvailablePipes.oneNineInch.value
         viewModel.operatingPressure 900
-        viewModel.compressibilityCorrectionValue 1
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
