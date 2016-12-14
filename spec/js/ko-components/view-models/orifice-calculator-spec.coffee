@@ -229,16 +229,16 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
 
       it "when standardCubicFeet is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicFeet
-        expect(viewModel.flowRate()).toEqual 32712
+        expect(viewModel.flowRate()).toEqual 32626.924 #32712
 
       it "when pounds is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.pounds
-        expect(viewModel.flowRate()).toEqual 2497
+        expect(viewModel.flowRate()).toEqual 2495.96 #2497
 
       it "when kilograms is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.kilograms
-        expect(viewModel.flowRate()).toEqual 1133
+        expect(viewModel.flowRate()).toEqual 1131.768 #1133
 
       it "when standardCubicMeters is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicMeters
-        expect(viewModel.flowRate()).toEqual 926.3
+        expect(viewModel.flowRate()).toEqual 923.892 #926.3
