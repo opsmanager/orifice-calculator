@@ -146,6 +146,13 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.selectedPipeDiameter config.AvailablePipes.oneNineInch.value
         expect(viewModel.velocityOfApproach()).toEqual 1.02
 
+    describe "availableFlowRateUnits", ->
+      it "should have initialized the input data", ->
+        expect(viewModel.availableFlowRateUnits().length).toEqual 4
+
+      it "should have default value of 'Hour'", ->
+        expect(viewModel.selectedFlowRateUnit()).toEqual config.FlowRateTimeUnits.hour
+
     describe "flowRate", ->
       it "should return the flow rate", ->
         viewModel.orificeBoreDiameter 0.97
@@ -155,7 +162,7 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
-        viewModel.selectedFlowRateUnit config.AvailableFlowRateUnits.minute
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
         expect(viewModel.flowRate()).toEqual 543.783
 
         viewModel.orificeBoreDiameter 0.776
@@ -165,15 +172,8 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
-        viewModel.selectedFlowRateUnit config.AvailableFlowRateUnits.minute
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
         expect(viewModel.flowRate()).toEqual 341.328
-
-    describe "availableAvailableFlowRateUnits", ->
-      it "should have initialized the input data", ->
-        expect(viewModel.availableFlowRateUnits().length).toEqual 4
-
-      it "should have default value of 'Minutes'", ->
-        expect(viewModel.selectedFlowRateUnit()).toEqual config.AvailableFlowRateUnits.minute
 
     describe "selectedFlowRateUnit", ->
       beforeEach ->
@@ -186,17 +186,50 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.operatingTemperature 60
 
       it "when minute is chosen", ->
-        viewModel.selectedFlowRateUnit config.AvailableFlowRateUnits.minute
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
         expect(viewModel.flowRate()).toEqual 543.783
 
       it "when hour is chosen", ->
-        viewModel.selectedFlowRateUnit config.AvailableFlowRateUnits.hour
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.hour
         expect(viewModel.flowRate()).toEqual 32626.924
 
       it "when day is chosen", ->
-        viewModel.selectedFlowRateUnit config.AvailableFlowRateUnits.day
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.day
         expect(viewModel.flowRate()).toEqual 783046.156
 
       it "when second is chosen", ->
-        viewModel.selectedFlowRateUnit config.AvailableFlowRateUnits.second
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.second
         expect(viewModel.flowRate()).toEqual 9.064
+
+    describe "availableFlowUnits", ->
+      it "should have the flow units", ->
+        expect(viewModel.availableFlowUnits()).toEqual _.values config.FlowRatePressureUnits
+
+    describe "selectedFlowUnit", ->
+      beforeEach ->
+        viewModel.orificeBoreDiameter 0.97
+        viewModel.selectedPipeDiameter config.AvailablePipes.oneNineInch.value
+        viewModel.operatingPressure 900
+        viewModel.compressibilityCorrectionValue 1
+        viewModel.differentialPressure 30
+        viewModel.baseSpecificGravity 1
+        viewModel.operatingTemperature 60
+
+      it "should have default value of 'standard cubic feet'", ->
+        expect(viewModel.selectedFlowUnit()).toEqual config.FlowRatePressureUnits.standardCubicFeet
+
+      it "when standardCubicFeet is chosen", ->
+        viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicFeet
+        expect(viewModel.flowRate()).toEqual 32712
+
+      it "when pounds is chosen", ->
+        viewModel.selectedFlowUnit config.FlowRatePressureUnits.pounds
+        expect(viewModel.flowRate()).toEqual 2497
+
+      it "when kilograms is chosen", ->
+        viewModel.selectedFlowUnit config.FlowRatePressureUnits.kilograms
+        expect(viewModel.flowRate()).toEqual 1133
+
+      it "when standardCubicMeters is chosen", ->
+        viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicMeters
+        expect(viewModel.flowRate()).toEqual 926.3

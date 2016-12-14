@@ -60,5 +60,8 @@ define 'orifice-calculator-view-spec', ['jquery', 'jasmine-jquery'], ($) ->
       it 'should be in the template', ->
         expect($('#flow-rate')).toExist()
 
+    describe 'Flow Unit', ->
+      itShouldBehaveLikeDropdownList '#flow-unit'
+
     describe 'Flow Rate Unit', ->
       itShouldBehaveLikeDropdownList '#flow-rate-unit'
