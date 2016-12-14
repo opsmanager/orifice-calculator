@@ -28,6 +28,10 @@
       %label(for="base-specific-gravity") Base Specific Gravity
       %input.form-control#base-specific-gravity(type="number" data-bind="value: baseSpecificGravity")
 
+    #specific-gravity-select.col-xs-12.col-sm-4
+      %label(for="base-specific-gravity-select") Options
+      %select.form-control#base-specific-gravity-select(data-bind="options: availableBaseSpecificGravity, value: baseSpecificGravity, optionsText: 'name', optionsValue: 'value'")
+
   .form-group.row
     #temperature-pressure-container
       #operating-temperature-container
