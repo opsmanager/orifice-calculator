@@ -4,7 +4,7 @@ define "unit-converter", ["lodash"], (_) ->
   @OPL.Converter.Dimensions ||= {}
   @OPL.Converter.Temperature ||= {}
   @OPL.Converter.Pressure ||= {}
-  @OPL.Converter.Flowrate ||= {}
+  @OPL.Converter.FlowRate ||= {}
 
   _.extend @OPL.Converter.Dimensions,
     ONE_CM_IN_INCHES: 0.3937007874
@@ -60,7 +60,7 @@ define "unit-converter", ["lodash"], (_) ->
     convert: (from, to, value) ->
       @CONSTANTS[from][to] * value
 
-  _.extend @OPL.Converter.Flowrate,
+  _.extend @OPL.Converter.FlowRate,
     CONSTANTS:
       "Standard Cubic Feet":
         "Pounds": 0.0765

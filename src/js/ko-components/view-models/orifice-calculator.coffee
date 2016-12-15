@@ -143,7 +143,7 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
         # NOTE: The flowRate will be always converted from standardCubicFeet since this is the final units of the calculation
         if @selectedFlowUnit() != config.FlowRatePressureUnits.standardCubicFeet
-          flowRate = OPL.Converter.Flowrate.convert(config.FlowRatePressureUnits.standardCubicFeet, @selectedFlowUnit(), flowRate)
+          flowRate = OPL.Converter.FlowRate.convert(config.FlowRatePressureUnits.standardCubicFeet, @selectedFlowUnit(), flowRate)
 
         if _.isNaN flowRate
           return undefined
