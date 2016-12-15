@@ -45,6 +45,8 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           when 200 < @operatingPressureInPSI() <= 400 then config.Messages.operatingPressureWarningMayResult
           when 401 <= @operatingPressureInPSI() then config.Messages.operatingPressureWarningWillResult
 
+      @availableBaseSpecificGravity = ko.observableArray _.values config.BaseSpecificGravity
+
       @baseSpecificGravity = ko.observable().extend
         toNumber: true
         number:

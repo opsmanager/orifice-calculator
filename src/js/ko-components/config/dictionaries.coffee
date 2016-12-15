@@ -70,6 +70,19 @@ define "orifice-calculator-config", () ->
       key: "inh2o"
     }
   ]
+  @OPL.OrificeCalculator.Config.Dictionaries.BaseSpecificGravity =
+    air:
+      name: "Air"
+      value: 1
+    pureNitrogen:
+      name: "100% N2"
+      value: 0.9669
+    ninetySixPercentNitrogen:
+      name: "96% N2"
+      value: 0.968
+    methane:
+      name: "Methane"
+      value: 0.5537
 
   @OPL.OrificeCalculator.Config.Dictionaries.OrificeBoreDiameterUnits =
     inches: "Inches"

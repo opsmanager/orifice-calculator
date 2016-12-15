@@ -32,6 +32,9 @@ define 'orifice-calculator-view-spec', ['jquery', 'jasmine-jquery'], ($) ->
     describe 'Operating Pressure Units', ->
       itShouldBehaveLikeDropdownList '#operating-pressure-units'
 
+    describe 'Available Basic Specific Gravity', ->
+      itShouldBehaveLikeDropdownList '#base-specific-gravity-select'
+
     describe 'Basic Specific Gravity', ->
       itShouldBehaveLikeNumberInput '#base-specific-gravity'
 
