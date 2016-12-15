@@ -38,9 +38,6 @@ define "orifice-calculator-view-spec", ["jquery", "jasmine-jquery"], ($) ->
     describe "Basic Specific Gravity", ->
       itShouldBehaveLikeNumberInput '#base-specific-gravity'
 
-    describe "Basic Specific Gravity", ->
-      itShouldBehaveLikeNumberInput "#base-specific-gravity"
-
     describe "Operating Temperature", ->
       itShouldBehaveLikeNumberInput "#operating-temperature"
 
