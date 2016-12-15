@@ -106,12 +106,9 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @displayCompressibilityCorrection = ko.computed =>
         @selectedCompressibilityCorrection() != config.CompressibilityCorrection.none
 
-      @compressibilityCorrectionValue = ko.observable()
-      @displayCompressibilityCorrection.subscribe (newValue) =>
-        if newValue
-          @compressibilityCorrectionValue 1
-        else
-          @compressibilityCorrectionValue undefined
+      @compressibilityCorrectionValue = ko.observable(1)
+      @displayCompressibilityCorrection.subscribe (isDisplayed) =>
+        @compressibilityCorrectionValue 1 unless isDisplayed
 
       @betaRatio = ko.computed =>
         betaRatio = _.ceil @orificeBoreDiameterInInches() / @selectedPipeDiameter(), 5
@@ -121,8 +118,11 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @velocityOfApproach = ko.computed =>
         _.ceil (1 / Math.sqrt(1 - @betaRatio() ** 4)), 2
 
-      @availableFlowRateUnits = ko.observableArray _.values config.AvailableFlowRateUnits
-      @selectedFlowRateUnit = ko.observable config.AvailableFlowRateUnits.minute
+      @availableFlowUnits = ko.observableArray _.values config.FlowRatePressureUnits
+      @selectedFlowUnit = ko.observable config.FlowRatePressureUnits.standardCubicFeet
+
+      @availableFlowRateUnits = ko.observableArray _.values config.FlowRateTimeUnits
+      @selectedFlowRateUnit = ko.observable config.FlowRateTimeUnits.hour
 
       @operatingTemperatureInRankine = ko.pureComputed =>
         switch @selectedOperatingTemperatureUnit()
@@ -137,9 +137,13 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
         # TODO: Find a better way of doing this. Maybe something related to ko.subscription?
         switch @selectedFlowRateUnit()
-          when config.AvailableFlowRateUnits.day then flowRate *= 24
-          when config.AvailableFlowRateUnits.minute then flowRate /= 60
-          when config.AvailableFlowRateUnits.second then flowRate /= 3600
+          when config.FlowRateTimeUnits.day then flowRate *= 24
+          when config.FlowRateTimeUnits.minute then flowRate /= 60
+          when config.FlowRateTimeUnits.second then flowRate /= 3600
+
+        # NOTE: The flowRate will be always converted from standardCubicFeet since this is the final units of the calculation
+        if @selectedFlowUnit() != config.FlowRatePressureUnits.standardCubicFeet
+          flowRate = OPL.Converter.FlowRate.convert(config.FlowRatePressureUnits.standardCubicFeet, @selectedFlowUnit(), flowRate)
 
         if _.isNaN flowRate
           return undefined
