@@ -109,6 +109,64 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
       itBehavesLikeMandatoryField viewModel.differentialPressure
       itBehavesLikeIntegerField viewModel.differentialPressure
 
+    describe "calculatedDifferentialPressure", ->
+      it "should return the correct differential pressure", ->
+        viewModel.orificeBoreDiameter 0.97
+        viewModel.selectedPipeDiameter config.AvailablePipes.oneNineInch.value
+        viewModel.operatingPressure 900
+        viewModel.compressibilityCorrectionValue 1
+        viewModel.baseSpecificGravity 1
+        viewModel.operatingTemperature 60
+        viewModel.flowRate 543.78
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 30
+
+        viewModel.orificeBoreDiameter 0.776
+        viewModel.selectedPipeDiameter config.AvailablePipes.oneNineInch.value
+        viewModel.operatingPressure 900
+        viewModel.compressibilityCorrectionValue 1
+        viewModel.baseSpecificGravity 1
+        viewModel.operatingTemperature 60
+        viewModel.flowRate 341.325
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 30
+
+      it "when kgcm2 is chosen", ->
+        viewModel.selectedDifferentialPressureUnit "kgcm2"
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 0.077
+
+      it "when kpa is chosen", ->
+        viewModel.selectedDifferentialPressureUnit "kpa"
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 7.466
+
+      it "when pa is chosen", ->
+        viewModel.selectedDifferentialPressureUnit "pa"
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 7465.071
+
+      it "when bar is chosen", ->
+        viewModel.selectedDifferentialPressureUnit "bar"
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 0.075
+
+      it "when mbar is chosen", ->
+        viewModel.selectedDifferentialPressureUnit "mbar"
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 74.651
+
+      it "when mmhg is chosen", ->
+        viewModel.selectedDifferentialPressureUnit "mmhg"
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 55.993
+
+      it "when inhg is chosen", ->
+        viewModel.selectedDifferentialPressureUnit "inhg"
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 2.205
+
+      it "when mmh2o is chosen", ->
+        viewModel.selectedDifferentialPressureUnit "mmh2o"
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 761.988
+
+      it "when psi is chosen", ->
+        viewModel.selectedDifferentialPressureUnit "psi"
+        expect(viewModel.calculatedDifferentialPressure()).toEqual 1.084
+
     describe "orificeBoreDiameter", ->
       itBehavesLikeMandatoryField viewModel.orificeBoreDiameter
       itBehavesLikeFloatField viewModel.orificeBoreDiameter
@@ -252,16 +310,16 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
 
       it "when standardCubicFeet is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicFeet
-        expect(viewModel.flowRate()).toEqual 32626.924 #32712
+        expect(viewModel.calculatedFlowRate()).toEqual 32626.924 #32712
 
       it "when pounds is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.pounds
-        expect(viewModel.flowRate()).toEqual 2495.96 #2497
+        expect(viewModel.calculatedFlowRate()).toEqual 2495.96 #2497
 
       it "when kilograms is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.kilograms
-        expect(viewModel.flowRate()).toEqual 1131.768 #1133
+        expect(viewModel.calculatedFlowRate()).toEqual 1132.155 #1133
 
       it "when standardCubicMeters is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicMeters
-        expect(viewModel.flowRate()).toEqual 923.892 #926.3
+        expect(viewModel.calculatedFlowRate()).toEqual 923.342 #926.3
