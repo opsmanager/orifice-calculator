@@ -206,6 +206,28 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
           expect(viewModel.flowRate()).toEqual null
           expect(viewModel.differentialPressure()).toEqual null
 
+    describe "isCalculateDifferentialPressure", ->
+      describe "when the selectedCalculationField is 'differential pressure'", ->
+        it "will return true", ->
+          viewModel.selectedCalculationField "differential pressure"
+          expect(viewModel.isCalculateDifferentialPressure()).toEqual true
+
+      describe "when the selectedCalculationField is not 'differential pressure'", ->
+        it "will return false", ->
+          viewModel.selectedCalculationField "something else"
+          expect(viewModel.isCalculateDifferentialPressure()).toEqual false
+
+    describe "isCalculateFlowRate", ->
+      describe "when the selectedCalculationField is 'flow rate'", ->
+        it "will return true", ->
+          viewModel.selectedCalculationField "flow rate"
+          expect(viewModel.isCalculateFlowRate()).toEqual true
+
+      describe "when the selectedCalculationField is not 'flow rate pressure'", ->
+        it "will return false", ->
+          viewModel.selectedCalculationField "something else"
+          expect(viewModel.isCalculateFlowRate()).toEqual false
+
     describe "betaRatio", ->
       it "should return beta ratio", ->
         viewModel.selectedPipeDiameter config.AvailablePipes.twoZeroInch.value

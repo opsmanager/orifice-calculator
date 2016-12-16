@@ -120,7 +120,3 @@ define "orifice-calculator-config", () ->
     hour: "Hour"
     day: "Day"
     second: "Second"
-
-  @OPL.OrificeCalculator.Config.Dictionaries.CalculationField =
-    flowRate: "flow rate"
-    differentialPressure: "differential pressure"

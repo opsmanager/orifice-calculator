@@ -126,12 +126,12 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @displayCompressibilityCorrection.subscribe (isDisplayed) =>
         @compressibilityCorrectionValue 1 unless isDisplayed
 
-      @selectedCalculationField = ko.observable config.CalculationField.flowRate
-      @calculateFlowRate = ko.pureComputed =>
-        @selectedCalculationField() == config.CalculationField.flowRate
+      @selectedCalculationField = ko.observable "flow rate"
+      @isCalculateFlowRate = ko.pureComputed =>
+        @selectedCalculationField() == "flow rate"
 
-      @calculateDifferentialPressure = ko.pureComputed =>
-        @selectedCalculationField() == config.CalculationField.differentialPressure
+      @isCalculateDifferentialPressure = ko.pureComputed =>
+        @selectedCalculationField() == "differential pressure"
 
       @selectedCalculationField.subscribe =>
         @flowRate null
