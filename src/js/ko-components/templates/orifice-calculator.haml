@@ -83,17 +83,36 @@
           %input.form-control#compressibility-correction-value(type="number" data-bind="enable: displayCompressibilityCorrection, value: compressibilityCorrectionValue")
 
   .form-group.row
-    #diferential-pressure-container.col-xs-5
+    #differential-pressure-container.col-xs-5
+      %input#differential-pressure.form-check-input(type="radio" name="calculateDifferentialPressure" value="differential pressure" data-bind="checked: selectedCalculationField")
       %label(for="differential-pressure") Differential Pressure
+      / ko ifnot: calculateDifferentialPressure
       %input.form-control#differential-pressure(type="number" data-bind="value: differentialPressure")
+      / /ko
+      / ko if: calculateDifferentialPressure
+      %figure.highlight(data-bind="copyToClipboard: { callback: copyFeedback }")
+        %pre
+          %code
+            %span#differential-pressure(data-bind="text: differentialPressure")
+      .help-block#info-message
+        Click the
+        %strong differential pressure value
+        to copy it
+      .help-block#copy-feedback.animated(data-bind="css: copyFeedbackClass") Copied
+      / /ko
 
-    #diferential-pressure-container.col-xs-4
+    #differential-pressure-container.col-xs-4
       %label(for="differential-pressure-units") Units
       %select.form-control#differential-pressure-units(data-bind="options: availablePressureUnits, optionsText: 'displayName', optionsValue: 'key', value: selectedDifferentialPressureUnit")
 
   .form-group.row
     .col-xs-12.col-sm-5
+      %input#flow-rate.form-check-input(type="radio" name="calculateFlowRate" value="flow rate" data-bind="checked: selectedCalculationField")
       %label(for="flow-rate") Flow Rate
+      / ko ifnot: calculateFlowRate
+      %input.form-control#flow-rate(type="number" data-bind="value: flowRate")
+      / /ko
+      / ko if: calculateFlowRate
       %figure.highlight(data-bind="copyToClipboard: { callback: copyFeedback }")
         %pre
           %code
@@ -103,6 +122,7 @@
         %strong flow rate value
         to copy it
       .help-block#copy-feedback.animated(data-bind="css: copyFeedbackClass") Copied
+      / /ko
 
     .col-xs-12.col-sm-4
       %label(for="flow-rate-unit") Flow Unit

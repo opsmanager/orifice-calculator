@@ -110,6 +110,13 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @displayCompressibilityCorrection.subscribe (isDisplayed) =>
         @compressibilityCorrectionValue 1 unless isDisplayed
 
+      @selectedCalculationField = ko.observable config.CalculationField.flowRate
+      @calculateFlowRate = ko.pureComputed =>
+        @selectedCalculationField() == config.CalculationField.flowRate
+
+      @calculateDifferentialPressure = ko.pureComputed =>
+        @selectedCalculationField() == config.CalculationField.differentialPressure
+
       @betaRatio = ko.computed =>
         betaRatio = _.ceil @orificeBoreDiameterInInches() / @selectedPipeDiameter(), 5
         return undefined if _.isNaN betaRatio
