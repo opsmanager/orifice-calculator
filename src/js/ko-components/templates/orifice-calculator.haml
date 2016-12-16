@@ -97,7 +97,7 @@
             %code
               %span#calculated-differential-pressure(data-bind="text: calculatedDifferentialPressure")
         / /ko
-      / ko if: calculateDifferentialPressure
+      / ko if: calculateDifferentialPressure && calculatedDifferentialPressure
       .help-block#info-message
         Click the
         %strong differential pressure value
@@ -124,7 +124,7 @@
             %code
               %span#calculated-flow-rate(data-bind="text: calculatedFlowRate")
         / /ko
-      / ko if: calculateFlowRate
+      / ko if: calculateFlowRate && calculatedFlowRate
       .help-block#info-message
         Click the
         %strong flow rate value
