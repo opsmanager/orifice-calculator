@@ -42,8 +42,8 @@ define "unit-converter-spec", ["jasmine-boot", "unit-converter"], ->
         ["Pounds", "Kilograms", "Standard Cubic Meters"].forEach (to, index) ->
           expect(_.ceil OPL.Converter.FlowRate.convert("Standard Cubic Feet", to, 100), 2).toEqual expectedResult[index]
 
-    describe "Time", ->
+    describe "Rate", ->
       it "converts multiple units to hour", ->
-        expectedResult = [60, 86400, 1]
+        expectedResult = [3600, 2.5, 216000]
         ["Minute", "Day", "Second"].forEach (from, index) ->
-          expect(OPL.Converter.Time.convert(from, "Hour", 3600)).toEqual expectedResult[index]
+          expect(OPL.Converter.Rate.convert(from, "Hour", 60)).toEqual expectedResult[index]

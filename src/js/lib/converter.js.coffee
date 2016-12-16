@@ -5,7 +5,7 @@ define "unit-converter", ["lodash"], (_) ->
   @OPL.Converter.Temperature ||= {}
   @OPL.Converter.Pressure ||= {}
   @OPL.Converter.FlowRate ||= {}
-  @OPL.Converter.Time ||= {}
+  @OPL.Converter.Rate ||= {}
 
   _.extend @OPL.Converter.Dimensions,
     ONE_CM_IN_INCHES: 0.3937007874
@@ -85,14 +85,14 @@ define "unit-converter", ["lodash"], (_) ->
     convert: (from, to, value) ->
       @CONSTANTS[from][to] * value
 
-  _.extend @OPL.Converter.Time,
+  _.extend @OPL.Converter.Rate,
     CONSTANTS:
       "Minute":
-        "Hour": 1 / 60
+        "Hour": 60
       "Day":
-        "Hour": 24
+        "Hour": 1 / 24
       "Second":
-        "Hour": 1 / 3600
+        "Hour": 3600
 
     convert: (from, to, value) ->
       @CONSTANTS[from][to] * value
