@@ -173,12 +173,20 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
         else
           return _.ceil flowRate, 3
 
-      # The results will be Inches Water
       @calculatedDifferentialPressure = ko.pureComputed =>
-        (@flowRate / (UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR *
+        # The results will be Inches Water
+        differentialPressure = (@flowRateInStandardCubicFeetPerHour() / (UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR *
         @velocityOfApproach() * @orificeBoreDiameterInInches() ** 2  * BASE_TEMPERATURE / BASE_PRESSURE)) ** 2 *
         (@baseSpecificGravity() * @compressibilityCorrectionValue() * @operatingTemperatureInRankine()) /
         (@operatingPressureInPSI() * BASE_COMPRESSIBILITY )
+
+        if @selectedDifferentialPressureUnit() != "inh2o"
+          differentialPressure = OPL.Converter.Pressure.convert("inh2o", @selectedDifferentialPressureUnit(), differentialPressure)
+
+        if _.isNaN differentialPressure
+          return undefined
+        else
+          return _.ceil differentialPressure, 3
 
       @copyFeedbackActive = ko.observable false
 
