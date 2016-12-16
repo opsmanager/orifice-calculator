@@ -163,7 +163,7 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
       it "should have default value of 'Hour'", ->
         expect(viewModel.selectedFlowRateUnit()).toEqual config.FlowRateTimeUnits.hour
 
-    describe "flowRate", ->
+    describe "calculatedFlowRate", ->
       it "should return the flow rate", ->
         viewModel.orificeBoreDiameter 0.97
         viewModel.selectedPipeDiameter config.AvailablePipes.oneNineInch.value
@@ -173,7 +173,7 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
         viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
-        expect(viewModel.flowRate()).toEqual 543.783
+        expect(viewModel.calculatedFlowRate()).toEqual 543.783
 
         viewModel.orificeBoreDiameter 0.776
         viewModel.selectedPipeDiameter config.AvailablePipes.oneNineInch.value
@@ -183,7 +183,7 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
         viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
-        expect(viewModel.flowRate()).toEqual 341.328
+        expect(viewModel.calculatedFlowRate()).toEqual 341.328
 
     describe "selectedFlowRateUnit", ->
       beforeEach ->
@@ -197,19 +197,19 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
 
       it "when minute is chosen", ->
         viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
-        expect(viewModel.flowRate()).toEqual 543.783
+        expect(viewModel.calculatedFlowRate()).toEqual 543.783
 
       it "when hour is chosen", ->
         viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.hour
-        expect(viewModel.flowRate()).toEqual 32626.924
+        expect(viewModel.calculatedFlowRate()).toEqual 32626.924
 
       it "when day is chosen", ->
         viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.day
-        expect(viewModel.flowRate()).toEqual 783046.156
+        expect(viewModel.calculatedFlowRate()).toEqual 783046.156
 
       it "when second is chosen", ->
         viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.second
-        expect(viewModel.flowRate()).toEqual 9.064
+        expect(viewModel.calculatedFlowRate()).toEqual 9.064
 
     describe "availableFlowUnits", ->
       it "should have the flow units", ->

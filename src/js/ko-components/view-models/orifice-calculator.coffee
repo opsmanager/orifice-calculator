@@ -93,9 +93,11 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           message: config.Messages.flowRateError
 
       @flowRateInStandardCubicFeetPerHour = ko.pureComputed =>
-        return @flowRate() if @selectedFlowUnit() == config.FlowRatePressureUnits.standardCubicFeet && @selectedFlowRateUnit == config.FlowRateTimeUnits.hour
-        flowRate = OPL.Converter.FlowRate.convert(@selectedFlowUnit(), "Standard Cubic Feet", @flowRate())
-        flowRate = flowRate / OPL.Converter.Time.convert(@selectedFlowRateUnit, "Hour", flowRate)
+        return @flowRate() if @selectedFlowUnit() == config.FlowRatePressureUnits.standardCubicFeet && @selectedFlowRateUnit() == config.FlowRateTimeUnits.hour
+        flowRate = @flowRate()
+        flowRate = OPL.Converter.FlowRate.convert(@selectedFlowUnit(), "Standard Cubic Feet", flowRate) if @selectedFlowUnit() != "Standard Cubic Feet"
+        flowRate = OPL.Converter.Rate.convert(@selectedFlowRateUnit(), "Hour", flowRate) if @selectedFlowRateUnit() != "Hour"
+        flowRate
 
       @orificeBoreDiameter = ko.observable().extend
         toNumber: true
