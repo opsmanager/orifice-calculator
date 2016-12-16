@@ -87,6 +87,10 @@ define "unit-converter", ["lodash"], (_) ->
 
   _.extend @OPL.Converter.Rate,
     CONSTANTS:
+      "Hour":
+        "Minute": 1 / 60
+        "Day": 24
+        "Second": 1 / 3600
       "Minute":
         "Hour": 60
       "Day":

@@ -162,11 +162,7 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           ((@operatingPressureInPSI() * BASE_COMPRESSIBILITY * @differentialPressureInInchesWater()) /
           (@baseSpecificGravity() * @compressibilityCorrectionValue() * @operatingTemperatureInRankine())) ** 0.5
 
-        # TODO: Find a better way of doing this. Maybe something related to ko.subscription?
-        switch @selectedFlowRateUnit()
-          when config.FlowRateTimeUnits.day then flowRate *= 24
-          when config.FlowRateTimeUnits.minute then flowRate /= 60
-          when config.FlowRateTimeUnits.second then flowRate /= 3600
+        flowRate = OPL.Converter.Rate.convert("Hour", @selectedFlowRateUnit(), flowRate) if @selectedFlowRateUnit() != "Hour"
 
         # NOTE: The flowRate will be always converted from standardCubicFeet since this is the final units of the calculation
         if @selectedFlowUnit() != config.FlowRatePressureUnits.standardCubicFeet

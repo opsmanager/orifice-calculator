@@ -47,3 +47,8 @@ define "unit-converter-spec", ["jasmine-boot", "unit-converter"], ->
         expectedResult = [3600, 2.5, 216000]
         ["Minute", "Day", "Second"].forEach (from, index) ->
           expect(OPL.Converter.Rate.convert(from, "Hour", 60)).toEqual expectedResult[index]
+
+      it "converts multiple units from hour", ->
+        expectedResult = [1, 1440, 0.016666666666666666]
+        ["Minute", "Day", "Second"].forEach (to, index) ->
+          expect(OPL.Converter.Rate.convert("Hour", to, 60)).toEqual expectedResult[index]
