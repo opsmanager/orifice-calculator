@@ -199,6 +199,13 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         it "will displayed the compressibilityCorrectionValue's default value", ->
           expect(viewModel.compressibilityCorrectionValue()).toEqual 1
 
+    describe "selectedCalculationField", ->
+      describe "when there is changes in this field", ->
+        it "will clear the value of flowRate and differentialPressure", ->
+          viewModel.selectedCalculationField "abc"
+          expect(viewModel.flowRate()).toEqual null
+          expect(viewModel.differentialPressure()).toEqual null
+
     describe "betaRatio", ->
       it "should return beta ratio", ->
         viewModel.selectedPipeDiameter config.AvailablePipes.twoZeroInch.value

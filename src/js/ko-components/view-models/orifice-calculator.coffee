@@ -133,6 +133,10 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @calculateDifferentialPressure = ko.pureComputed =>
         @selectedCalculationField() == config.CalculationField.differentialPressure
 
+      @selectedCalculationField.subscribe =>
+        @flowRate null
+        @differentialPressure null
+
       @betaRatio = ko.computed =>
         betaRatio = _.ceil @orificeBoreDiameterInInches() / @selectedPipeDiameter(), 5
         return undefined if _.isNaN betaRatio
@@ -174,7 +178,7 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           return _.ceil flowRate, 3
 
       @calculatedDifferentialPressure = ko.pureComputed =>
-        # The results will be Inches Water
+        # The results is in the unit of Inches Water
         differentialPressure = (@flowRateInStandardCubicFeetPerHour() / (UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR *
         @velocityOfApproach() * @orificeBoreDiameterInInches() ** 2  * BASE_TEMPERATURE / BASE_PRESSURE)) ** 2 *
         (@baseSpecificGravity() * @compressibilityCorrectionValue() * @operatingTemperatureInRankine()) /
