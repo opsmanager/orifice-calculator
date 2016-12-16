@@ -8,7 +8,8 @@
       'knockout.validation': 'https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min',
       'text': 'https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text',
       'orifice-calculator-viewmodel': 'ko-components/view-models/orifice-calculator',
-      'orifice-calculator-config': 'ko-components/config/dictionaries'
+      'orifice-calculator-config': 'ko-components/config/dictionaries',
+      'unit-converter': 'lib/converter'
     }
   });
 

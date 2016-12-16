@@ -6,11 +6,15 @@
     <div class='form-group row'>
       <div class='col-xs-12 col-sm-4' id='pipe-container'>
         <label for='available-pipes'>Pipe ID</label>
-        <select class='form-control' data-bind="options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value'" id='available-pipes'></select>
+        <select class='form-control' data-bind="{ options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value' }" id='available-pipes'></select>
       </div>
-      <div class='col-xs-12 col-sm-4' id='orifice-bore-diameter-container'>
-        <label for='differential-pressure'>Orifice Bore Diameter</label>
+      <div class='col-xs-6 col-sm-2' id='orifice-bore-diameter-container'>
+        <label for='orifice-bore-diameter'>Orifice Bore Diameter</label>
         <input class='form-control' data-bind='value: orificeBoreDiameter' id='orifice-bore-diameter' type='number'>
+      </div>
+      <div class='col-xs-6 col-sm-2' id='orifice-bore-diameter-container'>
+        <label for='orifice-bore-diameter-unit'>Units</label>
+        <select class='form-control' data-bind='{ options: availableBoreDiameterUnits, value: selectedBoreDiameterUnit }' id='orifice-bore-diameter-unit'></select>
       </div>
       <div class='col-xs-12 col-sm-2' id='beta-ratio-container'>
         <label for='beta-ratio'>Beta Ratio</label>
@@ -24,6 +28,10 @@
     <div class='col-xs-12 col-sm-4' id='specific-gravity-container'>
       <label for='base-specific-gravity'>Base Specific Gravity</label>
       <input class='form-control' data-bind='value: baseSpecificGravity' id='base-specific-gravity' type='number'>
+    </div>
+    <div class='col-xs-12 col-sm-4' id='specific-gravity-select'>
+      <label for='base-specific-gravity-select'>Options</label>
+      <select class='form-control' data-bind="options: availableBaseSpecificGravity, value: baseSpecificGravity, optionsText: 'name', optionsValue: 'value'" id='base-specific-gravity-select'></select>
     </div>
   </div>
   <div class='form-group row'>
@@ -57,7 +65,7 @@
       </div>
       <div class='col-xs-12 col-sm-2'>
         <label class='col-xs-12' for='operating-pressure-units'>Units</label>
-        <select class='form-control' data-bind='options: operatingPressureUnits, value: selectedOperatingPressureUnits' id='operating-pressure-units'></select>
+        <select class='form-control' data-bind="options: availablePressureUnits, optionsText: 'displayName', optionsValue: 'key', value: selectedOperatingPressureUnit" id='operating-pressure-units'></select>
       </div>
       <div class='col-xs-12 col-sm-4'>
         <label>Operating Pressure Read</label>
@@ -97,6 +105,10 @@
       <label for='differential-pressure'>Differential Pressure</label>
       <input class='form-control' data-bind='value: differentialPressure' id='differential-pressure' type='number'>
     </div>
+    <div class='col-xs-4' id='diferential-pressure-container'>
+      <label for='differential-pressure-units'>Units</label>
+      <select class='form-control' data-bind="options: availablePressureUnits, optionsText: 'displayName', optionsValue: 'key', value: selectedDifferentialPressureUnit" id='differential-pressure-units'></select>
+    </div>
   </div>
   <div class='form-group row'>
     <div class='col-xs-12 col-sm-5'>
@@ -112,6 +124,10 @@
       <div class='help-block animated' data-bind='css: copyFeedbackClass' id='copy-feedback'>Copied</div>
     </div>
     <div class='col-xs-12 col-sm-4'>
+      <label for='flow-rate-unit'>Flow Unit</label>
+      <select class='form-control' data-bind='options: availableFlowUnits, value: selectedFlowUnit' id='flow-unit'></select>
+    </div>
+    <div class='col-xs-12 col-sm-3'>
       <label for='flow-rate-unit'>Rate Unit</label>
       <select class='form-control' data-bind='options: availableFlowRateUnits, value: selectedFlowRateUnit' id='flow-rate-unit'></select>
     </div>
