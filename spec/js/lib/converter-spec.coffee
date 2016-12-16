@@ -26,6 +26,11 @@ define "unit-converter-spec", ["jasmine-boot", "unit-converter"], ->
         ["kgcm2", "kpa", "pa", "bar", "mbar", "mmhg", "inhg", "mmh2o", "psi"].forEach (from, index) ->
           expect(OPL.Converter.Pressure.convert(from, "inh2o", 23)).toEqual expectedResult[index]
 
+      it "converts multiple units from inh2o", ->
+        expectedResult = [0.0583625, 5.72332, 5723.31494, 0.0572332, 57.2332, 42.92835, 1.6900860000000002, 584.19977, 0.8308979999999999 ]
+        ["kgcm2", "kpa", "pa", "bar", "mbar", "mmhg", "inhg", "mmh2o", "psi"].forEach (to, index) ->
+          expect(OPL.Converter.Pressure.convert("inh2o", to, 23)).toEqual expectedResult[index]
+
     describe "FlowRate", ->
       it "converts multiple units to StandardCubicFeet", ->
         expectedResult = [1307.2, 2882.8, 3531.5]

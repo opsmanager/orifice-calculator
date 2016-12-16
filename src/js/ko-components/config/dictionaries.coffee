@@ -107,6 +107,7 @@ define "orifice-calculator-config", () ->
     operatingTemperatureError: "Please enter the operating temperature"
     differentialPressureError: "Please enter the differential pressure"
     orificeBoreDiameterError: "Please enter the orifice bore diameter"
+    flowRateError: "Please enter the flow rate"
 
   @OPL.OrificeCalculator.Config.Dictionaries.FlowRatePressureUnits =
     standardCubicFeet: "Standard Cubic Feet"

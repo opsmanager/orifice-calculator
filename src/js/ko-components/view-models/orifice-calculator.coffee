@@ -83,6 +83,20 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
         return @differentialPressure() if @selectedDifferentialPressureUnit() == "inh2o"
         OPL.Converter.Pressure.convert(@selectedDifferentialPressureUnit(), "inh2o", @differentialPressure())
 
+      @flowRate = ko.observable().extend
+        toNumber: true
+        number:
+          params: true
+          message: config.Messages.floatError
+        required:
+          params: true
+          message: config.Messages.flowRateError
+
+      @flowRateInStandardCubicFeetPerHour = ko.pureComputed =>
+        return @flowRate() if @selectedFlowUnit() == config.FlowRatePressureUnits.standardCubicFeet && @selectedFlowRateUnit == config.FlowRateTimeUnits.hour
+        flowRate = OPL.Converter.FlowRate.convert(@selectedFlowUnit(), "Standard Cubic Feet", @flowRate())
+        flowRate = flowRate / OPL.Converter.Time.convert(@selectedFlowRateUnit, "Hour", flowRate)
+
       @orificeBoreDiameter = ko.observable().extend
         toNumber: true
         number:
@@ -136,7 +150,7 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           when config.OperatingTemperatureUnits.fahrenheit then OPL.Converter.Temperature.fToRankin(@operatingTemperature())
           when config.OperatingTemperatureUnits.celsius then OPL.Converter.Temperature.cToRankin(@operatingTemperature())
 
-      @flowRate = ko.pureComputed =>
+      @calculatedFlowRate = ko.pureComputed =>
         flowRate = UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR *
           @velocityOfApproach() * @orificeBoreDiameterInInches() ** 2 * BASE_TEMPERATURE / BASE_PRESSURE *
           ((@operatingPressureInPSI() * BASE_COMPRESSIBILITY * @differentialPressureInInchesWater()) /
@@ -156,6 +170,13 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           return undefined
         else
           return _.ceil flowRate, 3
+
+      # The results will be Inches Water
+      @calculatedDifferentialPressure = ko.pureComputed =>
+        (@flowRate / (UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR *
+        @velocityOfApproach() * @orificeBoreDiameterInInches() ** 2  * BASE_TEMPERATURE / BASE_PRESSURE)) ** 2 *
+        (@baseSpecificGravity() * @compressibilityCorrectionValue() * @operatingTemperatureInRankine()) /
+        (@operatingPressureInPSI() * BASE_COMPRESSIBILITY )
 
       @copyFeedbackActive = ko.observable false
 
