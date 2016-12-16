@@ -35,6 +35,13 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.operatingPressure("abc123")
         expect(ko.validatedObservable(viewModel).isValid()).toEqual false
 
+    describe "initialize", ->
+      it "should have default value of 'Hour'", ->
+        expect(viewModel.selectedFlowRateUnit()).toEqual config.FlowRateTimeUnits.hour
+
+      it "should have default value of 'standard cubic feet'", ->
+        expect(viewModel.selectedFlowUnit()).toEqual config.FlowRatePressureUnits.standardCubicFeet
+
     describe "availablePipes", ->
       it "should have initialized the input data", ->
         expect(viewModel.availablePipes().length).toEqual 6
@@ -247,9 +254,6 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
       it "should have initialized the input data", ->
         expect(viewModel.availableFlowRateUnits().length).toEqual 4
 
-      it "should have default value of 'Hour'", ->
-        expect(viewModel.selectedFlowRateUnit()).toEqual config.FlowRateTimeUnits.hour
-
     describe "calculatedFlowRate", ->
       it "should return the flow rate", ->
         viewModel.orificeBoreDiameter 0.97
@@ -260,6 +264,7 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
         viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
+        viewModel.selectedDifferentialPressureUnit "inh2o"
         expect(viewModel.calculatedFlowRate()).toEqual 543.783
 
         viewModel.orificeBoreDiameter 0.776
@@ -270,6 +275,7 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
         viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
+        viewModel.selectedDifferentialPressureUnit "inh2o"
         expect(viewModel.calculatedFlowRate()).toEqual 341.328
 
     describe "flowRateInStandardCubicFeetPerHour", ->
@@ -304,6 +310,7 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
+        viewModel.selectedDifferentialPressureUnit "inh2o"
 
       it "when minute is chosen", ->
         viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
@@ -333,9 +340,6 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
-
-      it "should have default value of 'standard cubic feet'", ->
-        expect(viewModel.selectedFlowUnit()).toEqual config.FlowRatePressureUnits.standardCubicFeet
 
       it "when standardCubicFeet is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicFeet
