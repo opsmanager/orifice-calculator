@@ -84,7 +84,7 @@
 
   .form-group.row
     #differential-pressure-container.col-xs-5
-      %input#differential-pressure.form-check-input(type="radio" name="calculateDifferentialPressure" value="differential pressure" data-bind="checked: selectedCalculationField")
+      %input#differential-pressure-checker.form-check-input(type="radio" name="calculateDifferentialPressure" value="differential pressure" data-bind="checked: selectedCalculationField")
       %label(for="differential-pressure") Differential Pressure
       / ko ifnot: calculateDifferentialPressure
       %input.form-control#differential-pressure(type="number" data-bind="value: differentialPressure")
@@ -93,7 +93,7 @@
       %figure.highlight(data-bind="copyToClipboard: { callback: copyFeedback }")
         %pre
           %code
-            %span#differential-pressure(data-bind="text: calculatedDifferentialPressure")
+            %span#calculated-differential-pressure(data-bind="text: calculatedDifferentialPressure")
       .help-block#info-message
         Click the
         %strong differential pressure value
@@ -107,7 +107,7 @@
 
   .form-group.row
     .col-xs-12.col-sm-5
-      %input#flow-rate.form-check-input(type="radio" name="calculateFlowRate" value="flow rate" data-bind="checked: selectedCalculationField")
+      %input#flow-rate-checker.form-check-input(type="radio" name="calculateFlowRate" value="flow rate" data-bind="checked: selectedCalculationField")
       %label(for="flow-rate") Flow Rate
       / ko ifnot: calculateFlowRate
       %input.form-control#flow-rate(type="number" data-bind="value: flowRate")
@@ -116,7 +116,7 @@
       %figure.highlight(data-bind="copyToClipboard: { callback: copyFeedback }")
         %pre
           %code
-            %span#flow-rate(data-bind="text: calculatedFlowRate")
+            %span#calculated-flow-rate(data-bind="text: calculatedFlowRate")
       .help-block#info-message
         Click the
         %strong flow rate value
