@@ -185,6 +185,29 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
         expect(viewModel.calculatedFlowRate()).toEqual 341.328
 
+    describe "flowRateInStandardCubicFeetPerHour", ->
+      beforeEach ->
+        viewModel.flowRate 1250
+
+      it "should return the value according to the value selected", ->
+        viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicFeet
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.hour
+        expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual 1250
+
+        viewModel.selectedFlowUnit config.FlowRatePressureUnits.pounds
+        expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual 16339.999999999998
+        viewModel.selectedFlowUnit config.FlowRatePressureUnits.kilograms
+        expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual 36035
+        viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicMeters
+        expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual 44143.75
+
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.minute
+        expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual 2648625
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.second
+        expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual 158917500
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.day
+        expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual 1839.3229166666665
+
     describe "selectedFlowRateUnit", ->
       beforeEach ->
         viewModel.orificeBoreDiameter 0.97
