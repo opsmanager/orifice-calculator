@@ -5,6 +5,7 @@ define "unit-converter", ["lodash"], (_) ->
   @OPL.Converter.Temperature ||= {}
   @OPL.Converter.Pressure ||= {}
   @OPL.Converter.FlowRate ||= {}
+  @OPL.Converter.Time ||= {}
 
   _.extend @OPL.Converter.Dimensions,
     ONE_CM_IN_INCHES: 0.3937007874
@@ -64,8 +65,26 @@ define "unit-converter", ["lodash"], (_) ->
     CONSTANTS:
       "Standard Cubic Feet":
         "Pounds": 0.0765
-        "Kilograms": 0.3048 ** 3 * 1.225
-        "Standard Cubic Meters": 0.3048 ** 3
+        "Kilograms": 0.0347 # 0.3048 ** 3 * 1.225
+        "Standard Cubic Meters": 0.0283 # 0.3048 ** 3
+      "Pounds":
+        "Standard Cubic Feet": 13.072 # 1 / 0.0765
+      "Kilograms":
+        "Standard Cubic Feet": 28.828 # 1 / (0.3048 ** 3 * 1.225)
+      "Standard Cubic Meters":
+        "Standard Cubic Feet": 35.315 # 1 / (0.3048 ** 3)
+
+    convert: (from, to, value) ->
+      @CONSTANTS[from][to] * value
+
+  _.extend @OPL.Converter.Time,
+    CONSTANTS:
+      "Minute":
+        "Hour": 1 / 60
+      "Day":
+        "Hour": 24
+      "Second":
+        "Hour": 1 / 3600
 
     convert: (from, to, value) ->
       @CONSTANTS[from][to] * value

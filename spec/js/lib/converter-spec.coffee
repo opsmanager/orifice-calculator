@@ -25,3 +25,20 @@ define "unit-converter-spec", ["jasmine-boot", "unit-converter"], ->
         expectedResult = [9064.175754, 92.4288695, 0.09242895000000001, 9242.8869937, 9.242886993699999, 12.322848, 313.0000287, 0.905512001, 637.2746252]
         ["kgcm2", "kpa", "pa", "bar", "mbar", "mmhg", "inhg", "mmh2o", "psi"].forEach (from, index) ->
           expect(OPL.Converter.Pressure.convert(from, "inh2o", 23)).toEqual expectedResult[index]
+
+    describe "FlowRate", ->
+      it "converts multiple units to StandardCubicFeet", ->
+        expectedResult = [1307.2, 2882.8, 3531.5]
+        ["Pounds", "Kilograms", "Standard Cubic Meters"].forEach (from, index) ->
+          expect(_.ceil OPL.Converter.FlowRate.convert(from, "Standard Cubic Feet", 100), 1).toEqual expectedResult[index]
+
+      it "converts from standardCubicFeet to multiple units", ->
+        expectedResult = [7.65, 3.47, 2.83]
+        ["Pounds", "Kilograms", "Standard Cubic Meters"].forEach (to, index) ->
+          expect(_.ceil OPL.Converter.FlowRate.convert("Standard Cubic Feet", to, 100), 2).toEqual expectedResult[index]
+
+    describe "Time", ->
+      it "converts multiple units to hour", ->
+        expectedResult = [60, 86400, 1]
+        ["Minute", "Day", "Second"].forEach (from, index) ->
+          expect(OPL.Converter.Time.convert(from, "Hour", 3600)).toEqual expectedResult[index]
