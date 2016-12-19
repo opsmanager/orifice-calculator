@@ -200,7 +200,6 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
       @flowRate.subscribe (flowRate) =>
         if flowRate
-          # orificeBoreDiameter, baseSpecificGravity, operatingTemperature, operatingPressure, differentialPressure
           _.each FIELDS_FOR_SUGGESTION, (field) =>
             @setCookies(field, NUMBER_OF_COOKIES)
 
@@ -216,17 +215,17 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
     initializeCookies: (variableName) =>
       cookies = eval(Cookies.get(variableName))
-      @["#{variableName}Cookies"] _.map eval(cookies), (val) -> { value: val }
+      @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
 
     setCookies: (variableName, numberOfCookies) =>
       cookies = eval(Cookies.get(variableName)) || []
-      # Only includes value if it is not exist in the current cookies
+      # Only includes value if it is not exist in the current cookies array
       unless _.includes cookies, @[variableName]()
         if cookies?.length >= numberOfCookies
           cookies = cookies.slice(-numberOfCookies + 1)
         cookies.push @[variableName]()
         Cookies.set(variableName, cookies)
-        @["#{variableName}Cookies"] _.map eval(cookies), (val) -> { value: val }
+        @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
 
     copyFeedback: =>
       @copyFeedbackActive true

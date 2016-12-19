@@ -28,7 +28,7 @@
   .form-group.row
     #specific-gravity-container.col-xs-12.col-sm-4
       %label(for="base-specific-gravity") Base Specific Gravity
-      %input.form-control#base-specific-gravity(type="number" data-bind="value: baseSpecificGravity" list="base-specific-gravity-cookies")
+      %input.form-control#base-specific-gravity(type="number" data-bind="value: baseSpecificGravity" step="0.01" list="base-specific-gravity-cookies")
       %datalist#base-specific-gravity-cookies(data-bind="foreach: baseSpecificGravityCookies")
         %option(data-bind="text: value")
 
@@ -41,7 +41,7 @@
       #operating-temperature-container
         .col-xs-12.col-sm-4
           %label(for="operating-temperature") Operating Temperature
-          %input.form-control#operating-temperature(type="number" data-bind="value: operatingTemperature" list="operating-temperature-cookies")
+          %input.form-control#operating-temperature(type="number" data-bind="value: operatingTemperature" step="0.01" list="operating-temperature-cookies")
           %datalist#operating-temperature-cookies(data-bind="foreach: operatingTemperatureCookies")
             %option(data-bind="text: value")
 

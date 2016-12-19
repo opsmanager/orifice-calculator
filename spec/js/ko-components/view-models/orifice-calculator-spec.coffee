@@ -358,3 +358,19 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
       it "when standardCubicMeters is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicMeters
         expect(viewModel.calculatedFlowRate()).toEqual 923.342 #926.3
+
+    describe "cookies", ->
+      beforeEach ->
+        viewModel.orificeBoreDiameter 1.02
+        viewModel.selectedPipeDiameter config.AvailablePipes.oneNineInch.value
+        viewModel.operatingPressure 600
+        viewModel.differentialPressure 20
+        viewModel.baseSpecificGravity 2
+        viewModel.operatingTemperature 50
+
+      it "should set the values of each cookies", ->
+        expect(viewModel.orificeBoreDiameterCookies()).toContain { value: 1.02 }
+        expect(viewModel.operatingPressureCookies()).toContain { value: 600 }
+        expect(viewModel.differentialPressureCookies()).toContain { value: 20 }
+        expect(viewModel.baseSpecificGravityCookies()).toContain { value: 2 }
+        expect(viewModel.operatingTemperatureCookies()).toContain { value: 50 }
