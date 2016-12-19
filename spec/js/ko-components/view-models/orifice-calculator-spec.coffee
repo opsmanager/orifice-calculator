@@ -310,6 +310,7 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
+        viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicFeet
         viewModel.selectedDifferentialPressureUnit "inh2o"
 
       it "when minute is chosen", ->
@@ -340,6 +341,7 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
         viewModel.differentialPressure 30
         viewModel.baseSpecificGravity 1
         viewModel.operatingTemperature 60
+        viewModel.selectedFlowRateUnit config.FlowRateTimeUnits.hour
 
       it "when standardCubicFeet is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicFeet
