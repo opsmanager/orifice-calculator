@@ -191,6 +191,13 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
         else
           return _.ceil differentialPressure, 3
 
+      @copyFeedbackActive = ko.observable false
+      @copyFeedbackClass = ko.pureComputed =>
+        if @copyFeedbackActive()
+          return 'bounce-in'
+        else
+          return 'hidden'
+
       # Fields to keep the cookies
       @orificeBoreDiameterCookies  = ko.observableArray()
       @baseSpecificGravityCookies  = ko.observableArray()
@@ -200,20 +207,11 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
       @flowRate.subscribe (flowRate) =>
         if flowRate
-          _.each FIELDS_FOR_SUGGESTION, (field) =>
-            @setCookies(field, NUMBER_OF_COOKIES)
+          _.each FIELDS_FOR_SUGGESTION, (field) => @setCookies(field, NUMBER_OF_COOKIES)
 
-      @copyFeedbackActive = ko.observable false
-      @copyFeedbackClass = ko.pureComputed =>
-        if @copyFeedbackActive()
-          return 'bounce-in'
-        else
-          return 'hidden'
+      _.each FIELDS_FOR_SUGGESTION, (field) => @initializeFieldWithCookies field
 
-      _.each FIELDS_FOR_SUGGESTION, (field) =>
-        @initializeCookies field
-
-    initializeCookies: (variableName) =>
+    initializeFieldWithCookies: (variableName) =>
       cookies = eval(Cookies.get(variableName))
       @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
 

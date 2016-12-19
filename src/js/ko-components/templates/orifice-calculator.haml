@@ -10,7 +10,7 @@
 
       #orifice-bore-diameter-container.col-xs-6.col-sm-2
         %label(for="orifice-bore-diameter") Orifice Bore Diameter
-        %input.form-control#orifice-bore-diameter(type="number" data-bind="value: orificeBoreDiameter" step="0.01" list="orifice-bore-diameter-cookies")
+        %input.form-control#orifice-bore-diameter(type="number" data-bind="value: orificeBoreDiameter" step="0.001" list="orifice-bore-diameter-cookies")
         %datalist#orifice-bore-diameter-cookies(data-bind="foreach: orificeBoreDiameterCookies")
           %option(data-bind="text: value")
 
@@ -28,7 +28,7 @@
   .form-group.row
     #specific-gravity-container.col-xs-12.col-sm-4
       %label(for="base-specific-gravity") Base Specific Gravity
-      %input.form-control#base-specific-gravity(type="number" data-bind="value: baseSpecificGravity" step="0.01" list="base-specific-gravity-cookies")
+      %input.form-control#base-specific-gravity(type="number" data-bind="value: baseSpecificGravity" step="0.001" list="base-specific-gravity-cookies")
       %datalist#base-specific-gravity-cookies(data-bind="foreach: baseSpecificGravityCookies")
         %option(data-bind="text: value")
 
@@ -41,7 +41,7 @@
       #operating-temperature-container
         .col-xs-12.col-sm-4
           %label(for="operating-temperature") Operating Temperature
-          %input.form-control#operating-temperature(type="number" data-bind="value: operatingTemperature" step="0.01" list="operating-temperature-cookies")
+          %input.form-control#operating-temperature(type="number" data-bind="value: operatingTemperature" step="0.001" list="operating-temperature-cookies")
           %datalist#operating-temperature-cookies(data-bind="foreach: operatingTemperatureCookies")
             %option(data-bind="text: value")
 
