@@ -10,7 +10,9 @@
 
       #orifice-bore-diameter-container.col-xs-6.col-sm-2
         %label(for="orifice-bore-diameter") Orifice Bore Diameter
-        %input.form-control#orifice-bore-diameter(type="number" data-bind="value: orificeBoreDiameter")
+        %input.form-control#orifice-bore-diameter(type="number" data-bind="value: orificeBoreDiameter" step="0.01" list="orifice-bore-diameter-cookies")
+        %datalist#orifice-bore-diameter-cookies(data-bind="foreach: orificeBoreDiameterCookies")
+          %option(data-bind="text: value")
 
       #orifice-bore-diameter-container.col-xs-6.col-sm-2
         %label(for="orifice-bore-diameter-unit") Units
@@ -26,7 +28,9 @@
   .form-group.row
     #specific-gravity-container.col-xs-12.col-sm-4
       %label(for="base-specific-gravity") Base Specific Gravity
-      %input.form-control#base-specific-gravity(type="number" data-bind="value: baseSpecificGravity")
+      %input.form-control#base-specific-gravity(type="number" data-bind="value: baseSpecificGravity" list="base-specific-gravity-cookies")
+      %datalist#base-specific-gravity-cookies(data-bind="foreach: baseSpecificGravityCookies")
+        %option(data-bind="text: value")
 
     #specific-gravity-select.col-xs-12.col-sm-4
       %label(for="base-specific-gravity-select") Options
@@ -37,7 +41,9 @@
       #operating-temperature-container
         .col-xs-12.col-sm-4
           %label(for="operating-temperature") Operating Temperature
-          %input.form-control#operating-temperature(type="number" data-bind="value: operatingTemperature")
+          %input.form-control#operating-temperature(type="number" data-bind="value: operatingTemperature" list="operating-temperature-cookies")
+          %datalist#operating-temperature-cookies(data-bind="foreach: operatingTemperatureCookies")
+            %option(data-bind="text: value")
 
         .col-xs-12.col-sm-6
           %label Units
@@ -52,7 +58,9 @@
     #operating-pressure-container
       .col-xs-12.col-sm-4(data-bind="css: { 'has-error': operatingPressureWarningMessage }")
         %label(for="operating-pressure") Operating Pressure
-        %input.form-control#operating-pressure(type="number" data-bind="value: operatingPressure")
+        %input.form-control#operating-pressure(type="number" data-bind="value: operatingPressure" list="operating-pressure-cookies")
+        %datalist#operating-pressure-cookies(data-bind="foreach: operatingPressureCookies")
+          %option(data-bind="text: value")
         .help-block#warning-message(data-bind="visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage")
 
       .col-xs-12.col-sm-2
@@ -89,7 +97,9 @@
         %span.input-group-addon
           %input#differential-pressure-checker.form-check-input(type="radio" name="calculateDifferentialPressure" value="differential pressure" data-bind="checked: selectedCalculationField")
         / ko ifnot: isCalculateDifferentialPressure
-        %input.form-control#differential-pressure(type="number" data-bind="value: differentialPressure")
+        %input.form-control#differential-pressure(type="number" data-bind="value: differentialPressure" list="differential-pressure-cookies")
+        %datalist#differential-pressure-cookies(data-bind="foreach: differentialPressureCookies")
+          %option(data-bind="text: value")
         / /ko
         / ko if: isCalculateDifferentialPressure
         %figure.highlight(data-bind="copyToClipboard: { callback: copyFeedback }")
