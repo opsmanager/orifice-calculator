@@ -213,7 +213,8 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
     initializeFieldWithCookies: (variableName) =>
       cookies = eval(Cookies.get(variableName))
-      @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
+      if cookies
+        @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
 
     setCookies: (variableName, numberOfCookies) =>
       cookies = eval(Cookies.get(variableName)) || []
