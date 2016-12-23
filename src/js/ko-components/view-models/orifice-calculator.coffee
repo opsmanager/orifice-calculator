@@ -207,21 +207,18 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @flowRateCookies             = ko.observableArray()
 
       @calculatedDifferentialPressure.subscribe (differentialPressure) =>
-        fields = _.filter @FIELDS_FOR_SUGGESTION, (fields) -> fields != "differentialPressure"
-        if differentialPressure
-          _.each fields, (field) => @setCookies(field, NUMBER_OF_COOKIES)
+        @setCookiesForFields differentialPressure, "differentialPressure"
 
       @calculatedFlowRate.subscribe (flowRate) =>
-        fields = _.filter @FIELDS_FOR_SUGGESTION, (fields) -> fields != "flowRate"
-        if flowRate
-          _.each fields, (field) => @setCookies(field, NUMBER_OF_COOKIES)
+        @setCookiesForFields flowRate, "flowRate"
 
-      _.each @FIELDS_FOR_SUGGESTION, (field) => @initializeFieldWithCookies field
+      @initializeFieldsWithCookies()
 
-    initializeFieldWithCookies: (variableName) ->
-      cookies = @getCookies variableName
+    initializeFieldsWithCookies: (variableName) ->
+      _.each @FIELDS_FOR_SUGGESTION, (field) =>
+        cookies = @getCookies field
 
-      @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
+        @["#{field}Cookies"] _.map cookies, (val) -> { value: val }
 
     setCookies: (variableName, numberOfCookies) ->
       cookies = @getCookies variableName
@@ -233,10 +230,16 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
         Cookies.set(variableName, cookies)
         @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
 
+    setCookiesForFields: (calculatedValue, excludedCookiesField) ->
+      fields = _.filter @FIELDS_FOR_SUGGESTION, (fields) -> fields != excludedCookiesField
+      if calculatedValue
+        _.each fields, (field) => @setCookies(field, NUMBER_OF_COOKIES)
+
     getCookies: (variableName) ->
       cookies = Cookies.get(variableName) || []
       unless _.isEmpty cookies
         cookies = JSON.parse(cookies)
+      cookies
 
     copyFeedback: =>
       @copyFeedbackActive true
