@@ -1,12 +1,13 @@
 (function() {
   define("unit-converter", ["lodash"], function(_) {
-    var base, base1, base2, base3, base4;
+    var base, base1, base2, base3, base4, base5;
     this.OPL || (this.OPL = {});
     (base = this.OPL).Converter || (base.Converter = {});
     (base1 = this.OPL.Converter).Dimensions || (base1.Dimensions = {});
     (base2 = this.OPL.Converter).Temperature || (base2.Temperature = {});
     (base3 = this.OPL.Converter).Pressure || (base3.Pressure = {});
     (base4 = this.OPL.Converter).FlowRate || (base4.FlowRate = {});
+    (base5 = this.OPL.Converter).Rate || (base5.Rate = {});
     _.extend(this.OPL.Converter.Dimensions, {
       ONE_CM_IN_INCHES: 0.3937007874,
       cmToInches: function(value) {
@@ -58,7 +59,15 @@
           "inh2o": 0.00401865
         },
         "inh2o": {
-          "psi": 0.036126
+          "psi": 0.036126,
+          "kgcm2": 0.0025375,
+          "kpa": 0.24884,
+          "bar": 0.0024884,
+          "mbar": 2.4884,
+          "inhg": 0.073482,
+          "mmhg": 1.86645,
+          "pa": 248.83978,
+          "mmh2o": 25.39999
         },
         "mmh2o": {
           "psi": 0.0014223,
@@ -72,12 +81,42 @@
         return this.CONSTANTS[from][to] * value;
       }
     });
-    return _.extend(this.OPL.Converter.FlowRate, {
+    _.extend(this.OPL.Converter.FlowRate, {
       CONSTANTS: {
         "Standard Cubic Feet": {
           "Pounds": 0.0765,
-          "Kilograms": Math.pow(0.3048, 3) * 1.225,
-          "Standard Cubic Meters": Math.pow(0.3048, 3)
+          "Kilograms": 0.0347,
+          "Standard Cubic Meters": 0.0283
+        },
+        "Pounds": {
+          "Standard Cubic Feet": 13.072
+        },
+        "Kilograms": {
+          "Standard Cubic Feet": 28.828
+        },
+        "Standard Cubic Meters": {
+          "Standard Cubic Feet": 35.315
+        }
+      },
+      convert: function(from, to, value) {
+        return this.CONSTANTS[from][to] * value;
+      }
+    });
+    return _.extend(this.OPL.Converter.Rate, {
+      CONSTANTS: {
+        "Hour": {
+          "Minute": 1 / 60,
+          "Day": 24,
+          "Second": 1 / 3600
+        },
+        "Minute": {
+          "Hour": 60
+        },
+        "Day": {
+          "Hour": 1 / 24
+        },
+        "Second": {
+          "Hour": 3600
         }
       },
       convert: function(from, to, value) {

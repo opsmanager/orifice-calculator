@@ -101,11 +101,31 @@
     </div>
   </div>
   <div class='form-group row'>
-    <div class='col-xs-5' id='diferential-pressure-container'>
+    <div class='col-xs-5' id='differential-pressure-container'>
       <label for='differential-pressure'>Differential Pressure</label>
-      <input class='form-control' data-bind='value: differentialPressure' id='differential-pressure' type='number'>
+      <div class='input-group'>
+        <span class='input-group-addon'>
+          <input class='form-check-input' data-bind='checked: selectedCalculationField' id='differential-pressure-checker' name='calculateDifferentialPressure' type='radio' value='differential pressure'>
+        </span>
+        <!-- ko ifnot: isCalculateDifferentialPressure -->
+        <input class='form-control' data-bind='value: differentialPressure' id='differential-pressure' type='number'>
+        <!-- /ko -->
+        <!-- ko if: isCalculateDifferentialPressure -->
+        <figure class='highlight' data-bind='copyToClipboard: { callback: copyFeedback }'>
+          <pre><code><span data-bind='text: calculatedDifferentialPressure' id='calculated-differential-pressure'></span></code></pre>
+        </figure>
+        <!-- /ko -->
+      </div>
+      <!-- ko if: isCalculateDifferentialPressure && calculatedDifferentialPressure -->
+      <div class='help-block' id='info-message'>
+        Click the
+        <strong>differential pressure value</strong>
+        to copy it
+      </div>
+      <div class='help-block animated' data-bind='css: copyFeedbackClass' id='copy-feedback'>Copied</div>
+      <!-- /ko -->
     </div>
-    <div class='col-xs-4' id='diferential-pressure-container'>
+    <div class='col-xs-4' id='differential-pressure-container'>
       <label for='differential-pressure-units'>Units</label>
       <select class='form-control' data-bind="options: availablePressureUnits, optionsText: 'displayName', optionsValue: 'key', value: selectedDifferentialPressureUnit" id='differential-pressure-units'></select>
     </div>
@@ -113,15 +133,27 @@
   <div class='form-group row'>
     <div class='col-xs-12 col-sm-5'>
       <label for='flow-rate'>Flow Rate</label>
-      <figure class='highlight' data-bind='copyToClipboard: { callback: copyFeedback }'>
-        <pre><code><span data-bind='text: flowRate' id='flow-rate'></span></code></pre>
-      </figure>
+      <div class='input-group'>
+        <span class='input-group-addon'>
+          <input class='form-check-input' data-bind='checked: selectedCalculationField' id='flow-rate-checker' name='calculateFlowRate' type='radio' value='flow rate'>
+        </span>
+        <!-- ko ifnot: isCalculateFlowRate -->
+        <input class='form-control' data-bind='value: flowRate' id='flow-rate' type='number'>
+        <!-- /ko -->
+        <!-- ko if: isCalculateFlowRate -->
+        <figure class='highlight' data-bind='copyToClipboard: { callback: copyFeedback }'>
+          <pre><code><span data-bind='text: calculatedFlowRate' id='calculated-flow-rate'></span></code></pre>
+        </figure>
+        <!-- /ko -->
+      </div>
+      <!-- ko if: isCalculateFlowRate && calculatedFlowRate -->
       <div class='help-block' id='info-message'>
         Click the
         <strong>flow rate value</strong>
         to copy it
       </div>
       <div class='help-block animated' data-bind='css: copyFeedbackClass' id='copy-feedback'>Copied</div>
+      <!-- /ko -->
     </div>
     <div class='col-xs-12 col-sm-4'>
       <label for='flow-rate-unit'>Flow Unit</label>

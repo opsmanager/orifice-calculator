@@ -50,7 +50,12 @@
         return itShouldBehaveLikeRadioButtons(".operating-temperature-units");
       });
       describe("Differential Pressure", function() {
-        return itShouldBehaveLikeNumberInput("#differential-pressure");
+        return itShouldBehaveLikeNumberInput("input#differential-pressure");
+      });
+      describe("Calculated Differential Pressure", function() {
+        return it("should be in the template", function() {
+          return expect($("#calculated-differential-pressure")).toExist();
+        });
       });
       describe("Orifice Bore Diameter", function() {
         return itShouldBehaveLikeNumberInput("#orifice-bore-diameter");
@@ -61,10 +66,13 @@
       describe("Compressibility Correction Value", function() {
         return itShouldBehaveLikeNumberInput("#compressibility-correction-value");
       });
-      describe("Flow Rate", function() {
+      describe("Calculated Flow Rate", function() {
         return it("should be in the template", function() {
-          return expect($("#flow-rate")).toExist();
+          return expect($("#calculated-flow-rate")).toExist();
         });
+      });
+      describe("Flow Rate Input", function() {
+        return itShouldBehaveLikeNumberInput("input#flow-rate");
       });
       describe("Flow Unit", function() {
         return itShouldBehaveLikeDropdownList('#flow-unit');

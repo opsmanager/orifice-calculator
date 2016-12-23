@@ -106,6 +106,33 @@
             return OPL.Converter.Pressure.convert(_this.selectedDifferentialPressureUnit(), "inh2o", _this.differentialPressure());
           };
         })(this));
+        this.flowRate = ko.observable().extend({
+          toNumber: true,
+          number: {
+            params: true,
+            message: config.Messages.floatError
+          },
+          required: {
+            params: true,
+            message: config.Messages.flowRateError
+          }
+        });
+        this.flowRateInStandardCubicFeetPerHour = ko.pureComputed((function(_this) {
+          return function() {
+            var flowRate;
+            if (_this.selectedFlowUnit() === config.FlowRatePressureUnits.standardCubicFeet && _this.selectedFlowRateUnit() === config.FlowRateTimeUnits.hour) {
+              return _this.flowRate();
+            }
+            flowRate = _this.flowRate();
+            if (_this.selectedFlowUnit() !== "Standard Cubic Feet") {
+              flowRate = OPL.Converter.FlowRate.convert(_this.selectedFlowUnit(), "Standard Cubic Feet", flowRate);
+            }
+            if (_this.selectedFlowRateUnit() !== "Hour") {
+              flowRate = OPL.Converter.Rate.convert(_this.selectedFlowRateUnit(), "Hour", flowRate);
+            }
+            return flowRate;
+          };
+        })(this));
         this.orificeBoreDiameter = ko.observable().extend({
           toNumber: true,
           number: {
@@ -146,6 +173,23 @@
             }
           };
         })(this));
+        this.selectedCalculationField = ko.observable("flow rate");
+        this.isCalculateFlowRate = ko.pureComputed((function(_this) {
+          return function() {
+            return _this.selectedCalculationField() === "flow rate";
+          };
+        })(this));
+        this.isCalculateDifferentialPressure = ko.pureComputed((function(_this) {
+          return function() {
+            return _this.selectedCalculationField() === "differential pressure";
+          };
+        })(this));
+        this.selectedCalculationField.subscribe((function(_this) {
+          return function() {
+            _this.flowRate(null);
+            return _this.differentialPressure(null);
+          };
+        })(this));
         this.betaRatio = ko.computed((function(_this) {
           return function() {
             var betaRatio;
@@ -175,19 +219,12 @@
             }
           };
         })(this));
-        this.flowRate = ko.pureComputed((function(_this) {
+        this.calculatedFlowRate = ko.pureComputed((function(_this) {
           return function() {
             var flowRate;
             flowRate = UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR * _this.velocityOfApproach() * Math.pow(_this.orificeBoreDiameterInInches(), 2) * BASE_TEMPERATURE / BASE_PRESSURE * Math.pow((_this.operatingPressureInPSI() * BASE_COMPRESSIBILITY * _this.differentialPressureInInchesWater()) / (_this.baseSpecificGravity() * _this.compressibilityCorrectionValue() * _this.operatingTemperatureInRankine()), 0.5);
-            switch (_this.selectedFlowRateUnit()) {
-              case config.FlowRateTimeUnits.day:
-                flowRate *= 24;
-                break;
-              case config.FlowRateTimeUnits.minute:
-                flowRate /= 60;
-                break;
-              case config.FlowRateTimeUnits.second:
-                flowRate /= 3600;
+            if (_this.selectedFlowRateUnit() !== "Hour") {
+              flowRate = OPL.Converter.Rate.convert("Hour", _this.selectedFlowRateUnit(), flowRate);
             }
             if (_this.selectedFlowUnit() !== config.FlowRatePressureUnits.standardCubicFeet) {
               flowRate = OPL.Converter.FlowRate.convert(config.FlowRatePressureUnits.standardCubicFeet, _this.selectedFlowUnit(), flowRate);
@@ -196,6 +233,20 @@
               return void 0;
             } else {
               return _.ceil(flowRate, 3);
+            }
+          };
+        })(this));
+        this.calculatedDifferentialPressure = ko.pureComputed((function(_this) {
+          return function() {
+            var differentialPressure;
+            differentialPressure = Math.pow(_this.flowRateInStandardCubicFeetPerHour() / (UNIT_CONVERSION_FACTOR * COEFFICIENT_OF_DISCHARGE * EXPANSION_FACTOR * _this.velocityOfApproach() * Math.pow(_this.orificeBoreDiameterInInches(), 2) * BASE_TEMPERATURE / BASE_PRESSURE), 2) * (_this.baseSpecificGravity() * _this.compressibilityCorrectionValue() * _this.operatingTemperatureInRankine()) / (_this.operatingPressureInPSI() * BASE_COMPRESSIBILITY);
+            if (_this.selectedDifferentialPressureUnit() !== "inh2o") {
+              differentialPressure = OPL.Converter.Pressure.convert("inh2o", _this.selectedDifferentialPressureUnit(), differentialPressure);
+            }
+            if (_.isNaN(differentialPressure)) {
+              return void 0;
+            } else {
+              return _.ceil(differentialPressure, 3);
             }
           };
         })(this));

@@ -36,6 +36,14 @@
           return expect(ko.validatedObservable(viewModel).isValid()).toEqual(false);
         });
       });
+      describe("initialize", function() {
+        it("should have default value of 'Hour'", function() {
+          return expect(viewModel.selectedFlowRateUnit()).toEqual(config.FlowRateTimeUnits.hour);
+        });
+        return it("should have default value of 'standard cubic feet'", function() {
+          return expect(viewModel.selectedFlowUnit()).toEqual(config.FlowRatePressureUnits.standardCubicFeet);
+        });
+      });
       describe("availablePipes", function() {
         it("should have initialized the input data", function() {
           return expect(viewModel.availablePipes().length).toEqual(6);
@@ -117,6 +125,64 @@
         itBehavesLikeMandatoryField(viewModel.differentialPressure);
         return itBehavesLikeIntegerField(viewModel.differentialPressure);
       });
+      describe("calculatedDifferentialPressure", function() {
+        it("should return the correct differential pressure", function() {
+          viewModel.orificeBoreDiameter(0.97);
+          viewModel.selectedPipeDiameter(config.AvailablePipes.oneNineInch.value);
+          viewModel.operatingPressure(900);
+          viewModel.compressibilityCorrectionValue(1);
+          viewModel.baseSpecificGravity(1);
+          viewModel.operatingTemperature(60);
+          viewModel.flowRate(543.78);
+          viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.minute);
+          expect(viewModel.calculatedDifferentialPressure()).toEqual(30);
+          viewModel.orificeBoreDiameter(0.776);
+          viewModel.selectedPipeDiameter(config.AvailablePipes.oneNineInch.value);
+          viewModel.operatingPressure(900);
+          viewModel.compressibilityCorrectionValue(1);
+          viewModel.baseSpecificGravity(1);
+          viewModel.operatingTemperature(60);
+          viewModel.flowRate(341.325);
+          viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.minute);
+          return expect(viewModel.calculatedDifferentialPressure()).toEqual(30);
+        });
+        it("when kgcm2 is chosen", function() {
+          viewModel.selectedDifferentialPressureUnit("kgcm2");
+          return expect(viewModel.calculatedDifferentialPressure()).toEqual(0.077);
+        });
+        it("when kpa is chosen", function() {
+          viewModel.selectedDifferentialPressureUnit("kpa");
+          return expect(viewModel.calculatedDifferentialPressure()).toEqual(7.466);
+        });
+        it("when pa is chosen", function() {
+          viewModel.selectedDifferentialPressureUnit("pa");
+          return expect(viewModel.calculatedDifferentialPressure()).toEqual(7465.071);
+        });
+        it("when bar is chosen", function() {
+          viewModel.selectedDifferentialPressureUnit("bar");
+          return expect(viewModel.calculatedDifferentialPressure()).toEqual(0.075);
+        });
+        it("when mbar is chosen", function() {
+          viewModel.selectedDifferentialPressureUnit("mbar");
+          return expect(viewModel.calculatedDifferentialPressure()).toEqual(74.651);
+        });
+        it("when mmhg is chosen", function() {
+          viewModel.selectedDifferentialPressureUnit("mmhg");
+          return expect(viewModel.calculatedDifferentialPressure()).toEqual(55.993);
+        });
+        it("when inhg is chosen", function() {
+          viewModel.selectedDifferentialPressureUnit("inhg");
+          return expect(viewModel.calculatedDifferentialPressure()).toEqual(2.205);
+        });
+        it("when mmh2o is chosen", function() {
+          viewModel.selectedDifferentialPressureUnit("mmh2o");
+          return expect(viewModel.calculatedDifferentialPressure()).toEqual(761.988);
+        });
+        return it("when psi is chosen", function() {
+          viewModel.selectedDifferentialPressureUnit("psi");
+          return expect(viewModel.calculatedDifferentialPressure()).toEqual(1.084);
+        });
+      });
       describe("orificeBoreDiameter", function() {
         itBehavesLikeMandatoryField(viewModel.orificeBoreDiameter);
         return itBehavesLikeFloatField(viewModel.orificeBoreDiameter);
@@ -155,6 +221,43 @@
           });
         });
       });
+      describe("selectedCalculationField", function() {
+        return describe("when there is changes in this field", function() {
+          return it("will clear the value of flowRate and differentialPressure", function() {
+            viewModel.selectedCalculationField("abc");
+            expect(viewModel.flowRate()).toEqual(null);
+            return expect(viewModel.differentialPressure()).toEqual(null);
+          });
+        });
+      });
+      describe("isCalculateDifferentialPressure", function() {
+        describe("when the selectedCalculationField is 'differential pressure'", function() {
+          return it("will return true", function() {
+            viewModel.selectedCalculationField("differential pressure");
+            return expect(viewModel.isCalculateDifferentialPressure()).toEqual(true);
+          });
+        });
+        return describe("when the selectedCalculationField is not 'differential pressure'", function() {
+          return it("will return false", function() {
+            viewModel.selectedCalculationField("something else");
+            return expect(viewModel.isCalculateDifferentialPressure()).toEqual(false);
+          });
+        });
+      });
+      describe("isCalculateFlowRate", function() {
+        describe("when the selectedCalculationField is 'flow rate'", function() {
+          return it("will return true", function() {
+            viewModel.selectedCalculationField("flow rate");
+            return expect(viewModel.isCalculateFlowRate()).toEqual(true);
+          });
+        });
+        return describe("when the selectedCalculationField is not 'flow rate pressure'", function() {
+          return it("will return false", function() {
+            viewModel.selectedCalculationField("something else");
+            return expect(viewModel.isCalculateFlowRate()).toEqual(false);
+          });
+        });
+      });
       describe("betaRatio", function() {
         return it("should return beta ratio", function() {
           viewModel.selectedPipeDiameter(config.AvailablePipes.twoZeroInch.value);
@@ -173,14 +276,11 @@
         });
       });
       describe("availableFlowRateUnits", function() {
-        it("should have initialized the input data", function() {
+        return it("should have initialized the input data", function() {
           return expect(viewModel.availableFlowRateUnits().length).toEqual(4);
         });
-        return it("should have default value of 'Hour'", function() {
-          return expect(viewModel.selectedFlowRateUnit()).toEqual(config.FlowRateTimeUnits.hour);
-        });
       });
-      describe("flowRate", function() {
+      describe("calculatedFlowRate", function() {
         return it("should return the flow rate", function() {
           viewModel.orificeBoreDiameter(0.97);
           viewModel.selectedPipeDiameter(config.AvailablePipes.oneNineInch.value);
@@ -190,7 +290,8 @@
           viewModel.baseSpecificGravity(1);
           viewModel.operatingTemperature(60);
           viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.minute);
-          expect(viewModel.flowRate()).toEqual(543.783);
+          viewModel.selectedDifferentialPressureUnit("inh2o");
+          expect(viewModel.calculatedFlowRate()).toEqual(543.783);
           viewModel.orificeBoreDiameter(0.776);
           viewModel.selectedPipeDiameter(config.AvailablePipes.oneNineInch.value);
           viewModel.operatingPressure(900);
@@ -199,7 +300,30 @@
           viewModel.baseSpecificGravity(1);
           viewModel.operatingTemperature(60);
           viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.minute);
-          return expect(viewModel.flowRate()).toEqual(341.328);
+          viewModel.selectedDifferentialPressureUnit("inh2o");
+          return expect(viewModel.calculatedFlowRate()).toEqual(341.328);
+        });
+      });
+      describe("flowRateInStandardCubicFeetPerHour", function() {
+        beforeEach(function() {
+          return viewModel.flowRate(1250);
+        });
+        return it("should return the value according to the value selected", function() {
+          viewModel.selectedFlowUnit(config.FlowRatePressureUnits.standardCubicFeet);
+          viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.hour);
+          expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual(1250);
+          viewModel.selectedFlowUnit(config.FlowRatePressureUnits.pounds);
+          expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual(16339.999999999998);
+          viewModel.selectedFlowUnit(config.FlowRatePressureUnits.kilograms);
+          expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual(36035);
+          viewModel.selectedFlowUnit(config.FlowRatePressureUnits.standardCubicMeters);
+          expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual(44143.75);
+          viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.minute);
+          expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual(2648625);
+          viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.second);
+          expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual(158917500);
+          viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.day);
+          return expect(viewModel.flowRateInStandardCubicFeetPerHour()).toEqual(1839.3229166666665);
         });
       });
       describe("selectedFlowRateUnit", function() {
@@ -210,23 +334,25 @@
           viewModel.compressibilityCorrectionValue(1);
           viewModel.differentialPressure(30);
           viewModel.baseSpecificGravity(1);
-          return viewModel.operatingTemperature(60);
+          viewModel.operatingTemperature(60);
+          viewModel.selectedFlowUnit(config.FlowRatePressureUnits.standardCubicFeet);
+          return viewModel.selectedDifferentialPressureUnit("inh2o");
         });
         it("when minute is chosen", function() {
           viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.minute);
-          return expect(viewModel.flowRate()).toEqual(543.783);
+          return expect(viewModel.calculatedFlowRate()).toEqual(543.783);
         });
         it("when hour is chosen", function() {
           viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.hour);
-          return expect(viewModel.flowRate()).toEqual(32626.924);
+          return expect(viewModel.calculatedFlowRate()).toEqual(32626.924);
         });
         it("when day is chosen", function() {
           viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.day);
-          return expect(viewModel.flowRate()).toEqual(783046.156);
+          return expect(viewModel.calculatedFlowRate()).toEqual(783046.156);
         });
         return it("when second is chosen", function() {
           viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.second);
-          return expect(viewModel.flowRate()).toEqual(9.064);
+          return expect(viewModel.calculatedFlowRate()).toEqual(9.064);
         });
       });
       describe("availableFlowUnits", function() {
@@ -241,26 +367,24 @@
           viewModel.operatingPressure(900);
           viewModel.differentialPressure(30);
           viewModel.baseSpecificGravity(1);
-          return viewModel.operatingTemperature(60);
-        });
-        it("should have default value of 'standard cubic feet'", function() {
-          return expect(viewModel.selectedFlowUnit()).toEqual(config.FlowRatePressureUnits.standardCubicFeet);
+          viewModel.operatingTemperature(60);
+          return viewModel.selectedFlowRateUnit(config.FlowRateTimeUnits.hour);
         });
         it("when standardCubicFeet is chosen", function() {
           viewModel.selectedFlowUnit(config.FlowRatePressureUnits.standardCubicFeet);
-          return expect(viewModel.flowRate()).toEqual(32626.924);
+          return expect(viewModel.calculatedFlowRate()).toEqual(32626.924);
         });
         it("when pounds is chosen", function() {
           viewModel.selectedFlowUnit(config.FlowRatePressureUnits.pounds);
-          return expect(viewModel.flowRate()).toEqual(2495.96);
+          return expect(viewModel.calculatedFlowRate()).toEqual(2495.96);
         });
         it("when kilograms is chosen", function() {
           viewModel.selectedFlowUnit(config.FlowRatePressureUnits.kilograms);
-          return expect(viewModel.flowRate()).toEqual(1131.768);
+          return expect(viewModel.calculatedFlowRate()).toEqual(1132.155);
         });
         return it("when standardCubicMeters is chosen", function() {
           viewModel.selectedFlowUnit(config.FlowRatePressureUnits.standardCubicMeters);
-          return expect(viewModel.flowRate()).toEqual(923.892);
+          return expect(viewModel.calculatedFlowRate()).toEqual(923.342);
         });
       });
     });

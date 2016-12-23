@@ -108,7 +108,8 @@
       baseSpecificGravityError: "Please enter the base specific gravity",
       operatingTemperatureError: "Please enter the operating temperature",
       differentialPressureError: "Please enter the differential pressure",
-      orificeBoreDiameterError: "Please enter the orifice bore diameter"
+      orificeBoreDiameterError: "Please enter the orifice bore diameter",
+      flowRateError: "Please enter the flow rate"
     };
     this.OPL.OrificeCalculator.Config.Dictionaries.FlowRatePressureUnits = {
       standardCubicFeet: "Standard Cubic Feet",
