@@ -16,10 +16,10 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
     BASE_COMPRESSIBILITY     = 1
 
     NUMBER_OF_COOKIES = 5
-    FIELDS_FOR_SUGGESTION = ["orificeBoreDiameter", "baseSpecificGravity", "operatingTemperature", "operatingPressure", "differentialPressure" ]
 
     constructor: ->
       config = OPL.OrificeCalculator.Config.Dictionaries
+      @FIELDS_FOR_SUGGESTION = ["orificeBoreDiameter", "baseSpecificGravity", "operatingTemperature", "operatingPressure", "differentialPressure" ]
 
       @availablePipes = ko.observableArray _.values config.AvailablePipes
       @selectedPipeDiameter = ko.observable config.AvailablePipes.oneNineInch.value
@@ -207,9 +207,9 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
       @flowRate.subscribe (flowRate) =>
         if flowRate
-          _.each FIELDS_FOR_SUGGESTION, (field) => @setCookies(field, NUMBER_OF_COOKIES)
+          _.each @FIELDS_FOR_SUGGESTION, (field) => @setCookies(field, NUMBER_OF_COOKIES)
 
-      _.each FIELDS_FOR_SUGGESTION, (field) => @initializeFieldWithCookies field
+      _.each @FIELDS_FOR_SUGGESTION, (field) => @initializeFieldWithCookies field
 
     initializeFieldWithCookies: (variableName) =>
       cookies = eval(Cookies.get(variableName))
