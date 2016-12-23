@@ -211,12 +211,12 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
       _.each @FIELDS_FOR_SUGGESTION, (field) => @initializeFieldWithCookies field
 
-    initializeFieldWithCookies: (variableName) =>
+    initializeFieldWithCookies: (variableName) ->
       cookies = eval(Cookies.get(variableName))
       if cookies
         @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
 
-    setCookies: (variableName, numberOfCookies) =>
+    setCookies: (variableName, numberOfCookies) ->
       cookies = eval(Cookies.get(variableName)) || []
       # Only includes value if it is not exist in the current cookies array
       unless _.includes cookies, @[variableName]()
