@@ -126,7 +126,9 @@
         %span.input-group-addon
           %input#flow-rate-checker.form-check-input(type="radio" name="calculateFlowRate" value="flow rate" data-bind="checked: selectedCalculationField")
         / ko ifnot: isCalculateFlowRate
-        %input.form-control#flow-rate(type="number" data-bind="value: flowRate")
+        %input.form-control#flow-rate(type="number" data-bind="value: flowRate" list="flow-rate-cookies")
+        %datalist#flow-rate-cookies(data-bind="foreach: flowRateCookies")
+          %option(data-bind="text: value")
         / /ko
         / ko if: isCalculateFlowRate
         %figure.highlight(data-bind="copyToClipboard: { callback: copyFeedback }")

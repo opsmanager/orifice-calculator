@@ -19,7 +19,7 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
 
     constructor: ->
       config = OPL.OrificeCalculator.Config.Dictionaries
-      @FIELDS_FOR_SUGGESTION = ["orificeBoreDiameter", "baseSpecificGravity", "operatingTemperature", "operatingPressure", "differentialPressure" ]
+      @FIELDS_FOR_SUGGESTION = ["orificeBoreDiameter", "baseSpecificGravity", "operatingTemperature", "operatingPressure", "differentialPressure", "flowRate"]
 
       @availablePipes = ko.observableArray _.values config.AvailablePipes
       @selectedPipeDiameter = ko.observable config.AvailablePipes.oneNineInch.value
@@ -204,20 +204,27 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
       @operatingTemperatureCookies = ko.observableArray()
       @operatingPressureCookies    = ko.observableArray()
       @differentialPressureCookies = ko.observableArray()
+      @flowRateCookies             = ko.observableArray()
 
-      @flowRate.subscribe (flowRate) =>
+      @calculatedDifferentialPressure.subscribe (differentialPressure) =>
+        fields = _.filter @FIELDS_FOR_SUGGESTION, (fields) -> fields != "differentialPressure"
+        if differentialPressure
+          _.each fields, (field) => @setCookies(field, NUMBER_OF_COOKIES)
+
+      @calculatedFlowRate.subscribe (flowRate) =>
+        fields = _.filter @FIELDS_FOR_SUGGESTION, (fields) -> fields != "flowRate"
         if flowRate
-          _.each @FIELDS_FOR_SUGGESTION, (field) => @setCookies(field, NUMBER_OF_COOKIES)
+          _.each fields, (field) => @setCookies(field, NUMBER_OF_COOKIES)
 
       _.each @FIELDS_FOR_SUGGESTION, (field) => @initializeFieldWithCookies field
 
     initializeFieldWithCookies: (variableName) ->
-      cookies = eval(Cookies.get(variableName))
-      if cookies
-        @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
+      cookies = @getCookies variableName
+
+      @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
 
     setCookies: (variableName, numberOfCookies) ->
-      cookies = eval(Cookies.get(variableName)) || []
+      cookies = @getCookies variableName
       # Only includes value if it is not exist in the current cookies array
       unless _.includes cookies, @[variableName]()
         if cookies?.length >= numberOfCookies
@@ -225,6 +232,11 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
         cookies.push @[variableName]()
         Cookies.set(variableName, cookies)
         @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
+
+    getCookies: (variableName) ->
+      cookies = Cookies.get(variableName) || []
+      unless _.isEmpty cookies
+        cookies = JSON.parse(cookies)
 
     copyFeedback: =>
       @copyFeedbackActive true
