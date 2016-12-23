@@ -45,7 +45,11 @@ define "orifice-calculator-view-spec", ["jquery", "jasmine-jquery"], ($) ->
       itShouldBehaveLikeRadioButtons ".operating-temperature-units"
 
     describe "Differential Pressure", ->
-      itShouldBehaveLikeNumberInput "#differential-pressure"
+      itShouldBehaveLikeNumberInput "input#differential-pressure"
+
+    describe "Calculated Differential Pressure", ->
+      it "should be in the template", ->
+        expect($("#calculated-differential-pressure")).toExist()
 
     describe "Orifice Bore Diameter", ->
       itShouldBehaveLikeNumberInput "#orifice-bore-diameter"
@@ -56,9 +60,12 @@ define "orifice-calculator-view-spec", ["jquery", "jasmine-jquery"], ($) ->
     describe "Compressibility Correction Value", ->
       itShouldBehaveLikeNumberInput "#compressibility-correction-value"
 
-    describe "Flow Rate", ->
+    describe "Calculated Flow Rate", ->
       it "should be in the template", ->
-        expect($("#flow-rate")).toExist()
+        expect($("#calculated-flow-rate")).toExist()
+
+    describe "Flow Rate Input", ->
+      itShouldBehaveLikeNumberInput "input#flow-rate"
 
     describe "Flow Unit", ->
       itShouldBehaveLikeDropdownList '#flow-unit'
