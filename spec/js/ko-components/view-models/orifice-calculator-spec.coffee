@@ -358,3 +358,80 @@ define "orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orific
       it "when standardCubicMeters is chosen", ->
         viewModel.selectedFlowUnit config.FlowRatePressureUnits.standardCubicMeters
         expect(viewModel.calculatedFlowRate()).toEqual 923.342 #926.3
+
+    describe "cookies", ->
+      describe "calculatedFlowRate", ->
+        beforeEach ->
+          viewModel.selectedCalculationField "flow rate"
+          viewModel.orificeBoreDiameter 1.02
+          viewModel.selectedPipeDiameter config.AvailablePipes.oneNineInch.value
+          viewModel.operatingPressure 600
+          viewModel.differentialPressure 20
+          viewModel.baseSpecificGravity 2
+          viewModel.operatingTemperature 50
+
+        it "should set the values of each cookies", ->
+          expect(viewModel.orificeBoreDiameterCookies()).toContain  { value: 1.02 }
+          expect(viewModel.operatingPressureCookies()).toContain    { value: 600 }
+          expect(viewModel.differentialPressureCookies()).toContain { value: 20 }
+          expect(viewModel.baseSpecificGravityCookies()).toContain  { value: 2 }
+          expect(viewModel.operatingTemperatureCookies()).toContain { value: 50 }
+
+      describe "calculatedDifferentialPressure", ->
+        beforeEach ->
+          viewModel.selectedCalculationField "differential pressure"
+          viewModel.orificeBoreDiameter 1.02
+          viewModel.selectedPipeDiameter config.AvailablePipes.oneNineInch.value
+          viewModel.operatingPressure 600
+          viewModel.baseSpecificGravity 2
+          viewModel.operatingTemperature 50
+          viewModel.flowRate 543.783
+
+        it "should set the values of each cookies", ->
+          expect(viewModel.orificeBoreDiameterCookies()).toContain  { value: 1.02 }
+          expect(viewModel.operatingPressureCookies()).toContain    { value: 600 }
+          expect(viewModel.differentialPressureCookies()).toContain { value: 20 }
+          expect(viewModel.baseSpecificGravityCookies()).toContain  { value: 2 }
+          expect(viewModel.operatingTemperatureCookies()).toContain { value: 50 }
+          expect(viewModel.flowRateCookies()).toContain             { value: 543.783 }
+
+      describe "initializeFieldsWithCookies", ->
+        beforeEach ->
+          _.each viewModel.FIELDS_FOR_SUGGESTION, (field) ->
+            Cookies.set(field, [102,202])
+
+          viewModel.initializeFieldsWithCookies()
+
+        it "initialize with the correct value", ->
+          _.each viewModel.FIELDS_FOR_SUGGESTION, (field) ->
+            expect(viewModel["#{field}Cookies"]()).toEqual [{ value: 102 }, { value: 202 } ]
+
+      describe "setCookiesForFields", ->
+        beforeEach ->
+          spyOn(viewModel, "setCookies")
+
+        describe "if there is valid calculatedValue", ->
+          beforeEach ->
+            viewModel.setCookiesForFields(123, "differentialPressure")
+
+          it "will call setCookies for every fields", ->
+            expect(viewModel.setCookies).toHaveBeenCalled()
+
+        describe "if there is no valid calculatedValue", ->
+          beforeEach ->
+            viewModel.setCookiesForFields(undefined, "differentialPressure")
+
+          it "will call setCookies for every fields", ->
+            expect(viewModel.setCookies).not.toHaveBeenCalled()
+
+      describe "getCookies", ->
+        describe "if there is valid cookies value", ->
+          beforeEach ->
+            Cookies.set("testCookies", [1,2])
+
+          it "will return the value as an array", ->
+            expect(viewModel.getCookies("testCookies")).toEqual [1,2]
+
+        describe "if there is no valid cookies value", ->
+          it "will return an empty array", ->
+            expect(viewModel.getCookies("testCookies2")).toEqual []

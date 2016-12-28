@@ -15,8 +15,11 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
     BASE_PRESSURE            = 14.73
     BASE_COMPRESSIBILITY     = 1
 
+    NUMBER_OF_COOKIES = 5
+
     constructor: ->
       config = OPL.OrificeCalculator.Config.Dictionaries
+      @FIELDS_FOR_SUGGESTION = ["orificeBoreDiameter", "baseSpecificGravity", "operatingTemperature", "operatingPressure", "differentialPressure", "flowRate"]
 
       @availablePipes = ko.observableArray _.values config.AvailablePipes
       @selectedPipeDiameter = ko.observable config.AvailablePipes.oneNineInch.value
@@ -189,12 +192,54 @@ define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validati
           return _.ceil differentialPressure, 3
 
       @copyFeedbackActive = ko.observable false
-
       @copyFeedbackClass = ko.pureComputed =>
         if @copyFeedbackActive()
           return 'bounce-in'
         else
           return 'hidden'
+
+      # Fields to keep the cookies
+      @orificeBoreDiameterCookies  = ko.observableArray()
+      @baseSpecificGravityCookies  = ko.observableArray()
+      @operatingTemperatureCookies = ko.observableArray()
+      @operatingPressureCookies    = ko.observableArray()
+      @differentialPressureCookies = ko.observableArray()
+      @flowRateCookies             = ko.observableArray()
+
+      @calculatedDifferentialPressure.subscribe (differentialPressure) =>
+        @setCookiesForFields differentialPressure, "differentialPressure"
+
+      @calculatedFlowRate.subscribe (flowRate) =>
+        @setCookiesForFields flowRate, "flowRate"
+
+      @initializeFieldsWithCookies()
+
+    initializeFieldsWithCookies: (variableName) ->
+      _.each @FIELDS_FOR_SUGGESTION, (field) =>
+        cookies = @getCookies field
+
+        @["#{field}Cookies"] _.map cookies, (val) -> { value: val }
+
+    setCookies: (variableName, numberOfCookies) ->
+      cookies = @getCookies variableName
+      # Only includes value if it is not exist in the current cookies array
+      unless _.includes cookies, @[variableName]()
+        if cookies?.length >= numberOfCookies
+          cookies = cookies.slice(-numberOfCookies + 1)
+        cookies.push @[variableName]()
+        Cookies.set(variableName, cookies)
+        @["#{variableName}Cookies"] _.map cookies, (val) -> { value: val }
+
+    setCookiesForFields: (calculatedValue, excludedCookiesField) ->
+      fields = _.filter @FIELDS_FOR_SUGGESTION, (fields) -> fields != excludedCookiesField
+      if calculatedValue
+        _.each fields, (field) => @setCookies(field, NUMBER_OF_COOKIES)
+
+    getCookies: (variableName) ->
+      cookies = Cookies.get(variableName) || []
+      unless _.isEmpty cookies
+        cookies = JSON.parse(cookies)
+      cookies
 
     copyFeedback: =>
       @copyFeedbackActive true
