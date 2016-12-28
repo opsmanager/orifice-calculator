@@ -360,7 +360,7 @@
           return expect(viewModel.availableFlowUnits()).toEqual(_.values(config.FlowRatePressureUnits));
         });
       });
-      return describe("selectedFlowUnit", function() {
+      describe("selectedFlowUnit", function() {
         beforeEach(function() {
           viewModel.orificeBoreDiameter(0.97);
           viewModel.selectedPipeDiameter(config.AvailablePipes.oneNineInch.value);
@@ -385,6 +385,122 @@
         return it("when standardCubicMeters is chosen", function() {
           viewModel.selectedFlowUnit(config.FlowRatePressureUnits.standardCubicMeters);
           return expect(viewModel.calculatedFlowRate()).toEqual(923.342);
+        });
+      });
+      return describe("cookies", function() {
+        describe("calculatedFlowRate", function() {
+          beforeEach(function() {
+            viewModel.selectedCalculationField("flow rate");
+            viewModel.orificeBoreDiameter(1.02);
+            viewModel.selectedPipeDiameter(config.AvailablePipes.oneNineInch.value);
+            viewModel.operatingPressure(600);
+            viewModel.differentialPressure(20);
+            viewModel.baseSpecificGravity(2);
+            return viewModel.operatingTemperature(50);
+          });
+          return it("should set the values of each cookies", function() {
+            expect(viewModel.orificeBoreDiameterCookies()).toContain({
+              value: 1.02
+            });
+            expect(viewModel.operatingPressureCookies()).toContain({
+              value: 600
+            });
+            expect(viewModel.differentialPressureCookies()).toContain({
+              value: 20
+            });
+            expect(viewModel.baseSpecificGravityCookies()).toContain({
+              value: 2
+            });
+            return expect(viewModel.operatingTemperatureCookies()).toContain({
+              value: 50
+            });
+          });
+        });
+        describe("calculatedDifferentialPressure", function() {
+          beforeEach(function() {
+            viewModel.selectedCalculationField("differential pressure");
+            viewModel.orificeBoreDiameter(1.02);
+            viewModel.selectedPipeDiameter(config.AvailablePipes.oneNineInch.value);
+            viewModel.operatingPressure(600);
+            viewModel.baseSpecificGravity(2);
+            viewModel.operatingTemperature(50);
+            return viewModel.flowRate(543.783);
+          });
+          return it("should set the values of each cookies", function() {
+            expect(viewModel.orificeBoreDiameterCookies()).toContain({
+              value: 1.02
+            });
+            expect(viewModel.operatingPressureCookies()).toContain({
+              value: 600
+            });
+            expect(viewModel.differentialPressureCookies()).toContain({
+              value: 20
+            });
+            expect(viewModel.baseSpecificGravityCookies()).toContain({
+              value: 2
+            });
+            expect(viewModel.operatingTemperatureCookies()).toContain({
+              value: 50
+            });
+            return expect(viewModel.flowRateCookies()).toContain({
+              value: 543.783
+            });
+          });
+        });
+        describe("initializeFieldsWithCookies", function() {
+          beforeEach(function() {
+            _.each(viewModel.FIELDS_FOR_SUGGESTION, function(field) {
+              return Cookies.set(field, [102, 202]);
+            });
+            return viewModel.initializeFieldsWithCookies();
+          });
+          return it("initialize with the correct value", function() {
+            return _.each(viewModel.FIELDS_FOR_SUGGESTION, function(field) {
+              return expect(viewModel[field + "Cookies"]()).toEqual([
+                {
+                  value: 102
+                }, {
+                  value: 202
+                }
+              ]);
+            });
+          });
+        });
+        describe("setCookiesForFields", function() {
+          beforeEach(function() {
+            return spyOn(viewModel, "setCookies");
+          });
+          describe("if there is valid calculatedValue", function() {
+            beforeEach(function() {
+              return viewModel.setCookiesForFields(123, "differentialPressure");
+            });
+            return it("will call setCookies for every fields", function() {
+              return expect(viewModel.setCookies).toHaveBeenCalled();
+            });
+          });
+          return describe("if there is no valid calculatedValue", function() {
+            beforeEach(function() {
+              return viewModel.setCookiesForFields(void 0, "differentialPressure");
+            });
+            return it("will call setCookies for every fields", function() {
+              return expect(viewModel.setCookies).not.toHaveBeenCalled();
+            });
+          });
+        });
+        return describe("getCookies", function() {
+          describe("if there is valid cookies value", function() {
+            beforeEach(function() {
+              return Cookies.set("testCookies", [1, 2]);
+            });
+            return it("will return the value as an array", function() {
+              return expect(viewModel.getCookies("testCookies")).toEqual([1, 2]);
+            });
+          });
+          return describe("if there is no valid cookies value", function() {
+            return it("will return an empty array", function() {
+              return expect(viewModel.getCookies("testCookies2")).toEqual([]);
+            });
+          });
         });
       });
     });

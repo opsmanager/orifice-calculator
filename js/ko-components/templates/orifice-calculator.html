@@ -10,7 +10,10 @@
       </div>
       <div class='col-xs-6 col-sm-2' id='orifice-bore-diameter-container'>
         <label for='orifice-bore-diameter'>Orifice Bore Diameter</label>
-        <input class='form-control' data-bind='value: orificeBoreDiameter' id='orifice-bore-diameter' type='number'>
+        <input class='form-control' data-bind='value: orificeBoreDiameter' id='orifice-bore-diameter' list='orifice-bore-diameter-cookies' step='0.001' type='number'>
+        <datalist data-bind='foreach: orificeBoreDiameterCookies' id='orifice-bore-diameter-cookies'>
+          <option data-bind='text: value'></option>
+        </datalist>
       </div>
       <div class='col-xs-6 col-sm-2' id='orifice-bore-diameter-container'>
         <label for='orifice-bore-diameter-unit'>Units</label>
@@ -27,7 +30,10 @@
   <div class='form-group row'>
     <div class='col-xs-12 col-sm-4' id='specific-gravity-container'>
       <label for='base-specific-gravity'>Base Specific Gravity</label>
-      <input class='form-control' data-bind='value: baseSpecificGravity' id='base-specific-gravity' type='number'>
+      <input class='form-control' data-bind='value: baseSpecificGravity' id='base-specific-gravity' list='base-specific-gravity-cookies' step='0.001' type='number'>
+      <datalist data-bind='foreach: baseSpecificGravityCookies' id='base-specific-gravity-cookies'>
+        <option data-bind='text: value'></option>
+      </datalist>
     </div>
     <div class='col-xs-12 col-sm-4' id='specific-gravity-select'>
       <label for='base-specific-gravity-select'>Options</label>
@@ -39,7 +45,10 @@
       <div id='operating-temperature-container'>
         <div class='col-xs-12 col-sm-4'>
           <label for='operating-temperature'>Operating Temperature</label>
-          <input class='form-control' data-bind='value: operatingTemperature' id='operating-temperature' type='number'>
+          <input class='form-control' data-bind='value: operatingTemperature' id='operating-temperature' list='operating-temperature-cookies' step='0.001' type='number'>
+          <datalist data-bind='foreach: operatingTemperatureCookies' id='operating-temperature-cookies'>
+            <option data-bind='text: value'></option>
+          </datalist>
         </div>
         <div class='col-xs-12 col-sm-6'>
           <label>Units</label>
@@ -60,7 +69,10 @@
     <div id='operating-pressure-container'>
       <div class='col-xs-12 col-sm-4' data-bind="css: { 'has-error': operatingPressureWarningMessage }">
         <label for='operating-pressure'>Operating Pressure</label>
-        <input class='form-control' data-bind='value: operatingPressure' id='operating-pressure' type='number'>
+        <input class='form-control' data-bind='value: operatingPressure' id='operating-pressure' list='operating-pressure-cookies' type='number'>
+        <datalist data-bind='foreach: operatingPressureCookies' id='operating-pressure-cookies'>
+          <option data-bind='text: value'></option>
+        </datalist>
         <div class='help-block' data-bind='visible: operatingPressureWarningMessage, text: operatingPressureWarningMessage' id='warning-message'></div>
       </div>
       <div class='col-xs-12 col-sm-2'>
@@ -108,7 +120,10 @@
           <input class='form-check-input' data-bind='checked: selectedCalculationField' id='differential-pressure-checker' name='calculateDifferentialPressure' type='radio' value='differential pressure'>
         </span>
         <!-- ko ifnot: isCalculateDifferentialPressure -->
-        <input class='form-control' data-bind='value: differentialPressure' id='differential-pressure' type='number'>
+        <input class='form-control' data-bind='value: differentialPressure' id='differential-pressure' list='differential-pressure-cookies' type='number'>
+        <datalist data-bind='foreach: differentialPressureCookies' id='differential-pressure-cookies'>
+          <option data-bind='text: value'></option>
+        </datalist>
         <!-- /ko -->
         <!-- ko if: isCalculateDifferentialPressure -->
         <figure class='highlight' data-bind='copyToClipboard: { callback: copyFeedback }'>
@@ -138,7 +153,10 @@
           <input class='form-check-input' data-bind='checked: selectedCalculationField' id='flow-rate-checker' name='calculateFlowRate' type='radio' value='flow rate'>
         </span>
         <!-- ko ifnot: isCalculateFlowRate -->
-        <input class='form-control' data-bind='value: flowRate' id='flow-rate' type='number'>
+        <input class='form-control' data-bind='value: flowRate' id='flow-rate' list='flow-rate-cookies' type='number'>
+        <datalist data-bind='foreach: flowRateCookies' id='flow-rate-cookies'>
+          <option data-bind='text: value'></option>
+        </datalist>
         <!-- /ko -->
         <!-- ko if: isCalculateFlowRate -->
         <figure class='highlight' data-bind='copyToClipboard: { callback: copyFeedback }'>

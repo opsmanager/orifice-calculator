@@ -7,7 +7,7 @@
     (base = this.OPL).KoComponents || (base.KoComponents = {});
     (base1 = this.OPL.KoComponents).ViewModels || (base1.ViewModels = {});
     return OPL.KoComponents.ViewModels.OrificeCalculator = (function() {
-      var BASE_COMPRESSIBILITY, BASE_PRESSURE, BASE_TEMPERATURE, COEFFICIENT_OF_DISCHARGE, EXPANSION_FACTOR, UNIT_CONVERSION_FACTOR;
+      var BASE_COMPRESSIBILITY, BASE_PRESSURE, BASE_TEMPERATURE, COEFFICIENT_OF_DISCHARGE, EXPANSION_FACTOR, NUMBER_OF_COOKIES, UNIT_CONVERSION_FACTOR;
 
       UNIT_CONVERSION_FACTOR = 218.527;
 
@@ -21,10 +21,13 @@
 
       BASE_COMPRESSIBILITY = 1;
 
+      NUMBER_OF_COOKIES = 5;
+
       function OrificeCalculator() {
         this.copyFeedback = bind(this.copyFeedback, this);
         var config;
         config = OPL.OrificeCalculator.Config.Dictionaries;
+        this.FIELDS_FOR_SUGGESTION = ["orificeBoreDiameter", "baseSpecificGravity", "operatingTemperature", "operatingPressure", "differentialPressure", "flowRate"];
         this.availablePipes = ko.observableArray(_.values(config.AvailablePipes));
         this.selectedPipeDiameter = ko.observable(config.AvailablePipes.oneNineInch.value);
         this.availablePressureUnits = ko.observable(config.PressureUnits);
@@ -260,7 +263,78 @@
             }
           };
         })(this));
+        this.orificeBoreDiameterCookies = ko.observableArray();
+        this.baseSpecificGravityCookies = ko.observableArray();
+        this.operatingTemperatureCookies = ko.observableArray();
+        this.operatingPressureCookies = ko.observableArray();
+        this.differentialPressureCookies = ko.observableArray();
+        this.flowRateCookies = ko.observableArray();
+        this.calculatedDifferentialPressure.subscribe((function(_this) {
+          return function(differentialPressure) {
+            return _this.setCookiesForFields(differentialPressure, "differentialPressure");
+          };
+        })(this));
+        this.calculatedFlowRate.subscribe((function(_this) {
+          return function(flowRate) {
+            return _this.setCookiesForFields(flowRate, "flowRate");
+          };
+        })(this));
+        this.initializeFieldsWithCookies();
       }
+
+      OrificeCalculator.prototype.initializeFieldsWithCookies = function(variableName) {
+        return _.each(this.FIELDS_FOR_SUGGESTION, (function(_this) {
+          return function(field) {
+            var cookies;
+            cookies = _this.getCookies(field);
+            return _this[field + "Cookies"](_.map(cookies, function(val) {
+              return {
+                value: val
+              };
+            }));
+          };
+        })(this));
+      };
+
+      OrificeCalculator.prototype.setCookies = function(variableName, numberOfCookies) {
+        var cookies;
+        cookies = this.getCookies(variableName);
+        if (!_.includes(cookies, this[variableName]())) {
+          if ((cookies != null ? cookies.length : void 0) >= numberOfCookies) {
+            cookies = cookies.slice(-numberOfCookies + 1);
+          }
+          cookies.push(this[variableName]());
+          Cookies.set(variableName, cookies);
+          return this[variableName + "Cookies"](_.map(cookies, function(val) {
+            return {
+              value: val
+            };
+          }));
+        }
+      };
+
+      OrificeCalculator.prototype.setCookiesForFields = function(calculatedValue, excludedCookiesField) {
+        var fields;
+        fields = _.filter(this.FIELDS_FOR_SUGGESTION, function(fields) {
+          return fields !== excludedCookiesField;
+        });
+        if (calculatedValue) {
+          return _.each(fields, (function(_this) {
+            return function(field) {
+              return _this.setCookies(field, NUMBER_OF_COOKIES);
+            };
+          })(this));
+        }
+      };
+
+      OrificeCalculator.prototype.getCookies = function(variableName) {
+        var cookies;
+        cookies = Cookies.get(variableName) || [];
+        if (!_.isEmpty(cookies)) {
+          cookies = JSON.parse(cookies);
+        }
+        return cookies;
+      };
 
       OrificeCalculator.prototype.copyFeedback = function() {
         this.copyFeedbackActive(true);
