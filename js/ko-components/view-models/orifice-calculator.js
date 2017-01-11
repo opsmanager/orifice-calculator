@@ -1,7 +1,7 @@
 (function() {
   var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  define("orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validation", "orifice-calculator-config", "unit-converter"], function(ko, _) {
+  define("orifice-calculator-viewmodel", ["knockout", "lodash", "cookies", "knockout.validation", "orifice-calculator-config", "unit-converter"], function(ko, _, Cookies) {
     var base, base1;
     this.OPL || (this.OPL = {});
     (base = this.OPL).KoComponents || (base.KoComponents = {});

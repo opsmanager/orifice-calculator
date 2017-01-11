@@ -1,5 +1,5 @@
 (function() {
-  define("orifice-calculator-viewmodel-spec", ["knockout", "jasmine-boot", "orifice-calculator-viewmodel"], function(ko) {
+  define("orifice-calculator-viewmodel-spec", ["knockout", "cookies", "jasmine-boot", "orifice-calculator-viewmodel"], function(ko, Cookies) {
     return describe("orifice-calculator-viewmodel-spec", function() {
       var config, itBehavesLikeFloatField, itBehavesLikeIntegerField, itBehavesLikeMandatoryField, viewModel;
       config = OPL.OrificeCalculator.Config.Dictionaries;
