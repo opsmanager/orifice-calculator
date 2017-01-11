@@ -1,12 +1,13 @@
 !!!
 %html
   %head
-    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}/
-    %meta{:charset => 'utf-8'}/
-    %meta{:content => 'ie=edge', 'http-equiv' => 'x-ua-compatible'}/
-    %title Daniel Orifice Flow Calculator
-    %meta{:name => "description"}/
-    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}
+    %meta{:charset => 'utf-8'}
+    %meta{:content => 'ie=edge', 'http-equiv' => 'x-ua-compatible'}
+    %title OpsManager Orifice Flow Calculator
+    %meta{:name => "OpsManager Orifice Flow Calculator based on ASME MFC-3M 1989 equation to provide useful assistance in the calculation of orifice diameters for estimation purposes"}
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+    %link{:href => "/images/favicon.ico", :rel => "shortcut icon", type: "image/x-icon" }
     %link{href: 'css/bootstrap.min.css', rel: 'stylesheet', type:'text/css'}
     %link{href: 'css/orifice-calculator.css', rel: 'stylesheet', type:'text/css'}
     %link{href: 'css/animate.css', rel: 'stylesheet', type:'text/css'}
@@ -16,5 +17,4 @@
     .container
       %div{'data-bind' => 'component: "orifice-calculator"'}
 
-    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.3/js.cookie.min.js"}
-    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js", "data-main" => "js/main.js"}
+    %script{:src => 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js', 'data-main' => 'js/main.js'}

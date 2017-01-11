@@ -1,4 +1,4 @@
-define "orifice-calculator-viewmodel", ["knockout", "lodash", "knockout.validation", "orifice-calculator-config", "unit-converter"], (ko, _) ->
+define "orifice-calculator-viewmodel", ["knockout", "lodash", "cookies", "knockout.validation", "orifice-calculator-config", "unit-converter"], (ko, _, Cookies) ->
   @OPL ||= {}
   @OPL.KoComponents ||= {}
   @OPL.KoComponents.ViewModels ||= {}

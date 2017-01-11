@@ -47,6 +47,8 @@ module.exports = (grunt) ->
         files:
           'build/css/bootstrap.min.css': 'src/css/bootstrap.min.css'
           'build/css/animate.css': 'src/css/animate.css'
+          'build/images/favicon.ico': 'src/images/favicon.ico'
+          'build/images/opsman-logo.png': 'src/images/opsman-logo.png'
       spec:
         files:
           'build/js/lib/jasmine-jquery.js': 'node_modules/jasmine-jquery/lib/jasmine-jquery.js'
