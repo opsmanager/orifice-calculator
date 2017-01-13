@@ -29,6 +29,23 @@
 
   %body
     .container
-      %div{'data-bind' => 'component: "orifice-calculator"'}
+      %section.wrapper
+        .row
+          %h2.center
+            %a(href="http://www.opsmanager.com" target="_blank")
+              %img.logo(alt="OpsManager" src="images/opsman-logo.png")
+
+            OpsManager Orifice Flow Calculator
+
+        %div{'data-bind' => 'component: "orifice-calculator"'}
+
+        .row
+          .footer
+            Powered by
+            %span
+              %a(href="http://www.opsmanager.com" target="_blank") OpsManager
+            dev team
+
+
 
     %script{:src => 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js', 'data-main' => 'js/main.js'}

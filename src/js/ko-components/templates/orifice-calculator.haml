@@ -1,31 +1,25 @@
-%section.wrapper
-  .row
-    %h2
-      %img.logo(alt="OpsManager" src="images/opsman-logo.png")
-      OpsManager Orifice Flow Calculator
+%form
+  .form-group.row
+    #pipe-container.col-xs-12.col-sm-4
+      %label{ for: 'available-pipes'} Pipe ID
+      %select.form-control#available-pipes(data-bind="{ options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value' }" )
 
-  %form
-    .form-group.row
-      #pipe-container.col-xs-12.col-sm-4
-        %label{ for: 'available-pipes'} Pipe ID
-        %select.form-control#available-pipes(data-bind="{ options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value' }" )
+    #orifice-bore-diameter-container.col-xs-6.col-sm-2
+      %label(for="orifice-bore-diameter") Orifice Bore Diameter
+      %input.form-control#orifice-bore-diameter(type="number" data-bind="value: orificeBoreDiameter" step="0.001" list="orifice-bore-diameter-cookies")
+      %datalist#orifice-bore-diameter-cookies(data-bind="foreach: orificeBoreDiameterCookies")
+        %option(data-bind="text: value")
 
-      #orifice-bore-diameter-container.col-xs-6.col-sm-2
-        %label(for="orifice-bore-diameter") Orifice Bore Diameter
-        %input.form-control#orifice-bore-diameter(type="number" data-bind="value: orificeBoreDiameter" step="0.001" list="orifice-bore-diameter-cookies")
-        %datalist#orifice-bore-diameter-cookies(data-bind="foreach: orificeBoreDiameterCookies")
-          %option(data-bind="text: value")
+    #orifice-bore-diameter-container.col-xs-6.col-sm-2
+      %label(for="orifice-bore-diameter-unit") Units
+      %select.form-control#orifice-bore-diameter-unit(data-bind="{ options: availableBoreDiameterUnits, value: selectedBoreDiameterUnit }")
 
-      #orifice-bore-diameter-container.col-xs-6.col-sm-2
-        %label(for="orifice-bore-diameter-unit") Units
-        %select.form-control#orifice-bore-diameter-unit(data-bind="{ options: availableBoreDiameterUnits, value: selectedBoreDiameterUnit }")
-
-      #beta-ratio-container.col-xs-12.col-sm-2
-        %label(for="beta-ratio") Beta Ratio
-        %figure.highlight
-          %pre
-            %code
-              %span#beta-ratio(data-bind="text: betaRatio")
+    #beta-ratio-container.col-xs-12.col-sm-2
+      %label(for="beta-ratio") Beta Ratio
+      %figure.highlight
+        %pre
+          %code
+            %span#beta-ratio(data-bind="text: betaRatio")
 
   .form-group.row
     #specific-gravity-container.col-xs-12.col-sm-4
