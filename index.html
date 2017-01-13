@@ -29,7 +29,26 @@
   </head>
   <body>
     <div class='container'>
-      <div data-bind='component: "orifice-calculator"'></div>
+      <section class='wrapper'>
+        <div class='row'>
+          <h2 class='center'>
+            <a href='http://www.opsmanager.com' target='_blank'>
+              <img alt='OpsManager' class='logo' src='images/opsman-logo.png'>
+            </a>
+            OpsManager Orifice Flow Calculator
+          </h2>
+        </div>
+        <div data-bind='component: "orifice-calculator"'></div>
+        <div class='row'>
+          <div class='footer'>
+            Powered by
+            <span>
+              <a href='http://www.opsmanager.com' target='_blank'>OpsManager</a>
+            </span>
+            dev team
+          </div>
+        </div>
+      </section>
     </div>
     <script data-main='js/main.js' src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js'></script>
   </body>

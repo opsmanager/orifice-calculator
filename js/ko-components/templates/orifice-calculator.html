@@ -1,35 +1,27 @@
-<section class='wrapper'>
-  <div class='row'>
-    <h2>
-      <img alt='OpsManager' class='logo' src='images/opsman-logo.png'>
-      OpsManager Orifice Flow Calculator
-    </h2>
-  </div>
-  <form>
-    <div class='form-group row'>
-      <div class='col-xs-12 col-sm-4' id='pipe-container'>
-        <label for='available-pipes'>Pipe ID</label>
-        <select class='form-control' data-bind="{ options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value' }" id='available-pipes'></select>
-      </div>
-      <div class='col-xs-6 col-sm-2' id='orifice-bore-diameter-container'>
-        <label for='orifice-bore-diameter'>Orifice Bore Diameter</label>
-        <input class='form-control' data-bind='value: orificeBoreDiameter' id='orifice-bore-diameter' list='orifice-bore-diameter-cookies' step='0.001' type='number'>
-        <datalist data-bind='foreach: orificeBoreDiameterCookies' id='orifice-bore-diameter-cookies'>
-          <option data-bind='text: value'></option>
-        </datalist>
-      </div>
-      <div class='col-xs-6 col-sm-2' id='orifice-bore-diameter-container'>
-        <label for='orifice-bore-diameter-unit'>Units</label>
-        <select class='form-control' data-bind='{ options: availableBoreDiameterUnits, value: selectedBoreDiameterUnit }' id='orifice-bore-diameter-unit'></select>
-      </div>
-      <div class='col-xs-12 col-sm-2' id='beta-ratio-container'>
-        <label for='beta-ratio'>Beta Ratio</label>
-        <figure class='highlight'>
-          <pre><code><span data-bind='text: betaRatio' id='beta-ratio'></span></code></pre>
-        </figure>
-      </div>
+<form>
+  <div class='form-group row'>
+    <div class='col-xs-12 col-sm-4' id='pipe-container'>
+      <label for='available-pipes'>Pipe ID</label>
+      <select class='form-control' data-bind="{ options: availablePipes, value: selectedPipeDiameter, optionsText: 'name', optionsValue: 'value' }" id='available-pipes'></select>
     </div>
-  </form>
+    <div class='col-xs-6 col-sm-2' id='orifice-bore-diameter-container'>
+      <label for='orifice-bore-diameter'>Orifice Bore Diameter</label>
+      <input class='form-control' data-bind='value: orificeBoreDiameter' id='orifice-bore-diameter' list='orifice-bore-diameter-cookies' step='0.001' type='number'>
+      <datalist data-bind='foreach: orificeBoreDiameterCookies' id='orifice-bore-diameter-cookies'>
+        <option data-bind='text: value'></option>
+      </datalist>
+    </div>
+    <div class='col-xs-6 col-sm-2' id='orifice-bore-diameter-container'>
+      <label for='orifice-bore-diameter-unit'>Units</label>
+      <select class='form-control' data-bind='{ options: availableBoreDiameterUnits, value: selectedBoreDiameterUnit }' id='orifice-bore-diameter-unit'></select>
+    </div>
+    <div class='col-xs-12 col-sm-2' id='beta-ratio-container'>
+      <label for='beta-ratio'>Beta Ratio</label>
+      <figure class='highlight'>
+        <pre><code><span data-bind='text: betaRatio' id='beta-ratio'></span></code></pre>
+      </figure>
+    </div>
+  </div>
   <div class='form-group row'>
     <div class='col-xs-12 col-sm-4' id='specific-gravity-container'>
       <label for='base-specific-gravity'>Base Specific Gravity</label>
@@ -185,4 +177,4 @@
       <select class='form-control' data-bind='options: availableFlowRateUnits, value: selectedFlowRateUnit' id='flow-rate-unit'></select>
     </div>
   </div>
-</section>
+</form>
